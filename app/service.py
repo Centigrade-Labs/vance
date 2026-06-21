@@ -4,14 +4,14 @@ from pathlib import Path
 import json
 from typing import Any
 
-from vance.hud import HUDAdapter
-from vance.runner import build_agent
 from vance.env import ForgeEnv
+from vance.hud import HUDAdapter
+from vance.runner import build_agent, validate_run_configuration
 from vance.state import load_tasks, summarize_task
 from vance.trace import read_jsonl, trace_path, write_jsonl
 
 
-class DashboardService:
+class ApiService:
     def __init__(self, task_dir: str = "tasks", trace_dir: str = "evals/traces"):
         self.task_dir = task_dir
         self.trace_dir = trace_dir
@@ -25,6 +25,7 @@ class DashboardService:
         return [summarize_task(task) for task in self.tasks().values()]
 
     def run_episode(self, task_id: str, agent_id: str, mode: str) -> dict[str, Any]:
+        validate_run_configuration(agent_id, mode)
         tasks = self.tasks()
         if task_id not in tasks:
             raise KeyError(f"Unknown task_id: {task_id}")

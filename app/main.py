@@ -7,52 +7,40 @@ import sys
 from typing import Any
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse, Response
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import Response
 import uvicorn
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from app.dashboard import DashboardService
+from app.service import ApiService
+from vance.runner import RunConfigurationError
 
 
 load_dotenv()
 
-TASK_DIR = os.getenv("FORGE_TASK_DIR", "tasks")
-TRACE_DIR = os.getenv("FORGE_TRACE_DIR", "evals/traces")
+TASK_DIR = os.getenv("VANCE_TASK_DIR", "tasks")
+TRACE_DIR = os.getenv("VANCE_TRACE_DIR", "evals/traces")
 
-app = FastAPI(title="Forge Judge Mode", version="0.1.0")
-service = DashboardService(task_dir=TASK_DIR, trace_dir=TRACE_DIR)
-
-BASE_DIR = Path(__file__).resolve().parent
-templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
-app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
+app = FastAPI(title="Vance SafeOpsRL API", version="0.1.0")
+service = ApiService(task_dir=TASK_DIR, trace_dir=TRACE_DIR)
 
 
-@app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+@app.get("/")
+async def root() -> dict[str, Any]:
+    return {
+        "service": "Vance SafeOpsRL API",
+        "version": "0.1.0",
+        "docs": "/docs",
+        "health": "/health",
+    }
 
 
-@app.get("/evals", response_class=HTMLResponse)
-async def evals_page(request: Request):
-    return templates.TemplateResponse("evals.html", {"request": request})
-
-
-@app.get("/about", response_class=HTMLResponse)
-async def about_page(request: Request):
-    return templates.TemplateResponse(
-        "about.html",
-        {
-            "request": request,
-            "github_url": os.getenv("GITHUB_URL", "https://github.com/Centigrade-Labs/vance"),
-            "demo_video_url": os.getenv("DEMO_VIDEO_URL", ""),
-        },
-    )
+@app.get("/health")
+async def health() -> dict[str, Any]:
+    return {"ok": True, "loaded_tasks": len(service.tasks())}
 
 
 @app.get("/api/scenarios")
@@ -73,6 +61,8 @@ async def run_episode(payload: dict[str, Any]) -> dict[str, Any]:
         task_id = scenarios_payload[0]["task_id"]
     try:
         trace = service.run_episode(task_id, agent_id, mode)
+    except RunConfigurationError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     except KeyError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     return {
@@ -134,7 +124,7 @@ async def hud_step(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def main() -> None:
-    uvicorn.run(app, host=os.getenv("FORGE_HOST", "127.0.0.1"), port=int(os.getenv("FORGE_PORT", "8000")))
+    uvicorn.run(app, host=os.getenv("VANCE_HOST", "127.0.0.1"), port=int(os.getenv("VANCE_PORT", "8000")))
 
 
 if __name__ == "__main__":

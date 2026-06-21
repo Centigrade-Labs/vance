@@ -5,7 +5,9 @@ from pathlib import Path
 import unittest
 
 from evals.run_eval import build_eval_result
+from agents.fireworks_agent import FireworksAgent
 from vance.reward import clamp_reward
+from vance.runner import RunConfigurationError, validate_run_configuration
 from vance.state import TaskValidationError, load_tasks, validate_task
 from vance.trace import read_jsonl, write_jsonl
 
@@ -35,10 +37,37 @@ class EmptyTasksetTests(unittest.TestCase):
         self.assertEqual(clamp_reward(1.5), 1.0)
         self.assertEqual(clamp_reward(-1), 0.0)
 
-    def test_dashboard_app_imports(self) -> None:
+    def test_api_app_imports(self) -> None:
         from app.main import app
 
-        self.assertEqual(app.title, "Forge Judge Mode")
+        self.assertEqual(app.title, "Vance SafeOpsRL API")
+
+    def test_api_empty_taskset_routes(self) -> None:
+        from fastapi.testclient import TestClient
+        from app.main import app
+
+        client = TestClient(app)
+        self.assertEqual(client.get("/").status_code, 200)
+        self.assertEqual(client.get("/health").json()["loaded_tasks"], 0)
+        self.assertEqual(client.get("/api/scenarios").json(), {"count": 0, "scenarios": []})
+
+    def test_live_mode_requires_fireworks_agent(self) -> None:
+        with self.assertRaises(RunConfigurationError):
+            validate_run_configuration("improved_slm", "live")
+        with self.assertRaises(RunConfigurationError):
+            validate_run_configuration("fireworks_agent", "fallback")
+
+    def test_fireworks_action_parser_rejects_unregistered_tool(self) -> None:
+        agent = FireworksAgent()
+        action, error = agent._parse_action('{"tool": "restart_machine", "args": {}}')
+        self.assertIsNone(action)
+        self.assertIn("tool must be one of", error)
+
+    def test_fireworks_action_parser_accepts_registered_tool(self) -> None:
+        agent = FireworksAgent()
+        action, error = agent._parse_action('{"tool": "inspect_machine", "args": {"machine_id": "M1"}}')
+        self.assertEqual(error, "")
+        self.assertEqual(action["tool"], "inspect_machine")
 
 
 if __name__ == "__main__":

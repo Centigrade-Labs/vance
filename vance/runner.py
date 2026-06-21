@@ -20,10 +20,21 @@ AGENTS = {
 }
 
 
+class RunConfigurationError(ValueError):
+    """Raised when the requested mode and agent do not describe a real execution path."""
+
+
 def build_agent(agent_id: str) -> Any:
     if agent_id not in AGENTS:
         raise KeyError(f"Unknown agent: {agent_id}")
     return AGENTS[agent_id]()
+
+
+def validate_run_configuration(agent_id: str, mode: str) -> None:
+    if mode == "live" and agent_id != "fireworks_agent":
+        raise RunConfigurationError("live mode requires --agent fireworks_agent.")
+    if agent_id == "fireworks_agent" and mode != "live":
+        raise RunConfigurationError("fireworks_agent requires --mode live.")
 
 
 def load_task_store(task_dir: str = "tasks", task_paths: list[str] | None = None) -> dict[str, dict[str, Any]]:
@@ -33,6 +44,7 @@ def load_task_store(task_dir: str = "tasks", task_paths: list[str] | None = None
 
 
 def run_one(task_id: str, agent_id: str, mode: str = "fallback", task_dir: str = "tasks", task_paths: list[str] | None = None) -> dict[str, Any]:
+    validate_run_configuration(agent_id, mode)
     tasks = load_task_store(task_dir, task_paths)
     if task_id not in tasks:
         raise KeyError(f"Unknown task_id: {task_id}. Loaded tasks: {sorted(tasks)}")
@@ -58,6 +70,10 @@ def main() -> None:
         return
     if not args.task:
         raise SystemExit("--task is required unless --list is used")
+    try:
+        validate_run_configuration(args.agent, args.mode)
+    except RunConfigurationError as exc:
+        raise SystemExit(str(exc)) from exc
     if args.task not in task_store:
         raise SystemExit(f"Unknown task_id {args.task}. Loaded {len(task_store)} tasks.")
     env = ForgeEnv(task_store)

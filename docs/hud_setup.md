@@ -17,10 +17,4 @@ step_payload = adapter.step(reset_payload["episode_id"], {
 })
 ```
 
-## Environment Variables
-
-- `HUD_API_KEY`
-- `HUD_ENV_ID`
-- `HUD_PROJECT`
-
-The local adapter does not require those variables. External HUD registration should use them when connecting this environment to the hosted HUD platform.
+The local adapter does not require environment variables. It is the runtime contract the HUD setup owner can register with the external HUD platform.

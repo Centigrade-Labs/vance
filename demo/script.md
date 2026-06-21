@@ -1,10 +1,10 @@
 # Demo Script
 
-Use the script in `prd.md` section 29 once Teammate 2 has added task data and fallback traces.
+Use the script in `prd.md` section 29 after the UI owner and data owner add their pieces.
 
 Current repo state:
 
-- Dashboard can load.
+- Backend API can load.
 - Eval runner can generate empty-taskset metrics.
 - No scenarios are included yet.
 - No fallback traces are included yet.

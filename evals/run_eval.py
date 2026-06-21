@@ -12,7 +12,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from vance.env import ForgeEnv
-from vance.runner import build_agent, load_task_store
+from vance.runner import build_agent, load_task_store, validate_run_configuration
 from vance.trace import trace_path, utc_now, write_json, write_jsonl
 
 
@@ -24,6 +24,7 @@ def run_eval(
     task_paths: list[str] | None,
     trace_dir: str,
 ) -> dict[str, Any]:
+    validate_run_configuration(agent_id, mode)
     tasks = load_task_store(task_dir, task_paths)
     traces: list[dict[str, Any]] = []
     trace_files: list[str] = []

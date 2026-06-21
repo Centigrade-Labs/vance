@@ -1,1 +1,1 @@
-"""FastAPI dashboard package."""
+"""FastAPI API package."""
