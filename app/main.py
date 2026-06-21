@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import sys
 from typing import Any
 
 from dotenv import load_dotenv
@@ -11,6 +12,10 @@ from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import uvicorn
+
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from app.dashboard import DashboardService
 
