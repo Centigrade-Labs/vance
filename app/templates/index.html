@@ -44,12 +44,6 @@
             </span>
             <span>About</span>
           </a>
-          <a class="nav-link" href="/docs">
-            <span class="nav-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M7 4h7l3 3v13H7z"/><path d="M14 4v4h4"/></svg>
-            </span>
-            <span>API</span>
-          </a>
         </nav>
 
         <section class="sidebar-card">
@@ -76,45 +70,47 @@
       </aside>
 
       <section class="workspace">
-        <header class="workspace-header">
-          <div class="workspace-copy">
-            <p class="eyebrow">Judge Mode</p>
-            <h1>Scenario Library</h1>
-            <p class="subtitle">Manage incident replays, safety constraints, and reward traces in one clean view.</p>
-          </div>
-          <div class="header-tools">
-            <label class="search" for="scenarioSearch">
-              <span class="search-icon" aria-hidden="true"></span>
-              <input id="scenarioSearch" type="search" placeholder="Search scenarios..." autocomplete="off">
-            </label>
-            <div class="header-chips">
-              <span class="pill success" id="headerModeBadge">Fallback trace</span>
-              <span class="pill muted">No raw JSON on first screen</span>
+        <section class="hero-shell">
+          <header class="workspace-header">
+            <div class="workspace-copy">
+              <p class="eyebrow">Judge Mode</p>
+              <h1>Scenario Library</h1>
+              <p class="subtitle">Manage incident replays, safety constraints, and reward traces in one clean view.</p>
             </div>
-          </div>
-        </header>
+            <div class="header-tools">
+              <label class="search" for="scenarioSearch">
+                <span class="search-icon" aria-hidden="true"></span>
+                <input id="scenarioSearch" type="search" placeholder="Search scenarios..." autocomplete="off">
+              </label>
+              <div class="header-chips">
+                <span class="pill success" id="headerModeBadge">Fallback trace</span>
+                <span class="pill muted">No raw JSON on first screen</span>
+              </div>
+            </div>
+          </header>
 
-        <section class="family-strip" aria-label="Scenario families">
-          <button class="family-chip active" type="button" data-filter-query="">
-            <span class="chip-icon">ALL</span>
-            <span>All incidents</span>
-          </button>
-          <button class="family-chip" type="button" data-filter-query="spindle">
-            <span class="chip-icon">CNC</span>
-            <span>CNC wear</span>
-          </button>
-          <button class="family-chip" type="button" data-filter-query="compressor">
-            <span class="chip-icon">AIR</span>
-            <span>Compressor</span>
-          </button>
-          <button class="family-chip" type="button" data-filter-query="packaging">
-            <span class="chip-icon">PKG</span>
-            <span>Packaging</span>
-          </button>
-          <button class="family-chip" type="button" data-filter-query="false positive">
-            <span class="chip-icon">ESC</span>
-            <span>Escalations</span>
-          </button>
+          <section class="family-strip" aria-label="Scenario families">
+            <button class="family-chip active" type="button" data-filter-query="">
+              <span class="chip-icon">ALL</span>
+              <span>All incidents</span>
+            </button>
+            <button class="family-chip" type="button" data-filter-query="spindle">
+              <span class="chip-icon">CNC</span>
+              <span>CNC wear</span>
+            </button>
+            <button class="family-chip" type="button" data-filter-query="compressor">
+              <span class="chip-icon">AIR</span>
+              <span>Compressor</span>
+            </button>
+            <button class="family-chip" type="button" data-filter-query="packaging">
+              <span class="chip-icon">PKG</span>
+              <span>Packaging</span>
+            </button>
+            <button class="family-chip" type="button" data-filter-query="false positive">
+              <span class="chip-icon">ESC</span>
+              <span>Escalations</span>
+            </button>
+          </section>
         </section>
 
         <section id="scenarioLibrary" class="glass-card library-card">
