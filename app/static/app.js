@@ -242,7 +242,7 @@ function setHeroCompactState(compact) {
   if (!heroShell) {
     return;
   }
-  heroShell.classList.toggle("hero-compact", Boolean(compact));
+  heroShell.classList.toggle("hero-compact", Boolean(compact) && !heroShell.classList.contains("panel-open"));
 }
 
 function updateHeroCompactState() {

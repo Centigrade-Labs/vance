@@ -403,7 +403,7 @@ h3,
   box-shadow: none;
   backdrop-filter: none;
   z-index: 1;
-  max-height: 90px;
+  max-height: 220px;
   opacity: 1;
   overflow: hidden;
   transform: translateY(0);
@@ -523,7 +523,7 @@ h3,
 .hero-shell.panel-open.hero-compact .scenario-summary-copy .card-label,
 .hero-shell.panel-open.hero-compact .scenario-summary-copy .hero-copy,
 .hero-shell.panel-open.hero-compact .scenario-summary-pills {
-  max-height: 120px;
+  max-height: 220px;
   opacity: 1;
   pointer-events: auto;
   transform: none;
