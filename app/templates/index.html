@@ -6,22 +6,41 @@
     <title>Vance Judge Mode</title>
     <link rel="stylesheet" href="/static/styles.css">
   </head>
+<<<<<<< Updated upstream
   <body>
     <main class="shell">
       <header class="topbar">
         <div>
           <p class="eyebrow">Judge Mode</p>
           <h1>Vance SafeOpsRL</h1>
+=======
+  <body data-page="dashboard">
+    <main class="app-shell forge-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div>
+            <p class="brand-name">Forge</p>
+            <p class="brand-subtitle">Judge Mode</p>
+          </div>
+>>>>>>> Stashed changes
         </div>
-        <nav class="nav">
-          <a href="/">Judge</a>
-          <a href="/evals">Evals</a>
+
+        <div class="sidebar-section">Workspace</div>
+        <nav class="side-nav" aria-label="Workspace navigation">
+          <a class="active" href="/">Overview</a>
+          <a href="/">Scenarios</a>
+          <a href="/evals">Eval Logs</a>
           <a href="/about">About</a>
           <a href="/docs">API</a>
         </nav>
-        <div id="statusBadge" class="badge neutral">No Run</div>
-      </header>
 
+<<<<<<< Updated upstream
       <section class="dashboard-grid">
         <aside class="panel controls">
           <div class="panel-head">
@@ -90,6 +109,116 @@
             <h2>Eval Comparison</h2>
           </div>
           <div id="evalComparison" class="data-stack"></div>
+=======
+        <section class="sidebar-card">
+          <p class="sidebar-card-title">Demo state</p>
+          <div class="sidebar-card-row">
+            <span class="pill success">Fallback trace</span>
+          </div>
+          <p class="sidebar-card-copy">
+            Deterministic scenario traces are cached locally so the dashboard opens immediately.
+          </p>
+        </section>
+
+        <section class="sidebar-footer">
+          <div>
+            <span>HUD-compatible</span>
+            <p>Operational incident replay view</p>
+          </div>
+          <a href="/api/evals/summary">Metrics API</a>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="workspace-header">
+          <div>
+            <p class="eyebrow">Judge Mode</p>
+            <h1>Scenario Library</h1>
+            <p class="subtitle">Manage incident context for your AI agents.</p>
+          </div>
+          <label class="search" for="scenarioSearch">
+            <span class="search-icon" aria-hidden="true"></span>
+            <input id="scenarioSearch" type="search" placeholder="Search scenarios..." autocomplete="off">
+          </label>
+        </header>
+
+        <section class="workspace-grid">
+          <section class="table-card" aria-label="Scenario list">
+            <div class="table-head">
+              <span>NAME</span>
+              <span>STATUS</span>
+              <span>STEPS</span>
+              <span>LAST RUN</span>
+            </div>
+            <div id="scenarioList" class="scenario-list"></div>
+          </section>
+
+          <section class="details-grid" aria-label="Selected scenario details">
+            <article class="detail-card scenario-detail">
+              <div class="detail-head">
+                <div>
+                  <p class="card-label">Selected Scenario</p>
+                  <h2 id="detailTitle">Loading scenario...</h2>
+                </div>
+                <div class="status-stack">
+                  <span id="detailOutcomeBadge" class="pill success">PASS</span>
+                  <span id="detailModeBadge" class="pill muted">Fallback trace</span>
+                </div>
+              </div>
+
+              <p id="detailGoal" class="detail-copy"></p>
+
+              <div id="detailMeta" class="meta-grid"></div>
+
+              <div id="detailFacts" class="facts-grid"></div>
+
+              <div class="button-row">
+                <button id="runBaseline" class="ghost-button" type="button">Run Baseline</button>
+                <button id="runImproved" class="primary-button" type="button">Run Improved</button>
+                <button id="replayButton" class="ghost-button" type="button">Replay</button>
+                <button id="exportButton" class="ghost-button" type="button" disabled>Export JSONL</button>
+              </div>
+
+              <div class="link-row">
+                <a href="/evals">View eval summary</a>
+                <a href="https://github.com/Centigrade-Labs/vance" target="_blank" rel="noreferrer">GitHub</a>
+                <a href="/about">Demo video</a>
+              </div>
+            </article>
+
+            <article class="detail-card trace-detail">
+              <div class="detail-head">
+                <div>
+                  <p class="card-label">Agent Trace</p>
+                  <h2>Timeline</h2>
+                </div>
+                <span id="traceCount" class="pill muted">0 steps</span>
+              </div>
+              <ol id="traceTimeline" class="timeline"></ol>
+            </article>
+
+            <article class="detail-card score-detail">
+              <div class="detail-head">
+                <div>
+                  <p class="card-label">Reward</p>
+                  <h2>Breakdown</h2>
+                </div>
+                <span id="rewardValue" class="reward-value">0.00</span>
+              </div>
+              <div id="rewardBreakdown" class="metric-list"></div>
+
+              <div class="comparison-card">
+                <div class="detail-head compact">
+                  <div>
+                    <p class="card-label">Baseline vs Improved</p>
+                    <h3>Eval comparison</h3>
+                  </div>
+                </div>
+                <div id="evalComparison" class="comparison-grid"></div>
+              </div>
+            </article>
+          </section>
+>>>>>>> Stashed changes
         </section>
       </section>
     </main>

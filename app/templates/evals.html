@@ -6,19 +6,31 @@
     <title>Vance Evals</title>
     <link rel="stylesheet" href="/static/styles.css">
   </head>
-  <body>
-    <main class="shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Eval Summary</p>
-          <h1>Baseline vs Improved</h1>
+  <body data-page="evals">
+    <main class="app-shell forge-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div>
+            <p class="brand-name">Forge</p>
+            <p class="brand-subtitle">Eval Summary</p>
+          </div>
         </div>
-        <nav class="nav">
-          <a href="/">Judge</a>
-          <a href="/evals">Evals</a>
+
+        <div class="sidebar-section">Workspace</div>
+        <nav class="side-nav" aria-label="Workspace navigation">
+          <a href="/">Overview</a>
+          <a href="/">Scenarios</a>
+          <a class="active" href="/evals">Eval Logs</a>
           <a href="/about">About</a>
           <a href="/docs">API</a>
         </nav>
+<<<<<<< Updated upstream
       </header>
       <section class="panel wide-panel">
         <div class="panel-head">
@@ -26,6 +38,72 @@
           <span id="evalTimestamp" class="pill">Awaiting runs</span>
         </div>
         <div id="evalComparison" class="eval-grid"></div>
+=======
+
+        <section class="sidebar-card">
+          <p class="sidebar-card-title">Generated metrics</p>
+          <div class="sidebar-card-row">
+            <span class="pill success">Baseline / Improved</span>
+          </div>
+          <p class="sidebar-card-copy">
+            The summary reads from the live API or the cached fallback metrics.
+          </p>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="workspace-header">
+          <div>
+            <p class="eyebrow">Eval Mode</p>
+            <h1>Baseline vs Improved</h1>
+            <p class="subtitle">Pass rate, reward, safety violations, and trace coverage in one view.</p>
+          </div>
+        </header>
+
+        <section class="eval-board">
+          <article class="detail-card summary-card">
+            <div class="detail-head">
+              <div>
+                <p class="card-label">Baseline</p>
+                <h2>Agent metrics</h2>
+              </div>
+              <span class="pill muted">Cached</span>
+            </div>
+            <div id="baselineMetrics" class="metric-list"></div>
+          </article>
+
+          <article class="detail-card summary-card">
+            <div class="detail-head">
+              <div>
+                <p class="card-label">Improved</p>
+                <h2>Agent metrics</h2>
+              </div>
+              <span class="pill success">Preferred</span>
+            </div>
+            <div id="improvedMetrics" class="metric-list"></div>
+          </article>
+
+          <article class="detail-card summary-card">
+            <div class="detail-head">
+              <div>
+                <p class="card-label">Common failures</p>
+                <h2>Trace signals</h2>
+              </div>
+            </div>
+            <div id="failureList" class="failure-list"></div>
+          </article>
+
+          <article class="detail-card summary-card full-span">
+            <div class="detail-head">
+              <div>
+                <p class="card-label">Trace files</p>
+                <h2>Export targets</h2>
+              </div>
+            </div>
+            <div id="traceFiles" class="trace-files"></div>
+          </article>
+        </section>
+>>>>>>> Stashed changes
       </section>
     </main>
     <script src="/static/app.js"></script>

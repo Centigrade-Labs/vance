@@ -6,7 +6,10 @@ from pathlib import Path
 import sys
 from typing import Any
 
+<<<<<<< Updated upstream
 from dotenv import load_dotenv
+=======
+>>>>>>> Stashed changes
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
@@ -20,18 +23,39 @@ from app.service import ApiService
 from vance.runner import RunConfigurationError
 
 
+try:
+    from dotenv import load_dotenv
+except ModuleNotFoundError:  # pragma: no cover - optional local dependency
+    def load_dotenv() -> None:
+        return None
+
+
 load_dotenv()
 
 TASK_DIR = os.getenv("VANCE_TASK_DIR", "tasks")
 TRACE_DIR = os.getenv("VANCE_TRACE_DIR", "evals/traces")
 
+<<<<<<< Updated upstream
 app = FastAPI(title="Vance SafeOpsRL API", version="0.1.0")
 service = ApiService(task_dir=TASK_DIR, trace_dir=TRACE_DIR)
 APP_DIR = Path(__file__).resolve().parent
 app.mount("/static", StaticFiles(directory=str(APP_DIR / "static")), name="static")
+=======
+app = FastAPI(title="Forge Judge Mode", version="0.1.0")
+service = DashboardService(task_dir=TASK_DIR, trace_dir=TRACE_DIR)
+
+BASE_DIR = Path(__file__).resolve().parent
+PAGES_DIR = BASE_DIR / "templates"
+app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
+>>>>>>> Stashed changes
+
+
+def _render_page(filename: str) -> HTMLResponse:
+    return HTMLResponse((PAGES_DIR / filename).read_text(encoding="utf-8"))
 
 
 @app.get("/", response_class=HTMLResponse)
+<<<<<<< Updated upstream
 async def root() -> HTMLResponse:
     return _html("index.html")
 
@@ -49,6 +73,20 @@ async def about_page() -> HTMLResponse:
 @app.get("/health")
 async def health() -> dict[str, Any]:
     return {"ok": True, "loaded_tasks": len(service.tasks())}
+=======
+async def index():
+    return _render_page("index.html")
+
+
+@app.get("/evals", response_class=HTMLResponse)
+async def evals_page():
+    return _render_page("evals.html")
+
+
+@app.get("/about", response_class=HTMLResponse)
+async def about_page():
+    return _render_page("about.html")
+>>>>>>> Stashed changes
 
 
 @app.get("/api/scenarios")

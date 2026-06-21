@@ -6,6 +6,7 @@
     <title>About Vance</title>
     <link rel="stylesheet" href="/static/styles.css">
   </head>
+<<<<<<< Updated upstream
   <body>
     <main class="shell">
       <header class="topbar">
@@ -33,6 +34,98 @@
           <h2>Current Boundary</h2>
           <p>Runtime, verifier, agents, evals, HUD adapter, and dashboard are wired. Task data and fallback traces are intentionally absent.</p>
         </article>
+=======
+  <body data-page="about">
+    <main class="app-shell forge-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div>
+            <p class="brand-name">Forge</p>
+            <p class="brand-subtitle">About</p>
+          </div>
+        </div>
+
+        <div class="sidebar-section">Workspace</div>
+        <nav class="side-nav" aria-label="Workspace navigation">
+          <a href="/">Overview</a>
+          <a href="/">Scenarios</a>
+          <a href="/evals">Eval Logs</a>
+          <a class="active" href="/about">About</a>
+        </nav>
+
+        <section class="sidebar-card">
+          <p class="sidebar-card-title">Product thesis</p>
+          <p class="sidebar-card-copy">
+            Forge turns factory incidents into deterministic RL-style traces for small specialist agents.
+          </p>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="workspace-header">
+          <div>
+            <p class="eyebrow">About</p>
+            <h1>Physical-economy agent training</h1>
+            <p class="subtitle">A verifiable loop from task, to trace, to reward, to post-training data.</p>
+          </div>
+        </header>
+
+        <section class="eval-board about-board">
+          <article class="detail-card summary-card">
+            <div class="detail-head">
+              <div>
+                <p class="card-label">Thesis</p>
+                <h2>Why Forge exists</h2>
+              </div>
+            </div>
+            <p class="detail-copy">
+              Forge is not a factory app. It is a training ground for small specialist agents that must choose tools,
+              follow safety rules, resolve or escalate, and produce truthful reports.
+            </p>
+          </article>
+
+          <article class="detail-card summary-card">
+            <div class="detail-head">
+              <div>
+                <p class="card-label">Trace loop</p>
+                <h2>How it works</h2>
+              </div>
+            </div>
+            <p class="detail-copy">
+              Task -> agent attempt -> tool trace -> verifier and reward -> improved agent -> exported training data.
+            </p>
+          </article>
+
+          <article class="detail-card summary-card full-span">
+            <div class="detail-head">
+              <div>
+                <p class="card-label">Links</p>
+                <h2>Project references</h2>
+              </div>
+            </div>
+            <div class="link-grid">
+              <a class="link-card" href="https://github.com/Centigrade-Labs/vance" target="_blank" rel="noreferrer">
+                <span>GitHub</span>
+                <small>Repository source</small>
+              </a>
+              <a class="link-card" href="/evals">
+                <span>Eval summary</span>
+                <small>Baseline vs improved</small>
+              </a>
+              <a class="link-card" href="/">
+                <span>Judge Mode</span>
+                <small>Scenario dashboard</small>
+              </a>
+            </div>
+          </article>
+        </section>
+>>>>>>> Stashed changes
       </section>
     </main>
   </body>
