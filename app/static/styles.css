@@ -329,16 +329,16 @@ h3,
   gap: 14px;
   overflow: visible;
   isolation: isolate;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 22px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03)),
-    rgba(18, 22, 26, 0.06);
+    linear-gradient(180deg, rgba(22, 27, 30, 0.18), rgba(12, 16, 18, 0.28)),
+    rgba(7, 11, 13, 0.2);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 20px 44px rgba(0, 0, 0, 0.14);
-  backdrop-filter: blur(58px) saturate(180%);
-  -webkit-backdrop-filter: blur(58px) saturate(180%);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 20px 44px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(52px) saturate(154%);
+  -webkit-backdrop-filter: blur(52px) saturate(154%);
   transition:
     padding-bottom 180ms ease,
     transform 180ms ease,
@@ -353,23 +353,22 @@ h3,
   min-height: 850px;
   padding-bottom: 52px;
   background:
-    linear-gradient(180deg, rgba(238, 246, 248, 0.22), rgba(122, 139, 145, 0.18)),
-    rgba(28, 34, 38, 0.24);
-  backdrop-filter: blur(110px) saturate(185%);
-  -webkit-backdrop-filter: blur(110px) saturate(185%);
+    linear-gradient(180deg, rgba(22, 27, 30, 0.18), rgba(12, 16, 18, 0.28)),
+    rgba(7, 11, 13, 0.2);
+  backdrop-filter: blur(52px) saturate(154%);
+  -webkit-backdrop-filter: blur(52px) saturate(154%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.24),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-    0 24px 60px rgba(0, 0, 0, 0.2);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 24px 60px rgba(0, 0, 0, 0.18);
 }
 
 .hero-shell.panel-open::before,
 .hero-shell:has(#scenarioPanel:not([hidden]))::before {
   background:
-    radial-gradient(110% 92% at 50% 0%, rgba(255, 255, 255, 0.2), transparent 64%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04));
-  backdrop-filter: blur(110px) saturate(185%);
-  -webkit-backdrop-filter: blur(110px) saturate(185%);
+    radial-gradient(110% 92% at 50% 0%, rgba(255, 255, 255, 0.06), transparent 64%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
+  backdrop-filter: blur(52px) saturate(154%);
+  -webkit-backdrop-filter: blur(52px) saturate(154%);
 }
 
 .hero-shell::before {
@@ -379,11 +378,11 @@ h3,
   z-index: 0;
   border-radius: inherit;
   background:
-    radial-gradient(120% 100% at 50% 0%, rgba(255, 255, 255, 0.14), transparent 62%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    radial-gradient(120% 100% at 50% 0%, rgba(255, 255, 255, 0.06), transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
   pointer-events: none;
-  backdrop-filter: blur(58px) saturate(180%);
-  -webkit-backdrop-filter: blur(58px) saturate(180%);
+  backdrop-filter: blur(52px) saturate(154%);
+  -webkit-backdrop-filter: blur(52px) saturate(154%);
 }
 
 .workspace-header {
