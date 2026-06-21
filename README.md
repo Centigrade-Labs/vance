@@ -1,19 +1,10 @@
-# Vance
+# Vance / Forge SafeOpsRL
 
-Vance is a scaffold for a HUD-compatible RL-style environment and evaluation suite for safe factory incident agents.
+Vance is the implementation scaffold for the Forge PRD: a HUD-compatible RL-style environment and evaluation suite for safe factory incident agents.
 
-This repository is intentionally scaffold-only right now. The PRD defines the implementation contract; teammates should fill the empty files according to the phase ownership in `prd.md`.
+This repo now contains the full non-data implementation surface: environment runtime, tools, verifier, rewards, agent harnesses, eval runner, HUD adapter, dashboard, docs, and CI. It intentionally contains no synthetic task records or demo traces. Teammate 2 owns filling `tasks/*.jsonl` and `demo/sample_traces/` according to `prd.md`.
 
-## Current Status
-
-- PRD: enriched and build-phased.
-- Project folders: scaffolded.
-- Python implementation: empty placeholders.
-- Synthetic task data: intentionally empty.
-- Dashboard: empty placeholders.
-- Env templates: present.
-
-## Setup
+## Quickstart
 
 ```bash
 python3 -m venv .venv
@@ -22,22 +13,66 @@ pip install -e .
 cp .env.example .env
 ```
 
-Fallback mode should eventually run without API keys. Live integrations require filling `.env`.
+List scenarios:
 
-## Environment Variables
+```bash
+python -m vance.runner --list
+```
 
-Required later for live Fireworks model calls:
+Run one episode after tasks are added:
+
+```bash
+python -m vance.runner --task cnc_spindle_001 --agent improved_slm --mode fallback
+```
+
+Run evals after tasks are added:
+
+```bash
+python evals/run_eval.py --agent baseline_slm --mode fallback
+python evals/run_eval.py --agent improved_slm --mode fallback
+```
+
+Start Judge Mode:
+
+```bash
+python app/main.py
+```
+
+Open `http://127.0.0.1:8000`.
+
+## Empty Taskset Behavior
+
+The repository intentionally ships with empty task files:
+
+- `tasks/easy.jsonl`
+- `tasks/medium.jsonl`
+- `tasks/hard.jsonl`
+
+With no tasks loaded:
+
+- `python -m vance.runner --list` returns an empty list.
+- `python evals/run_eval.py --agent improved_slm` writes generated zero-episode metrics.
+- The dashboard loads and shows that task data is pending.
+
+No pass rates, traces, or scenarios are faked.
+
+## Required Environment Variables
+
+Fallback mode does not require API keys.
+
+Live Fireworks inference requires:
 
 - `FIREWORKS_API_KEY`
 - `FIREWORKS_MODEL`
+- `FIREWORKS_BASE_URL`
 
-Required later for HUD setup:
+HUD setup uses:
 
 - `HUD_API_KEY`
 - `HUD_ENV_ID`
 - `HUD_PROJECT`
 
-Optional later integrations:
+Optional sponsor integrations:
 
 - `MODAL_TOKEN_ID`
 - `MODAL_TOKEN_SECRET`
@@ -45,19 +80,20 @@ Optional later integrations:
 - `EXA_API_KEY`
 - `MINIMAX_API_KEY`
 
-## Scaffold Layout
+## Project Layout
 
 ```text
 vance/
-  env.py
-  state.py
-  tools.py
-  verifier.py
-  reward.py
-  runner.py
-  trace.py
+  env.py          # deterministic environment loop
+  state.py        # task loading and validation
+  tools.py        # schema-constrained operational tools
+  verifier.py     # trace-level deterministic verifier
+  reward.py       # reward components and penalties
+  runner.py       # single-episode CLI
+  trace.py        # JSON/JSONL trace persistence
+  hud.py          # reset/step adapter for HUD-style runners
 tasks/
-  easy.jsonl
+  easy.jsonl      # intentionally empty until synthetic data owner fills it
   medium.jsonl
   hard.jsonl
 agents/
@@ -71,19 +107,21 @@ app/
   dashboard.py
   templates/
   static/
-demo/
-  script.md
-  sample_traces/
-  screenshots/
-docs/
-  architecture.md
-  reward_design.md
 ```
 
 ## Ownership
 
 - Sri: environment, verifier, reward, repo contracts.
-- Teammate 1: HUD setup and environment adapter.
+- Teammate 1: HUD setup and environment adapter validation.
 - Teammate 2: synthetic tasks, manuals, expected outcomes, fallback traces.
 - Teammate 3: agent harness, eval runner, metrics.
 - Teammate 4: dashboard, UI polish, demo video, README support.
+
+## Verification
+
+```bash
+python -m unittest
+python -m vance.runner --list
+python evals/run_eval.py --agent improved_slm --mode fallback
+python -m compileall vance agents app evals
+```

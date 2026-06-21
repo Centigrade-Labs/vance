@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forge Judge Mode</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Judge Mode</p>
+          <h1>Forge SafeOpsRL</h1>
+        </div>
+        <nav class="nav">
+          <a href="/">Judge</a>
+          <a href="/evals">Evals</a>
+          <a href="/about">About</a>
+        </nav>
+        <div id="statusBadge" class="badge neutral">No Run</div>
+      </header>
+
+      <section class="grid">
+        <aside class="panel controls">
+          <h2>Scenario</h2>
+          <select id="scenarioSelect"></select>
+          <label>
+            Agent
+            <select id="agentSelect">
+              <option value="improved_slm">Improved SLM</option>
+              <option value="baseline_slm">Baseline SLM</option>
+              <option value="fireworks_agent">Fireworks Agent</option>
+            </select>
+          </label>
+          <label>
+            Mode
+            <select id="modeSelect">
+              <option value="fallback">Fallback</option>
+              <option value="live">Live</option>
+            </select>
+          </label>
+          <button id="runButton">Run Episode</button>
+          <button id="exportButton" disabled>Export JSONL</button>
+          <p id="emptyState" class="notice"></p>
+        </aside>
+
+        <section class="panel state">
+          <h2>Factory State</h2>
+          <div id="factoryState" class="stateList"></div>
+        </section>
+
+        <section class="panel trace">
+          <h2>Agent Trace</h2>
+          <ol id="traceTimeline" class="timeline"></ol>
+        </section>
+
+        <section class="panel guardrails">
+          <h2>Safety Guardrails</h2>
+          <ul id="guardrails"></ul>
+        </section>
+
+        <section class="panel reward">
+          <h2>Reward Breakdown</h2>
+          <div id="rewardBreakdown"></div>
+        </section>
+
+        <section class="panel comparison">
+          <h2>Eval Comparison</h2>
+          <div id="evalComparison"></div>
+        </section>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
