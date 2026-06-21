@@ -1,8 +1,8 @@
 # Vance / Forge SafeOpsRL
 
-Vance is the non-UI implementation of the Forge PRD: a HUD-compatible RL-style environment and evaluation suite for safe factory incident agents.
+Vance is the Forge PRD implementation: a HUD-compatible RL-style environment and evaluation suite for safe factory incident agents.
 
-This repository contains the backend/runtime pieces only. It intentionally excludes dashboard UI, synthetic task records, manuals, expected outcomes, fallback traces, screenshots, and demo video assets.
+This repository is ready except for synthetic task/data content. It intentionally excludes task records, manuals, expected outcomes, fallback traces, screenshots, and demo video assets.
 
 ## What Is Implemented
 
@@ -16,6 +16,7 @@ This repository contains the backend/runtime pieces only. It intentionally exclu
 - Live Fireworks agent integration
 - Eval runner
 - API service for scenarios, runs, traces, eval summaries, exports, and HUD reset/step
+- Judge Mode dashboard shell backed by the API
 - HUD reset/step adapter
 - Dockerfile
 - CI and tests
@@ -92,7 +93,9 @@ http://127.0.0.1:8000/docs
 
 Routes:
 
-- `GET /`
+- `GET /` dashboard
+- `GET /evals`
+- `GET /about`
 - `GET /health`
 - `GET /api/scenarios`
 - `POST /api/run`
@@ -144,6 +147,8 @@ evals/
 app/
   main.py
   service.py
+  templates/
+  static/
 ```
 
 ## Verification

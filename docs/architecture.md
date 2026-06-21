@@ -3,7 +3,7 @@
 Vance implements the Forge PRD as a deterministic, trace-verifiable environment.
 
 ```text
-API / HUD / CLI
+Dashboard / API / HUD / CLI
   -> Episode Runner
   -> Vance Environment
   -> Agent Harness
@@ -27,11 +27,13 @@ API / HUD / CLI
 
 Task records and fallback traces are intentionally absent from this repo until the synthetic data owner fills them. The implementation treats an empty taskset as valid pending state.
 
-## API Boundary
+## Dashboard And API Boundary
 
-The FastAPI app exposes JSON-only runtime routes:
+The FastAPI app serves a dashboard shell and JSON runtime routes:
 
 - `GET /`
+- `GET /evals`
+- `GET /about`
 - `GET /health`
 - `GET /api/scenarios`
 - `POST /api/run`
@@ -41,4 +43,4 @@ The FastAPI app exposes JSON-only runtime routes:
 - `POST /api/hud/reset`
 - `POST /api/hud/step`
 
-Dashboard UI, screenshots, demo video, task data, and fallback trace data are outside this implementation pass.
+Screenshots, demo video, task data, and fallback trace data are outside this implementation pass.

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vance Judge Mode</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Judge Mode</p>
+          <h1>Vance SafeOpsRL</h1>
+        </div>
+        <nav class="nav">
+          <a href="/">Judge</a>
+          <a href="/evals">Evals</a>
+          <a href="/about">About</a>
+          <a href="/docs">API</a>
+        </nav>
+        <div id="statusBadge" class="badge neutral">No Run</div>
+      </header>
+
+      <section class="dashboard-grid">
+        <aside class="panel controls">
+          <div class="panel-head">
+            <h2>Scenario</h2>
+            <span id="scenarioCount" class="pill">0 loaded</span>
+          </div>
+          <label>
+            <span>Task</span>
+            <select id="scenarioSelect"></select>
+          </label>
+          <label>
+            <span>Agent</span>
+            <select id="agentSelect">
+              <option value="improved_slm">Improved SLM</option>
+              <option value="baseline_slm">Baseline SLM</option>
+              <option value="fireworks_agent">Fireworks Agent</option>
+            </select>
+          </label>
+          <label>
+            <span>Mode</span>
+            <select id="modeSelect">
+              <option value="fallback">Fallback</option>
+              <option value="live">Live</option>
+            </select>
+          </label>
+          <div class="button-row">
+            <button id="runButton" type="button">Run</button>
+            <button id="exportButton" type="button" disabled>Export</button>
+          </div>
+          <p id="emptyState" class="notice"></p>
+        </aside>
+
+        <section class="panel state-panel">
+          <div class="panel-head">
+            <h2>Factory State</h2>
+            <span id="taskDifficulty" class="pill">Pending</span>
+          </div>
+          <div id="factoryState" class="data-stack"></div>
+        </section>
+
+        <section class="panel trace-panel">
+          <div class="panel-head">
+            <h2>Agent Trace</h2>
+            <span id="traceMeta" class="pill">No trace</span>
+          </div>
+          <ol id="traceTimeline" class="timeline"></ol>
+        </section>
+
+        <section class="panel guardrail-panel">
+          <div class="panel-head">
+            <h2>Safety Guardrails</h2>
+          </div>
+          <ul id="guardrails" class="compact-list"></ul>
+        </section>
+
+        <section class="panel reward-panel">
+          <div class="panel-head">
+            <h2>Reward</h2>
+            <span id="rewardValue" class="pill">0.00</span>
+          </div>
+          <div id="rewardBreakdown" class="data-stack"></div>
+        </section>
+
+        <section class="panel comparison-panel">
+          <div class="panel-head">
+            <h2>Eval Comparison</h2>
+          </div>
+          <div id="evalComparison" class="data-stack"></div>
+        </section>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

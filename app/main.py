@@ -8,7 +8,8 @@ from typing import Any
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import Response
+from fastapi.responses import HTMLResponse, Response
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -26,16 +27,23 @@ TRACE_DIR = os.getenv("VANCE_TRACE_DIR", "evals/traces")
 
 app = FastAPI(title="Vance SafeOpsRL API", version="0.1.0")
 service = ApiService(task_dir=TASK_DIR, trace_dir=TRACE_DIR)
+APP_DIR = Path(__file__).resolve().parent
+app.mount("/static", StaticFiles(directory=str(APP_DIR / "static")), name="static")
 
 
-@app.get("/")
-async def root() -> dict[str, Any]:
-    return {
-        "service": "Vance SafeOpsRL API",
-        "version": "0.1.0",
-        "docs": "/docs",
-        "health": "/health",
-    }
+@app.get("/", response_class=HTMLResponse)
+async def root() -> HTMLResponse:
+    return _html("index.html")
+
+
+@app.get("/evals", response_class=HTMLResponse)
+async def evals_page() -> HTMLResponse:
+    return _html("evals.html")
+
+
+@app.get("/about", response_class=HTMLResponse)
+async def about_page() -> HTMLResponse:
+    return _html("about.html")
 
 
 @app.get("/health")
@@ -125,6 +133,11 @@ async def hud_step(payload: dict[str, Any]) -> dict[str, Any]:
 
 def main() -> None:
     uvicorn.run(app, host=os.getenv("VANCE_HOST", "127.0.0.1"), port=int(os.getenv("VANCE_PORT", "8000")))
+
+
+def _html(filename: str) -> HTMLResponse:
+    path = APP_DIR / "templates" / filename
+    return HTMLResponse(path.read_text())
 
 
 if __name__ == "__main__":

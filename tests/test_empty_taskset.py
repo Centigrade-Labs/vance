@@ -48,6 +48,11 @@ class EmptyTasksetTests(unittest.TestCase):
 
         client = TestClient(app)
         self.assertEqual(client.get("/").status_code, 200)
+        self.assertIn("Vance SafeOpsRL", client.get("/").text)
+        self.assertEqual(client.get("/evals").status_code, 200)
+        self.assertEqual(client.get("/about").status_code, 200)
+        self.assertEqual(client.get("/static/styles.css").status_code, 200)
+        self.assertEqual(client.get("/static/app.js").status_code, 200)
         self.assertEqual(client.get("/health").json()["loaded_tasks"], 0)
         self.assertEqual(client.get("/api/scenarios").json(), {"count": 0, "scenarios": []})
 
