@@ -194,12 +194,27 @@ function setActionButtonsDisabled(disabled) {
   });
 }
 
+function scrollWorkspaceToTop() {
+  const workspace = document.querySelector(".workspace");
+  if (workspace) {
+    workspace.scrollTo({ top: 0, behavior: "auto" });
+  }
+  window.scrollTo({ top: 0, behavior: "auto" });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}
+
 function setScenarioPanelOpen(open) {
   state.scenarioPanelOpen = Boolean(open);
   const heroShell = document.querySelector(".hero-shell");
   const panel = document.getElementById("scenarioPanel");
   const toggle = document.getElementById("scenarioPanelToggle");
   const label = document.getElementById("scenarioPanelToggleLabel");
+
+  if (state.scenarioPanelOpen) {
+    setHeroCompactState(false);
+    scrollWorkspaceToTop();
+  }
 
   if (heroShell) {
     heroShell.classList.toggle("panel-open", state.scenarioPanelOpen);
@@ -214,6 +229,31 @@ function setScenarioPanelOpen(open) {
   if (label) {
     label.textContent = state.scenarioPanelOpen ? "Hide list" : "Show list";
   }
+
+  if (state.scenarioPanelOpen) {
+    setHeroCompactState(false);
+  } else {
+    updateHeroCompactState();
+  }
+}
+
+function setHeroCompactState(compact) {
+  const heroShell = document.querySelector(".hero-shell");
+  if (!heroShell) {
+    return;
+  }
+  heroShell.classList.toggle("hero-compact", Boolean(compact));
+}
+
+function updateHeroCompactState() {
+  const workspace = document.querySelector(".workspace");
+  const scrollTop = Math.max(
+    workspace ? workspace.scrollTop : 0,
+    window.scrollY || 0,
+    document.documentElement?.scrollTop || 0,
+    document.body?.scrollTop || 0,
+  );
+  setHeroCompactState(!state.scenarioPanelOpen && scrollTop > 42);
 }
 
 function setActiveRow(taskId) {
@@ -1044,6 +1084,26 @@ function attachScenarioPanelToggle() {
   });
 }
 
+function attachHeroScrollAnimation() {
+  const workspace = document.querySelector(".workspace");
+  let ticking = false;
+
+  const onScroll = () => {
+    if (ticking) {
+      return;
+    }
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      updateHeroCompactState();
+      ticking = false;
+    });
+  };
+
+  workspace?.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
+  updateHeroCompactState();
+}
+
 async function boot() {
   attachButtons();
   attachSectionNav();
@@ -1051,6 +1111,7 @@ async function boot() {
   attachDetailTabs();
   attachScenarioFold();
   attachScenarioPanelToggle();
+  attachHeroScrollAnimation();
   setDetailPanel(state.selectedDetailPanel || "trace");
 
   if (PAGE === "dashboard") {
