@@ -403,14 +403,21 @@ h3,
   box-shadow: none;
   backdrop-filter: none;
   z-index: 1;
-  max-height: 220px;
   opacity: 1;
-  overflow: hidden;
+  overflow: visible;
   transform: translateY(0);
   transition:
-    max-height 240ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 180ms ease,
     transform 220ms ease;
+}
+
+.hero-shell.panel-open .workspace-header,
+.hero-shell:has(#scenarioPanel:not([hidden])) .workspace-header {
+  min-height: 96px;
+  opacity: 1;
+  overflow: visible;
+  pointer-events: auto;
+  transform: none;
 }
 
 .scenario-summary-row {
@@ -485,6 +492,7 @@ h3,
 .hero-shell.hero-compact .workspace-header {
   max-height: 0;
   opacity: 0;
+  overflow: hidden;
   pointer-events: none;
   transform: translateY(-14px);
 }
@@ -523,8 +531,9 @@ h3,
 .hero-shell.panel-open.hero-compact .scenario-summary-copy .card-label,
 .hero-shell.panel-open.hero-compact .scenario-summary-copy .hero-copy,
 .hero-shell.panel-open.hero-compact .scenario-summary-pills {
-  max-height: 220px;
+  max-height: none;
   opacity: 1;
+  overflow: visible;
   pointer-events: auto;
   transform: none;
 }
@@ -634,7 +643,7 @@ h3,
 .workspace-header h1 {
   margin: 0;
   font-size: clamp(1.72rem, 1.55vw + 0.98rem, 2.45rem);
-  line-height: 0.96;
+  line-height: 1.08;
 }
 
 .subtitle {
