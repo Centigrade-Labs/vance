@@ -49,7 +49,7 @@ TRACE_DIR = _env("FORGE_TRACE_DIR", "VANCE_TRACE_DIR", default="evals/traces")
 HOST = _env("FORGE_HOST", "VANCE_HOST", default="127.0.0.1")
 PORT = int(_env("FORGE_PORT", "VANCE_PORT", default="8000"))
 
-app = FastAPI(title="Forge Judge Mode", version="0.1.0")
+app = FastAPI(title="vance Judge Mode", version="0.1.0")
 service = DashboardService(task_dir=TASK_DIR, trace_dir=TRACE_DIR)
 
 BASE_DIR = Path(__file__).resolve().parent
