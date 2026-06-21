@@ -6,7 +6,7 @@ const state = {
   currentEpisodeId: null,
   searchQuery: "",
   selectedDetailPanel: "trace",
-  scenarioPanelOpen: true,
+  scenarioPanelOpen: false,
 };
 
 const PAGE = document.body?.dataset?.page || "dashboard";
@@ -873,6 +873,7 @@ async function renderEvalSummary() {
   const improvedRoot = document.getElementById("improvedMetrics");
   const failureRoot = document.getElementById("failureList");
   const traceFilesRoot = document.getElementById("traceFiles");
+  const traceRankingsRoot = document.getElementById("traceRankings");
   if (!baselineRoot || !improvedRoot || !failureRoot || !traceFilesRoot) {
     return;
   }
@@ -912,12 +913,52 @@ async function renderEvalSummary() {
           )
           .join("")
       : '<div class="trace-file"><strong>No trace files</strong><span>Export a trace first.</span></div>';
+
+    if (traceRankingsRoot) {
+      traceRankingsRoot.innerHTML = renderTraceRankings(data.best_traces || [], data.worst_traces || []);
+    }
   } catch (error) {
     baselineRoot.innerHTML = `<div class="failure-item"><strong>Unable to load metrics</strong><span>${escapeHtml(error.message)}</span></div>`;
     improvedRoot.innerHTML = `<div class="failure-item"><strong>Unable to load metrics</strong><span>${escapeHtml(error.message)}</span></div>`;
     failureRoot.innerHTML = `<div class="failure-item"><strong>Unable to load metrics</strong><span>${escapeHtml(error.message)}</span></div>`;
     traceFilesRoot.innerHTML = `<div class="trace-file"><strong>Unable to load metrics</strong><span>${escapeHtml(error.message)}</span></div>`;
+    if (traceRankingsRoot) {
+      traceRankingsRoot.innerHTML = `<div class="trace-rank-card"><strong>Unable to load trace rankings</strong><span>${escapeHtml(error.message)}</span></div>`;
+    }
   }
+}
+
+function renderTraceRankings(bestTraces, worstTraces) {
+  return `
+    <div class="trace-rank-column">
+      <p class="comparison-name">Best traces</p>
+      ${renderTraceRankList(bestTraces, "No passing traces")}
+    </div>
+    <div class="trace-rank-column">
+      <p class="comparison-name">Worst traces</p>
+      ${renderTraceRankList(worstTraces, "No failed traces")}
+    </div>
+  `;
+}
+
+function renderTraceRankList(items, emptyLabel) {
+  if (!items.length) {
+    return `<div class="trace-rank-card"><strong>${escapeHtml(emptyLabel)}</strong><span>Run evals to populate this section.</span></div>`;
+  }
+
+  return items
+    .map(
+      (item) => `
+        <div class="trace-rank-card ${item.outcome === "PASS" ? "success" : "danger"}">
+          <div>
+            <strong>${escapeHtml(item.task_id)}</strong>
+            <span>${escapeHtml(item.agent_id)} · ${escapeHtml(item.reason || "Verifier result available.")}</span>
+          </div>
+          <b>${escapeHtml(item.outcome)} ${Number(item.reward || 0).toFixed(2)}</b>
+        </div>
+      `,
+    )
+    .join("");
 }
 
 function renderMetricRows(metrics, isBaseline) {
@@ -1005,6 +1046,15 @@ function attachFamilyFilters() {
 function setDetailPanel(panelName) {
   const nextPanel = panelName || "trace";
   state.selectedDetailPanel = nextPanel;
+  const allPanels = document.querySelector(".detail-panels.all-panels");
+  if (allPanels) {
+    document.querySelectorAll("[data-detail-panel]").forEach((panel) => {
+      panel.classList.add("active");
+      panel.hidden = false;
+    });
+    return;
+  }
+
   document.querySelectorAll("[data-detail-target]").forEach((button) => {
     const active = button.getAttribute("data-detail-target") === nextPanel;
     button.classList.toggle("active", active);

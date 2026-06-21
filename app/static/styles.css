@@ -313,7 +313,7 @@ h3,
   padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 56px;
+  gap: 22px;
   scrollbar-gutter: stable;
 }
 
@@ -427,7 +427,7 @@ h3,
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
-  min-height: 104px;
+  min-height: 82px;
   padding: 6px 2px 18px;
   transition:
     min-height 260ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -539,7 +539,7 @@ h3,
 }
 
 .hero-shell.panel-open.hero-compact .scenario-summary-row {
-  min-height: 104px;
+  min-height: 82px;
   align-items: flex-start;
   padding: 6px 2px 18px;
 }
@@ -933,11 +933,28 @@ h3,
   display: flex;
   flex-direction: column;
   gap: 18px;
-  padding-top: 4px;
+  padding-top: 0;
 }
 
 .overview-card {
   padding: 20px;
+}
+
+.judge-grid {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.82fr) minmax(0, 1.72fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.judge-card {
+  min-width: 0;
+}
+
+.scenario-proof-card {
+  position: sticky;
+  top: 116px;
+  align-self: start;
 }
 
 .detail-tabs {
@@ -997,6 +1014,69 @@ h3,
 .detail-panel.active {
   display: flex;
   flex-direction: column;
+}
+
+.detail-panels.all-panels {
+  grid-template-columns: minmax(420px, 1.18fr) minmax(320px, 0.82fr);
+  grid-template-areas:
+    "trace factory"
+    "trace reward";
+  align-items: stretch;
+  min-height: 0;
+}
+
+.detail-panels.all-panels .detail-panel {
+  display: flex;
+  min-height: 0;
+}
+
+.detail-panels.all-panels #traceSection {
+  grid-area: trace;
+  min-height: clamp(420px, calc(100dvh - 360px), 680px);
+}
+
+.detail-panels.all-panels #factorySection {
+  grid-area: factory;
+}
+
+.detail-panels.all-panels #rewardSection {
+  grid-area: reward;
+}
+
+.detail-panels.all-panels .timeline {
+  max-height: clamp(260px, calc(100dvh - 470px), 560px);
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.detail-panels.all-panels .metric-list {
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.scenario-proof-card .summary-tiles {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.scenario-proof-card .summary-tile {
+  min-height: 96px;
+  padding: 14px;
+}
+
+.scenario-proof-card .summary-tile-value {
+  margin-top: 12px;
+  font-size: 1.55rem;
+}
+
+.scenario-proof-card .button-row {
+  gap: 8px;
+}
+
+.scenario-proof-card .ghost-button,
+.scenario-proof-card .primary-button {
+  min-height: 36px;
+  padding: 0 12px;
 }
 
 .detail-head {
@@ -1603,7 +1683,8 @@ h3,
 }
 
 .failure-list,
-.trace-files {
+.trace-files,
+.trace-rankings {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1611,7 +1692,8 @@ h3,
 }
 
 .failure-item,
-.trace-file {
+.trace-file,
+.trace-rank-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1623,13 +1705,42 @@ h3,
 }
 
 .failure-item strong,
-.trace-file strong {
+.trace-file strong,
+.trace-rank-card strong {
   color: rgba(255, 255, 255, 0.94);
 }
 
 .failure-item span,
-.trace-file span {
+.trace-file span,
+.trace-rank-card span {
   color: var(--muted);
+}
+
+.trace-rankings {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.trace-rank-column {
+  min-width: 0;
+}
+
+.trace-rank-card {
+  margin-top: 8px;
+}
+
+.trace-rank-card b {
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, 0.92);
+  font-variant-numeric: tabular-nums;
+}
+
+.trace-rank-card.success b {
+  color: var(--success);
+}
+
+.trace-rank-card.danger b {
+  color: var(--danger);
 }
 
 .link-grid {
