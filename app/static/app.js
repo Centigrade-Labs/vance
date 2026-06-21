@@ -5,6 +5,7 @@ const state = {
   selectedMode: "fallback",
   currentEpisodeId: null,
   searchQuery: "",
+  selectedDetailPanel: "trace",
 };
 
 const PAGE = document.body?.dataset?.page || "dashboard";
@@ -657,6 +658,7 @@ function renderScenarioDetails() {
   renderTrace(trace);
   renderRewardBreakdown(trace);
   renderComparison(scenario);
+  setDetailPanel(state.selectedDetailPanel || "trace");
 }
 
 async function fetchJSON(url, options) {
@@ -908,10 +910,83 @@ function attachFamilyFilters() {
   });
 }
 
+function setDetailPanel(panelName) {
+  const nextPanel = panelName || "trace";
+  state.selectedDetailPanel = nextPanel;
+  document.querySelectorAll("[data-detail-target]").forEach((button) => {
+    const active = button.getAttribute("data-detail-target") === nextPanel;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-selected", String(active));
+    button.tabIndex = active ? 0 : -1;
+  });
+  document.querySelectorAll("[data-detail-panel]").forEach((panel) => {
+    const active = panel.getAttribute("data-detail-panel") === nextPanel;
+    panel.classList.toggle("active", active);
+    panel.hidden = !active;
+  });
+}
+
+function attachDetailTabs() {
+  const tabList = document.querySelector(".detail-tabs");
+  if (!tabList) {
+    return;
+  }
+
+  tabList.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-detail-target]");
+    if (!button || !tabList.contains(button)) {
+      return;
+    }
+    setDetailPanel(button.getAttribute("data-detail-target"));
+  });
+
+  tabList.addEventListener("keydown", (event) => {
+    const tabs = Array.from(tabList.querySelectorAll("[data-detail-target]"));
+    const currentIndex = tabs.findIndex((tab) => tab.classList.contains("active"));
+    if (currentIndex < 0) {
+      return;
+    }
+
+    let nextIndex = null;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      nextIndex = (currentIndex + 1) % tabs.length;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = tabs.length - 1;
+    } else {
+      return;
+    }
+
+    event.preventDefault();
+    const nextTab = tabs[nextIndex];
+    setDetailPanel(nextTab.getAttribute("data-detail-target"));
+    nextTab.focus();
+  });
+}
+
+function attachScenarioFold() {
+  document.querySelectorAll("[data-scenario-fold]").forEach((fold) => {
+    const toggle = fold.querySelector("[data-scenario-fold-toggle]");
+    if (!toggle) {
+      return;
+    }
+    toggle.addEventListener("click", () => {
+      const open = fold.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+  });
+}
+
 async function boot() {
   attachButtons();
   attachSectionNav();
   attachFamilyFilters();
+  attachDetailTabs();
+  attachScenarioFold();
+  setDetailPanel(state.selectedDetailPanel || "trace");
 
   if (PAGE === "dashboard") {
     await loadScenarios();
