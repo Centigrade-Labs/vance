@@ -15,4 +15,4 @@ ENV VANCE_HOST=0.0.0.0
 ENV VANCE_PORT=8000
 
 EXPOSE 8000
-CMD ["python", "app/main.py"]
+CMD ["python", "app/main.py", "--host", "0.0.0.0", "--port", "8000"]

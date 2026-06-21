@@ -1,27 +1,17 @@
-# Vance SafeOpsRL
+# Vance
 
-Vance is the PRD implementation: a HUD-compatible RL-style environment and evaluation suite for safe factory incident agents.
+Vance is a scaffold for a HUD-compatible RL-style environment and evaluation suite for safe factory incident agents.
 
-This repository is ready except for synthetic task/data content. It intentionally excludes task records, manuals, expected outcomes, fallback traces, screenshots, and demo video assets.
+This repository now contains a runnable MVP for the PRD's core loop: factory task -> tool trace -> deterministic verifier -> reward -> dashboard/eval output. Fallback mode works without API keys; live Qwen/Fireworks, HUD, and Modal are additive paths.
 
-## What Is Implemented
+## Current Status
 
-- Deterministic environment runtime
-- Task schema loading and validation
-- Schema-constrained operational tools
-- Trace-level verifier
-- Reward calculation
-- JSONL trace persistence
-- Baseline and improved fallback agent harnesses
-- Live Fireworks agent integration
-- Eval runner
-- API service for scenarios, runs, traces, eval summaries, exports, and HUD reset/step
-- Judge Mode dashboard shell backed by the API
-- HUD reset/step adapter
-- Dockerfile
-- CI and tests
-
-No pass rates, traces, or scenarios are faked.
+- 20 AI4I-seeded task records across `tasks/easy.jsonl`, `tasks/medium.jsonl`, and `tasks/hard.jsonl`.
+- Deterministic Vance environment, tools, verifier, reward, trace export, and eval runner.
+- Baseline and improved fallback harnesses.
+- Live Fireworks/Qwen wrapper that clearly reports unavailable credentials/packages.
+- Judge Mode dashboard with fallback data and JSONL export.
+- HUD v6 and Modal adapter entrypoints.
 
 ## Setup
 
@@ -32,22 +22,15 @@ pip install -e .
 cp .env.example .env
 ```
 
-## Empty Taskset Behavior
-
-The repository intentionally ships with empty task files:
-
-- `tasks/easy.jsonl`
-- `tasks/medium.jsonl`
-- `tasks/hard.jsonl`
-
-With no tasks loaded:
+Fallback mode runs without API keys:
 
 ```bash
-python -m vance.runner --list
-python evals/run_eval.py --agent improved_slm --mode fallback
+python -m vance.runner --task resolve --agent improved_slm --mode fallback
+python evals/run_eval.py --agent improved_slm --tasks tasks/easy.jsonl --mode fallback
+python app/main.py --mode fallback --port 8765
 ```
 
-The first command returns `[]`. The second writes generated zero-episode metrics. This is intentional and honest until task data is added.
+Then open `http://127.0.0.1:8765`.
 
 ## Running Episodes
 
@@ -107,22 +90,35 @@ Routes:
 
 ## Environment Variables
 
-Required for local API defaults:
-
-- `VANCE_HOST`
-- `VANCE_PORT`
-- `VANCE_TASK_DIR`
-- `VANCE_TRACE_DIR`
-
-Required only for live Fireworks inference:
+Required later for live Fireworks model calls:
 
 - `FIREWORKS_API_KEY`
 - `FIREWORKS_MODEL`
-- `FIREWORKS_BASE_URL`
 
-Fallback mode does not require API keys.
+Required later for HUD setup:
 
-## Project Layout
+- `HUD_API_KEY`
+- `HUD_ENV_ID`
+- `HUD_PROJECT`
+
+Optional later integrations:
+
+- `MODAL_TOKEN_ID`
+- `MODAL_TOKEN_SECRET`
+- `DAYTONA_API_KEY`
+- `EXA_API_KEY`
+- `MINIMAX_API_KEY`
+
+## Live / Platform Commands
+
+```bash
+FIREWORKS_API_KEY=... FIREWORKS_MODEL=... python evals/run_eval.py --agent fireworks_agent --tasks tasks/easy.jsonl --mode live
+hud eval hud_env.py <model> --max-steps 8
+modal serve modal_app.py
+modal deploy modal_app.py
+```
+
+## Scaffold Layout
 
 ```text
 vance/
@@ -133,7 +129,6 @@ vance/
   reward.py
   runner.py
   trace.py
-  hud.py
 tasks/
   easy.jsonl
   medium.jsonl
@@ -146,16 +141,22 @@ evals/
   run_eval.py
 app/
   main.py
-  service.py
+  dashboard.py
   templates/
   static/
+demo/
+  script.md
+  sample_traces/
+  screenshots/
+docs/
+  architecture.md
+  reward_design.md
 ```
 
-## Verification
+## Ownership
 
-```bash
-python -m unittest discover -s tests
-python -m vance.runner --list
-python evals/run_eval.py --agent improved_slm --mode fallback
-python -m compileall vance agents app evals tests
-```
+- Sri: environment, verifier, reward, repo contracts.
+- Teammate 1: HUD setup and environment adapter.
+- Teammate 2: synthetic tasks, manuals, expected outcomes, fallback traces.
+- Teammate 3: agent harness, eval runner, metrics.
+- Teammate 4: dashboard, UI polish, demo video, README support.

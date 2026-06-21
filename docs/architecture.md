@@ -15,32 +15,28 @@ Dashboard / API / HUD / CLI
 
 ## Runtime Boundaries
 
-- `vance.state` loads and validates task JSONL.
+- `vance.scenarios` generates AI4I-seeded `vance.task.v1` records.
 - `vance.env` owns reset, step, episode closure, and trace construction.
 - `vance.tools` owns registered tool execution and state mutation.
 - `vance.verifier` inspects the full trace and final state.
-- `vance.reward` defines reward components and penalties.
+- `vance.reward` exposes reward weights.
 - `vance.trace` persists JSON and JSONL artifacts.
-- `vance.hud` exposes reset/step session semantics for HUD integration.
+- `hud_env.py` and `vance.hud` expose HUD-facing adapter paths.
 
 ## Data Boundary
 
-Task records and fallback traces are intentionally absent from this repo until the synthetic data owner fills them. The implementation treats an empty taskset as valid pending state.
+Task records are generated from `data/ai4i2020.csv` plus synthetic operational context. Hidden AI4I labels remain verifier-only and do not appear in public observations.
 
 ## Dashboard And API Boundary
 
-The FastAPI app serves a dashboard shell and JSON runtime routes:
+The dashboard serves Judge Mode and JSON runtime routes:
 
 - `GET /`
-- `GET /evals`
-- `GET /about`
-- `GET /health`
 - `GET /api/scenarios`
 - `POST /api/run`
 - `GET /api/traces/{episode_id}`
 - `GET /api/evals/summary`
 - `GET /api/export/{episode_id}.jsonl`
-- `POST /api/hud/reset`
-- `POST /api/hud/step`
 
-Screenshots, demo video, task data, and fallback trace data are outside this implementation pass.
+The app uses FastAPI/Uvicorn when installed and a standard-library fallback server otherwise.
+

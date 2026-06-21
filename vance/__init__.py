@@ -1,3 +1,5 @@
-"""Vance SafeOpsRL environment package."""
+"""Vance SafeOpsRL runtime."""
 
-__version__ = "0.1.0"
+from vance.env import VanceEnvironment
+
+__all__ = ["VanceEnvironment"]
