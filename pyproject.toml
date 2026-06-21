@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "forge-safeopsrl"
+name = "vance-safeopsrl"
 version = "0.1.0"
-description = "Forge: a deterministic RL-style environment for safe factory incident agents."
+description = "Vance: a deterministic RL-style environment for safe factory incident agents."
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
@@ -15,4 +15,4 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = ["forge", "agents"]
+packages = ["vance", "agents"]

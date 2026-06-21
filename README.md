@@ -1,6 +1,6 @@
-# Forge
+# Vance
 
-Forge is a scaffold for a HUD-compatible RL-style environment and evaluation suite for safe factory incident agents.
+Vance is a scaffold for a HUD-compatible RL-style environment and evaluation suite for safe factory incident agents.
 
 This repository is intentionally scaffold-only right now. The PRD defines the implementation contract; teammates should fill the empty files according to the phase ownership in `prd.md`.
 
@@ -48,7 +48,7 @@ Optional later integrations:
 ## Scaffold Layout
 
 ```text
-forge/
+vance/
   env.py
   state.py
   tools.py
