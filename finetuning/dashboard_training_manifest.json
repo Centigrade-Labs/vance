@@ -1,0 +1,37 @@
+{
+  "created_at": 1782048650,
+  "failures": [
+    {
+      "count": 33,
+      "reason": "fabricated evidence"
+    },
+    {
+      "count": 2,
+      "reason": "unnecessary intervention on monitoring task"
+    },
+    {
+      "count": 1,
+      "reason": "Required machine inspection missing., Required manual lookup missing., Required inventory check missing., Expected safe maintenance or escalation action missing., Incident report incomplete., Incident report does not match final state."
+    },
+    {
+      "count": 1,
+      "reason": "Required manual lookup missing., Required inventory check missing., Expected safe maintenance or escalation action missing., Incident report incomplete., Incident report does not match final state."
+    },
+    {
+      "count": 1,
+      "reason": "reward_below_threshold"
+    }
+  ],
+  "rft": {
+    "path": "/home/dharunvs/Documents/MyApps/hud-yc/vance/rft/vance_rft_prompts.jsonl",
+    "prompts": 80,
+    "remote_url": "https://dharunsivakumar002--vance-rft-bridge-fastapi-app.modal.run"
+  },
+  "schema_version": "vance.training_data.ui.v1",
+  "sft": {
+    "examples": 400,
+    "path": "/home/dharunvs/Documents/MyApps/hud-yc/vance/finetuning/fireworks_vance_sft.jsonl",
+    "report": "/home/dharunvs/Documents/MyApps/hud-yc/vance/finetuning/fireworks_vance_sft_report.json"
+  },
+  "source_run_id": "hud_20260621_180351_f08d91"
+}

@@ -15,11 +15,12 @@ dependencies = [
   "openai>=1.0",
   "hud-python>=0.6",
   "fastmcp>=3.0",
-  "modal>=1.0"
+  "modal>=1.0",
+  "eval-protocol>=0.2"
 ]
 
 [project.scripts]
 vance-run = "vance.runner:main"
 
 [tool.setuptools]
-packages = ["vance", "agents"]
+packages = ["vance", "agents", "rft"]

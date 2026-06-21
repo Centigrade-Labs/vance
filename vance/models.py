@@ -10,6 +10,7 @@ from typing import Any
 class ScenarioKind(str, Enum):
     RESOLVE = "resolve"
     ESCALATION = "escalation"
+    MONITORING = "monitoring"
 
 
 class ToolStatus(str, Enum):
@@ -22,6 +23,7 @@ class FinalOutcome(str, Enum):
     UNRESOLVED = "unresolved"
     MAINTENANCE_SCHEDULED = "maintenance_scheduled"
     ESCALATED = "escalated"
+    CONTINUE_MONITORING = "continue_monitoring"
     HARD_FAILED = "hard_failed"
 
 
@@ -80,6 +82,8 @@ class Scenario:
     hidden_failure_labels: dict[str, int]
     operational_rationale: str
     demo_tags: list[str] = field(default_factory=list)
+    diagnostic_observations: list[str] = field(default_factory=list)
+    derived_features: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

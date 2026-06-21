@@ -1,0 +1,33 @@
+🆕 A new version of hud-python is available: 0.6.7 (current: 0.6.6)
+   Run: uv sync --upgrade-package hud-python to update
+Initializing evaluation...
+                            Evaluation Settings                             
+╭──────────────────────────┬───────────────────────────────────────────────╮
+│ Setting                  │ Value                                         │
+├──────────────────────────┼───────────────────────────────────────────────┤
+│ source                   │ hud_env.py                                    │
+│ runtime                  │ local                                         │
+│ agent                    │ openai_compatible                             │
+│ all                      │ True                                          │
+│ max_steps                │ 8                                             │
+│ max_concurrent           │ 3                                             │
+│                          │                                               │
+│ openai_compatible config │                                               │
+│   model                  │ accounts/dharunsivakumar/deployments/kyvagfny │
+│   base_url               │ https://api.fireworks.ai/inference/v1         │
+╰──────────────────────────┴───────────────────────────────────────────────╯
+Loading tasks from: hud_env.py
+Loaded 100 task(s)
+Running evaluation (max_concurrent: 3, group_size: 1)
+HTTP error from HUD SDK: Request failed: Trace e90ceee2-8819-4d74-ae79-16c7a380f0df not found | URL: https://telemetry.beta.hud.ai/v3/api/trace/e90ceee288194d74ae7916c7a380f0df/telemetry-upload | Status: 404 | Response: {"error":"not_found","detail":"Trace e90ceee2-8819-4d74-ae79-16c7a380f0df not found"}
+telemetry upload failed for trace e90ceee288194d74ae7916c7a380f0df (2 spans): Request failed: Trace e90ceee2-8819-4d74-ae79-16c7a380f0df not found | Status: 404 | Response Text: {"error":"not_found","detail":"Trace e90ceee2-8819-4d74-ae79-16c7a380f0df not found"} | Response JSON: {'error': 'not_found', 'detail': 'Trace e90ceee2-8819-4d74-ae79-16c7a380f0df not found'} | Headers: {'date': 'Sun, 21 Jun 2026 12:41:55 GMT', 'content-type': 'application/json', 'content-length': '85', 'connection': 'keep-alive', 'server': 'uvicorn'}
+https://hud.ai/jobs/f815c604cd6e468aacbde2275dad4677
+
+'hud_env.py' Results
+  Runs: 100
+  Time: 556.6s (0.2/s)
+  Mean reward: 0.627 +/- 0.482
+  Success rate: 63.0%
+
+High variance (std=0.482)
+

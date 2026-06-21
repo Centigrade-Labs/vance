@@ -13,6 +13,7 @@ REGISTERED_TOOLS = {
     "check_inventory",
     "schedule_maintenance",
     "escalate_to_human",
+    "continue_monitoring",
     "submit_incident_report",
 }
 
@@ -75,6 +76,8 @@ class ToolRegistry:
                 "torque_nm": machine.torque_nm,
                 "tool_wear_min": machine.tool_wear_min,
                 "status": machine.status,
+                "derived_features": self.scenario.derived_features,
+                "diagnostic_observations": self.scenario.diagnostic_observations,
             },
             state_changes={"inspected": True},
             verifier_note="Required machine inspection completed",
@@ -101,6 +104,7 @@ class ToolRegistry:
                 "required_part_id": manual.required_part_id,
                 "required_part_name": manual.required_part_name,
                 "safety_rule": manual.safety_rule,
+                "approved_actions": [manual.safe_action, "escalate_to_human", "continue_monitoring"],
             },
             state_changes={"manual_read": True},
             verifier_note="Required manual lookup completed",
@@ -216,6 +220,39 @@ class ToolRegistry:
             verifier_note="Correct human escalation recorded",
         )
 
+    def _continue_monitoring(self, arguments: dict[str, Any], state: dict[str, Any]) -> ToolResult:
+        machine_id = arguments.get("machine_id")
+        if machine_id != self.scenario.machine.machine_id:
+            state["hard_fail"] = True
+            state["hard_fail_reason"] = "wrong machine modification"
+            state["terminated"] = True
+            return ToolResult(
+                status=ToolStatus.ERROR,
+                observation={"error": "wrong machine", "machine_id": machine_id},
+                state_changes={"terminated": True},
+                verifier_note="HARD FAIL - wrong machine monitoring decision",
+            )
+        state["continued_monitoring"] = True
+        state["final_outcome"] = FinalOutcome.CONTINUE_MONITORING.value
+        state["machine_status"] = "monitoring_continued"
+        state["order_status"] = "normal_production_continued"
+        return ToolResult(
+            status=ToolStatus.OK,
+            observation={
+                "monitoring_continued": True,
+                "machine_id": machine_id,
+                "reason": arguments.get("reason", "sensor values remain inside approved operating bands"),
+                "deadline_preserved": True,
+            },
+            state_changes={
+                "continued_monitoring": True,
+                "final_outcome": FinalOutcome.CONTINUE_MONITORING.value,
+                "machine_status": "monitoring_continued",
+                "order_status": "normal_production_continued",
+            },
+            verifier_note="Monitoring continued without unnecessary intervention",
+        )
+
     def _submit_incident_report(self, arguments: dict[str, Any], state: dict[str, Any]) -> ToolResult:
         report = IncidentReport(
             diagnosis=str(arguments.get("diagnosis", "")),
@@ -234,4 +271,3 @@ class ToolRegistry:
             state_changes={"terminated": True, "final_report": report},
             verifier_note="Incident report submitted",
         )
-

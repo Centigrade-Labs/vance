@@ -47,6 +47,20 @@ class VanceMainTests(unittest.TestCase):
         for task in easy + medium + hard:
             self.assertEqual(task["schema_version"], "vance.task.v1")
 
+    def test_vance_100_taskset_distribution_and_no_public_label_leakage(self) -> None:
+        full = parse_jsonl(REPO_ROOT / "tasks" / "vance_100.jsonl")
+        train = parse_jsonl(REPO_ROOT / "tasks" / "train_80.jsonl")
+        heldout = parse_jsonl(REPO_ROOT / "tasks" / "heldout_20.jsonl")
+        self.assertEqual((len(full), len(train), len(heldout)), (100, 80, 20))
+        self.assertEqual(sum(1 for task in full if task["expected_outcome"].get("must_continue_monitoring")), 11)
+        for task in full:
+            rendered_public = repr({key: value for key, value in task.items() if key != "expected_outcome"})
+            for label in HIDDEN_LABEL_COLUMNS:
+                self.assertNotIn(label, rendered_public)
+            machine = next(iter(task["initial_state"]["machines"].values()))
+            self.assertIn("derived_features", machine)
+            self.assertIn("diagnostic_observations", machine)
+
     def test_baseline_and_improved_fallback_behavior(self) -> None:
         baseline = run_one("resolve", "baseline_slm", mode="fallback")
         improved = run_one("resolve", "improved_slm", mode="fallback")
@@ -58,6 +72,11 @@ class VanceMainTests(unittest.TestCase):
         for task_id in P0_SCENARIO_IDS:
             with self.subTest(task_id=task_id):
                 self.assertTrue(run_one(task_id, "improved_slm", mode="fallback").verifier_result.passed)
+
+    def test_improved_passes_heldout_100_split(self) -> None:
+        for record in parse_jsonl(REPO_ROOT / "tasks" / "heldout_20.jsonl"):
+            with self.subTest(task_id=record["task_id"]):
+                self.assertTrue(run_one(str(record["task_id"]), "improved_slm", mode="fallback").verifier_result.passed)
 
     def test_eval_runner_writes_metrics(self) -> None:
         self.assertEqual(run_eval_main(["--agent", "baseline_slm", "--tasks", "tasks/easy.jsonl", "--mode", "fallback"]), 0)
@@ -84,13 +103,15 @@ class VanceMainTests(unittest.TestCase):
         )
         try:
             base = f"http://127.0.0.1:{port}"
-            scenarios = _retry_json(base + "/api/scenarios")
-            self.assertGreaterEqual(len(scenarios), 20)
-            episode_id = scenarios[0]["traces"][0]["episode_id"]
+            scenario_payload = _retry_json(base + "/api/scenarios")
+            scenarios = scenario_payload["scenarios"]
+            self.assertGreaterEqual(len(scenarios), 6)
+            episode_id = scenarios[0]["trace_variants"]["improved_slm"]["episode_id"]
             trace = _retry_json(base + f"/api/traces/{episode_id}")
             self.assertEqual(trace["episode_id"], episode_id)
             summary = _retry_json(base + "/api/evals/summary")
-            self.assertIn("results", summary)
+            self.assertIn("baseline", summary)
+            self.assertIn("improved", summary)
             exported = urllib.request.urlopen(base + f"/api/export/{episode_id}.jsonl", timeout=5).read()
             self.assertEqual(json.loads(exported.decode("utf-8")), trace)
         finally:

@@ -1,0 +1,31 @@
+🆕 A new version of hud-python is available: 0.6.7 (current: 0.6.6)
+   Run: uv sync --upgrade-package hud-python to update
+Initializing evaluation...
+                            Evaluation Settings                             
+╭──────────────────────────┬───────────────────────────────────────────────╮
+│ Setting                  │ Value                                         │
+├──────────────────────────┼───────────────────────────────────────────────┤
+│ source                   │ hud_env.py                                    │
+│ runtime                  │ local                                         │
+│ agent                    │ openai_compatible                             │
+│ all                      │ True                                          │
+│ max_steps                │ 8                                             │
+│ max_concurrent           │ 3                                             │
+│                          │                                               │
+│ openai_compatible config │                                               │
+│   model                  │ accounts/dharunsivakumar/deployments/kyvagfny │
+│   base_url               │ https://api.fireworks.ai/inference/v1         │
+╰──────────────────────────┴───────────────────────────────────────────────╯
+Loading tasks from: hud_env.py
+Loaded 100 task(s)
+Running evaluation (max_concurrent: 3, group_size: 1)
+https://hud.ai/jobs/7f07d056c5fd4088b4ce781064bb4d65
+
+'hud_env.py' Results
+  Runs: 100
+  Time: 640.5s (0.2/s)
+  Mean reward: 0.598 +/- 0.488
+  Success rate: 60.0%
+
+High variance (std=0.488)
+

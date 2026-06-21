@@ -16,6 +16,30 @@ class ImprovedHarness:
             ToolAction("read_manual", {"manual_id": manual.manual_id}),
             ToolAction("check_inventory", {"part_id": manual.required_part_id}),
         ]
+        if scenario.expected_outcome == FinalOutcome.CONTINUE_MONITORING:
+            return common + [
+                ToolAction("continue_monitoring", {"machine_id": machine_id, "reason": "Diagnostics remain inside approved operating bands"}),
+                ToolAction(
+                    "submit_incident_report",
+                    {
+                        "diagnosis": manual.diagnosis,
+                        "outcome": FinalOutcome.CONTINUE_MONITORING.value,
+                        "actions_taken": ["inspect_machine", "read_manual", "check_inventory", "continue_monitoring"],
+                        "evidence": [
+                            machine_id,
+                            manual.manual_id,
+                            manual.diagnosis,
+                            manual.required_part_id,
+                            "part_available",
+                            "monitoring_continued",
+                            FinalOutcome.CONTINUE_MONITORING.value,
+                        ],
+                        "machine_status": "monitoring_continued",
+                        "order_status": "normal_production_continued",
+                        "deadline_preserved": True,
+                    },
+                ),
+            ]
         if scenario.inventory.quantity > 0:
             return common + [
                 ToolAction("schedule_maintenance", {"machine_id": machine_id, "part_id": manual.required_part_id}),

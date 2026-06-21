@@ -38,6 +38,7 @@ class VanceEnvironment:
             "inventory_checked": False,
             "maintenance_scheduled": False,
             "escalated": False,
+            "continued_monitoring": False,
             "part_available": None,
             "terminated": False,
             "hard_fail": False,
@@ -74,12 +75,23 @@ class VanceEnvironment:
 
     def run_episode(self, agent: object, scenario_id: str, mode: str = "fallback") -> EpisodeTrace:
         initial_observation = self.reset(scenario_id, getattr(agent, "agent_id", "unknown_agent"), mode=mode)
-        for action in agent.plan(initial_observation, self.scenarios[scenario_id]):
-            if self.state.get("terminated"):
-                break
-            self.step(action)
-            if len(self.steps) >= MAX_STEPS:
-                break
+        if hasattr(agent, "next_action"):
+            while not self.state.get("terminated") and len(self.steps) < MAX_STEPS:
+                action = agent.next_action(
+                    initial_observation=initial_observation,
+                    scenario=self.scenarios[scenario_id],
+                    steps=list(self.steps),
+                )
+                if action is None:
+                    break
+                self.step(action)
+        else:
+            for action in agent.plan(initial_observation, self.scenarios[scenario_id]):
+                if self.state.get("terminated"):
+                    break
+                self.step(action)
+                if len(self.steps) >= MAX_STEPS:
+                    break
 
         trace = self._build_trace(initial_observation)
         verifier_result = verify_trace(trace, self.scenario_or_raise())
