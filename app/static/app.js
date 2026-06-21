@@ -6,6 +6,7 @@ const state = {
   currentEpisodeId: null,
   searchQuery: "",
   selectedDetailPanel: "trace",
+  scenarioPanelOpen: true,
 };
 
 const PAGE = document.body?.dataset?.page || "dashboard";
@@ -193,6 +194,28 @@ function setActionButtonsDisabled(disabled) {
   });
 }
 
+function setScenarioPanelOpen(open) {
+  state.scenarioPanelOpen = Boolean(open);
+  const heroShell = document.querySelector(".hero-shell");
+  const panel = document.getElementById("scenarioPanel");
+  const toggle = document.getElementById("scenarioPanelToggle");
+  const label = document.getElementById("scenarioPanelToggleLabel");
+
+  if (heroShell) {
+    heroShell.classList.toggle("panel-open", state.scenarioPanelOpen);
+  }
+  if (panel) {
+    panel.classList.toggle("open", state.scenarioPanelOpen);
+    panel.hidden = !state.scenarioPanelOpen;
+  }
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", String(state.scenarioPanelOpen));
+  }
+  if (label) {
+    label.textContent = state.scenarioPanelOpen ? "Hide list" : "Show list";
+  }
+}
+
 function setActiveRow(taskId) {
   state.selectedTaskId = taskId;
   renderScenarioList();
@@ -278,11 +301,15 @@ function renderScenarioList() {
 
   root.querySelectorAll(".scenario-row[data-task-id]").forEach((row) => {
     const taskId = row.dataset.taskId;
-    row.addEventListener("click", () => setActiveRow(taskId));
+    row.addEventListener("click", () => {
+      setActiveRow(taskId);
+      setScenarioPanelOpen(false);
+    });
     row.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
         setActiveRow(taskId);
+        setScenarioPanelOpen(false);
       }
     });
   });
@@ -292,6 +319,12 @@ function renderOverviewTiles(scenario, trace) {
   const root = document.getElementById("summaryTiles");
   const headerModeBadge = document.getElementById("headerModeBadge");
   const verifierReason = document.getElementById("verifierReason");
+  const summaryTitle = document.getElementById("scenarioSummaryTitle");
+  const summaryGoal = document.getElementById("scenarioSummaryGoal");
+  const summaryTask = document.getElementById("scenarioSummaryTask");
+  const summarySource = document.getElementById("scenarioSummarySource");
+  const summaryMode = document.getElementById("scenarioSummaryMode");
+  const summaryOutcome = document.getElementById("scenarioSummaryOutcome");
   if (!root) {
     return;
   }
@@ -308,6 +341,25 @@ function renderOverviewTiles(scenario, trace) {
   }
   if (verifierReason) {
     verifierReason.textContent = reason;
+  }
+  if (summaryTitle) {
+    summaryTitle.textContent = scenario.title;
+  }
+  if (summaryGoal) {
+    summaryGoal.textContent = scenario.goal;
+  }
+  if (summaryTask) {
+    summaryTask.textContent = `Task ${scenario.task_id}`;
+  }
+  if (summarySource) {
+    summarySource.textContent = scenario.source;
+  }
+  if (summaryMode) {
+    summaryMode.textContent = modeLabel(trace.mode);
+  }
+  if (summaryOutcome) {
+    summaryOutcome.className = `pill ${outcomeClass(result)}`;
+    summaryOutcome.textContent = outcomeLabel(result);
   }
 
   const tiles = [
@@ -980,12 +1032,25 @@ function attachScenarioFold() {
   });
 }
 
+function attachScenarioPanelToggle() {
+  const toggle = document.getElementById("scenarioPanelToggle");
+  if (!toggle) {
+    return;
+  }
+
+  setScenarioPanelOpen(state.scenarioPanelOpen);
+  toggle.addEventListener("click", () => {
+    setScenarioPanelOpen(!state.scenarioPanelOpen);
+  });
+}
+
 async function boot() {
   attachButtons();
   attachSectionNav();
   attachFamilyFilters();
   attachDetailTabs();
   attachScenarioFold();
+  attachScenarioPanelToggle();
   setDetailPanel(state.selectedDetailPanel || "trace");
 
   if (PAGE === "dashboard") {

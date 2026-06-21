@@ -70,7 +70,7 @@
       </aside>
 
       <section class="workspace">
-        <section class="hero-shell">
+        <section class="hero-shell panel-open">
           <header class="workspace-header">
             <div class="workspace-copy">
               <p class="eyebrow">Judge Mode</p>
@@ -89,38 +89,60 @@
             </div>
           </header>
 
-          <section class="family-strip" aria-label="Scenario families">
-            <button class="family-chip active" type="button" data-filter-query="">
-              <span class="chip-icon">ALL</span>
-              <span>All incidents</span>
+          <div class="scenario-summary-row">
+            <div class="scenario-summary-copy">
+              <p class="card-label">Selected Scenario</p>
+              <h2 id="scenarioSummaryTitle">Loading scenario...</h2>
+              <p id="scenarioSummaryGoal" class="hero-copy"></p>
+              <div class="scenario-summary-pills">
+                <span id="scenarioSummaryTask" class="pill muted">Task</span>
+                <span id="scenarioSummarySource" class="pill muted">Source</span>
+                <span id="scenarioSummaryMode" class="pill muted">Fallback trace</span>
+                <span id="scenarioSummaryOutcome" class="pill success">PASS</span>
+              </div>
+            </div>
+            <button id="scenarioPanelToggle" class="scenario-panel-toggle" type="button" aria-expanded="true" aria-controls="scenarioPanel">
+              <span id="scenarioPanelToggleLabel">Hide list</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
             </button>
-            <button class="family-chip" type="button" data-filter-query="spindle">
-              <span class="chip-icon">CNC</span>
-              <span>CNC wear</span>
-            </button>
-            <button class="family-chip" type="button" data-filter-query="compressor">
-              <span class="chip-icon">AIR</span>
-              <span>Compressor</span>
-            </button>
-            <button class="family-chip" type="button" data-filter-query="packaging">
-              <span class="chip-icon">PKG</span>
-              <span>Packaging</span>
-            </button>
-            <button class="family-chip" type="button" data-filter-query="false positive">
-              <span class="chip-icon">ESC</span>
-              <span>Escalations</span>
-            </button>
-          </section>
-        </section>
-
-        <section id="scenarioLibrary" class="glass-card library-card">
-          <div class="table-head">
-            <span>NAME</span>
-            <span>STATUS</span>
-            <span>STEPS</span>
-            <span>LAST RUN</span>
           </div>
-          <div id="scenarioList" class="scenario-list"></div>
+
+          <div id="scenarioPanel" class="scenario-panel open">
+            <section class="family-strip" aria-label="Scenario families">
+              <button class="family-chip active" type="button" data-filter-query="">
+                <span class="chip-icon">ALL</span>
+                <span>All incidents</span>
+              </button>
+              <button class="family-chip" type="button" data-filter-query="spindle">
+                <span class="chip-icon">CNC</span>
+                <span>CNC wear</span>
+              </button>
+              <button class="family-chip" type="button" data-filter-query="compressor">
+                <span class="chip-icon">AIR</span>
+                <span>Compressor</span>
+              </button>
+              <button class="family-chip" type="button" data-filter-query="packaging">
+                <span class="chip-icon">PKG</span>
+                <span>Packaging</span>
+              </button>
+              <button class="family-chip" type="button" data-filter-query="false positive">
+                <span class="chip-icon">ESC</span>
+                <span>Escalations</span>
+              </button>
+            </section>
+
+            <section id="scenarioLibrary" class="scenario-library-panel">
+              <div class="table-head">
+                <span>NAME</span>
+                <span>STATUS</span>
+                <span>STEPS</span>
+                <span>LAST RUN</span>
+              </div>
+              <div id="scenarioList" class="scenario-list"></div>
+            </section>
+          </div>
         </section>
 
         <section class="focus-shell">

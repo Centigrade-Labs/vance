@@ -3,9 +3,9 @@
   --bg-0: #030507;
   --bg-1: #071013;
   --bg-2: #0d171a;
-  --panel: rgba(14, 20, 23, 0.78);
-  --panel-strong: rgba(18, 26, 29, 0.92);
-  --sidebar: rgba(8, 12, 14, 0.96);
+  --panel: rgba(14, 20, 23, 0.86);
+  --panel-strong: rgba(18, 26, 29, 0.96);
+  --sidebar: rgba(8, 12, 14, 0.98);
   --line: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.14);
   --text: #f3f6f7;
@@ -124,10 +124,10 @@ h3,
   border-radius: 30px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background:
-    linear-gradient(180deg, rgba(89, 92, 94, 0.16), rgba(16, 20, 22, 0.28)),
-    rgba(18, 22, 24, 0.18);
+    linear-gradient(180deg, rgba(89, 92, 94, 0.2), rgba(16, 20, 22, 0.34)),
+    rgba(18, 22, 24, 0.24);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(32px) saturate(148%);
+  backdrop-filter: blur(52px) saturate(154%);
 }
 
 .sidebar {
@@ -244,7 +244,7 @@ h3,
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.09);
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(18px) saturate(138%);
+  backdrop-filter: blur(26px) saturate(142%);
 }
 
 .sidebar-card-title {
@@ -313,7 +313,7 @@ h3,
   padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 56px;
   scrollbar-gutter: stable;
 }
 
@@ -322,28 +322,73 @@ h3,
   top: 14px;
   z-index: 25;
   margin: 0;
-  padding: 10px 14px 10px;
+  min-height: 276px;
+  padding: 16px 16px 20px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 14px;
+  overflow: visible;
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 22px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.028) 42%, rgba(255, 255, 255, 0.012)),
-    rgba(255, 255, 255, 0.01);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03)),
+    rgba(18, 22, 26, 0.06);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 12px 24px rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(40px) saturate(160%);
-  -webkit-backdrop-filter: blur(40px) saturate(160%);
+    0 20px 44px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(58px) saturate(180%);
+  -webkit-backdrop-filter: blur(58px) saturate(180%);
+  transition:
+    padding-bottom 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.hero-shell.panel-open,
+.hero-shell:has(#scenarioPanel:not([hidden])) {
+  position: relative;
+  top: auto;
+  z-index: 25;
+  min-height: 850px;
+  padding-bottom: 52px;
+  background:
+    linear-gradient(180deg, rgba(238, 246, 248, 0.22), rgba(122, 139, 145, 0.18)),
+    rgba(28, 34, 38, 0.24);
+  backdrop-filter: blur(110px) saturate(185%);
+  -webkit-backdrop-filter: blur(110px) saturate(185%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    0 24px 60px rgba(0, 0, 0, 0.2);
+}
+
+.hero-shell.panel-open::before,
+.hero-shell:has(#scenarioPanel:not([hidden]))::before {
+  background:
+    radial-gradient(110% 92% at 50% 0%, rgba(255, 255, 255, 0.2), transparent 64%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04));
+  backdrop-filter: blur(110px) saturate(185%);
+  -webkit-backdrop-filter: blur(110px) saturate(185%);
 }
 
 .hero-shell::before {
-  display: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(255, 255, 255, 0.14), transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  pointer-events: none;
+  backdrop-filter: blur(58px) saturate(180%);
+  -webkit-backdrop-filter: blur(58px) saturate(180%);
 }
 
 .workspace-header {
   position: relative;
+  z-index: 1;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -355,6 +400,119 @@ h3,
   box-shadow: none;
   backdrop-filter: none;
   z-index: 1;
+}
+
+.scenario-summary-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 104px;
+  padding: 6px 2px 18px;
+}
+
+.scenario-summary-copy {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: grid;
+  gap: 10px;
+}
+
+.scenario-summary-copy h2 {
+  margin: 0;
+  font-size: clamp(1.15rem, 0.7vw + 1rem, 1.55rem);
+}
+
+.scenario-summary-copy .hero-copy {
+  margin: 0;
+}
+
+.scenario-summary-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.scenario-panel-toggle {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 0 16px 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(30px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 6px 16px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease,
+    background 140ms ease;
+}
+
+.scenario-panel-toggle:hover {
+  transform: translateY(-1px);
+  border-color: rgba(104, 214, 201, 0.22);
+}
+
+.scenario-panel-toggle svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 180ms ease;
+}
+
+.scenario-panel-toggle[aria-expanded="false"] svg {
+  transform: rotate(-90deg);
+}
+
+.scenario-panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  padding: 18px 0 0;
+  margin-top: 16px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: none;
+}
+
+.scenario-panel[hidden] {
+  display: none;
+}
+
+.scenario-panel .family-strip {
+  margin: 0;
+  padding-top: 0;
+}
+
+.scenario-library-panel {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 .workspace-copy {
@@ -408,8 +566,8 @@ h3,
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04));
-  backdrop-filter: blur(22px) saturate(155%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06));
+  backdrop-filter: blur(32px) saturate(160%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
     0 6px 16px rgba(0, 0, 0, 0.08);
@@ -466,8 +624,8 @@ h3,
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.84);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-  backdrop-filter: blur(18px) saturate(150%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(28px) saturate(156%);
   transition:
     transform 140ms ease,
     border-color 140ms ease,
@@ -505,8 +663,8 @@ h3,
   border-radius: var(--radius-card);
   border: 1px solid rgba(255, 255, 255, 0.09);
   background:
-    linear-gradient(180deg, rgba(34, 39, 42, 0.16), rgba(11, 14, 16, 0.3));
-  backdrop-filter: blur(26px) saturate(144%);
+    linear-gradient(180deg, rgba(34, 39, 42, 0.2), rgba(11, 14, 16, 0.34));
+  backdrop-filter: blur(38px) saturate(148%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.03),
     0 18px 40px rgba(0, 0, 0, 0.24);
@@ -538,9 +696,10 @@ h3,
 .scenario-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   margin-top: 12px;
   overflow: visible;
+  padding-bottom: 24px;
 }
 
 .scenario-row {
@@ -548,11 +707,18 @@ h3,
   grid-template-columns: minmax(0, 1.5fr) minmax(110px, 0.52fr) minmax(100px, 0.38fr) minmax(120px, 0.45fr);
   gap: 12px;
   align-items: center;
-  min-height: 64px;
-  padding: 0 18px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  min-height: 72px;
+  padding: 0 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.02);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.075)),
+    rgba(24, 29, 32, 0.2);
+  backdrop-filter: blur(56px) saturate(175%);
+  -webkit-backdrop-filter: blur(56px) saturate(175%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 18px rgba(0, 0, 0, 0.12);
   cursor: pointer;
   transition:
     background 140ms ease,
@@ -565,7 +731,9 @@ h3,
 }
 
 .scenario-row:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)),
+    rgba(255, 255, 255, 0.05);
 }
 
 .scenario-row.active {
@@ -612,7 +780,7 @@ h3,
 
 .scenario-title strong {
   display: block;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
@@ -622,8 +790,8 @@ h3,
 .scenario-title span {
   display: block;
   margin-top: 4px;
-  color: var(--muted);
-  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.88rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -637,8 +805,8 @@ h3,
 
 .scenario-steps,
 .scenario-last {
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.96rem;
 }
 
 .glass-card {
@@ -648,7 +816,8 @@ h3,
 .focus-shell {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 18px;
+  padding-top: 4px;
 }
 
 .overview-card {
@@ -1262,7 +1431,7 @@ h3,
   color: rgba(255, 255, 255, 0.88);
   font-size: 0.92rem;
   font-weight: 600;
-  backdrop-filter: blur(14px) saturate(134%);
+  backdrop-filter: blur(22px) saturate(138%);
 }
 
 .pill::before {
@@ -1436,12 +1605,32 @@ h3,
 
   .hero-shell {
     top: 12px;
+    padding-bottom: 18px;
   }
 
   .workspace-header {
     position: static;
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .scenario-summary-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .scenario-panel-toggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .scenario-panel {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    max-height: none;
+    overflow: visible;
   }
 
   .header-tools {
@@ -1482,7 +1671,7 @@ h3,
 
   .hero-shell {
     top: 10px;
-    padding: 12px 12px 10px;
+    padding: 12px 12px 14px;
     border-radius: 20px;
   }
 
