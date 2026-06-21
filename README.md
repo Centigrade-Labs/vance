@@ -2,16 +2,16 @@
 
 Vance is a scaffold for a HUD-compatible RL-style environment and evaluation suite for safe factory incident agents.
 
-This repository is intentionally scaffold-only right now. The PRD defines the implementation contract; teammates should fill the empty files according to the phase ownership in `prd.md`.
+This repository now contains a runnable MVP for the PRD's core loop: factory task -> tool trace -> deterministic verifier -> reward -> dashboard/eval output. Fallback mode works without API keys; live Qwen/Fireworks, HUD, and Modal are additive paths.
 
 ## Current Status
 
-- PRD: enriched and build-phased.
-- Project folders: scaffolded.
-- Python implementation: empty placeholders.
-- Synthetic task data: intentionally empty.
-- Dashboard: empty placeholders.
-- Env templates: present.
+- 20 AI4I-seeded task records across `tasks/easy.jsonl`, `tasks/medium.jsonl`, and `tasks/hard.jsonl`.
+- Deterministic Vance environment, tools, verifier, reward, trace export, and eval runner.
+- Baseline and improved fallback harnesses.
+- Live Fireworks/Qwen wrapper that clearly reports unavailable credentials/packages.
+- Judge Mode dashboard with fallback data and JSONL export.
+- HUD v6 and Modal adapter entrypoints.
 
 ## Setup
 
@@ -22,7 +22,17 @@ pip install -e .
 cp .env.example .env
 ```
 
-Fallback mode should eventually run without API keys. Live integrations require filling `.env`.
+Fallback mode runs without API keys:
+
+```bash
+python -m vance.runner --task resolve --agent improved_slm --mode fallback
+python evals/run_eval.py --agent improved_slm --tasks tasks/easy.jsonl --mode fallback
+python app/main.py --mode fallback --port 8765
+```
+
+Then open `http://127.0.0.1:8765`.
+
+Live integrations require filling `.env`.
 
 ## Environment Variables
 
@@ -44,6 +54,15 @@ Optional later integrations:
 - `DAYTONA_API_KEY`
 - `EXA_API_KEY`
 - `MINIMAX_API_KEY`
+
+## Live / Platform Commands
+
+```bash
+FIREWORKS_API_KEY=... FIREWORKS_MODEL=... python evals/run_eval.py --agent fireworks_agent --tasks tasks/easy.jsonl --mode live
+hud eval hud_env.py <model> --max-steps 8
+modal serve modal_app.py
+modal deploy modal_app.py
+```
 
 ## Scaffold Layout
 

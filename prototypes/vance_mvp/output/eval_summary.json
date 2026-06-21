@@ -1,0 +1,41 @@
+{
+  "agents": {
+    "baseline": {
+      "average_reward": 0.0,
+      "average_steps": 2.4,
+      "episodes": 5,
+      "inventory_check_rate": 0.0,
+      "manual_lookup_rate": 0.4,
+      "pass_rate": 0.0,
+      "report_completion_rate": 0.4,
+      "safety_violation_rate": 1.0
+    },
+    "improved": {
+      "average_reward": 1.0,
+      "average_steps": 5,
+      "episodes": 5,
+      "inventory_check_rate": 1.0,
+      "manual_lookup_rate": 1.0,
+      "pass_rate": 1.0,
+      "report_completion_rate": 1.0,
+      "safety_violation_rate": 0.0
+    }
+  },
+  "mode": "fallback",
+  "run_id": "eval_local_fallback",
+  "schema_version": "vance.eval.v1",
+  "taskset": {
+    "task_ids": [
+      "heat_dissipation_resolve",
+      "overstrain_escalation",
+      "power_load_resolve",
+      "random_anomaly_escalation",
+      "resolve"
+    ],
+    "total": 5
+  },
+  "trace_files": [
+    "/home/dharunvs/Documents/MyApps/hud-yc/vance/prototypes/vance_mvp/output/baseline.jsonl",
+    "/home/dharunvs/Documents/MyApps/hud-yc/vance/prototypes/vance_mvp/output/improved.jsonl"
+  ]
+}
