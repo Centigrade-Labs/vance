@@ -18,5 +18,8 @@ dependencies = [
   "modal>=1.0"
 ]
 
+[project.scripts]
+vance-run = "vance.runner:main"
+
 [tool.setuptools]
 packages = ["vance", "agents"]
