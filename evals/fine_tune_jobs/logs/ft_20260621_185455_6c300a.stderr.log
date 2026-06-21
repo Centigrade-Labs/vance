@@ -1,0 +1,107 @@
+/home/dharunvs/Documents/MyApps/hud-yc/vance/.venv/lib/python3.12/site-packages/eval_protocol/models.py:1156: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+  class TaskDefinitionModel(BaseModel):
+[2026-06-21 18:54:56][eval_protocol.platform_api][INFO] - eval_protocol.platform_api: Loaded environment variables from: /home/dharunvs/Documents/MyApps/hud-yc/vance/.env
+/usr/local/lib/python3.11/site-packages/eval_protocol/models.py:1156: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+  class TaskDefinitionModel(BaseModel):
+
+Runs (Parallel):   0%|          | 0/1 [00:00<?, ?run/s]
+
+  Run 1:   0%|          | 0/20 [00:00<?, ?rollout/s][A
+
+  Run 1:   5%|▌         | 1/20 [00:17<05:32, 17.49s/rollout][A
+
+  Run 1:  10%|█         | 2/20 [00:18<02:21,  7.88s/rollout][A
+
+  Run 1:  15%|█▌        | 3/20 [00:19<01:21,  4.80s/rollout][A
+
+  Run 1:  20%|██        | 4/20 [00:20<00:53,  3.33s/rollout][A
+
+  Run 1:  25%|██▌       | 5/20 [00:21<00:33,  2.24s/rollout][A
+
+  Run 1:  40%|████      | 8/20 [00:21<00:10,  1.10rollout/s][A
+
+  Run 1:  45%|████▌     | 9/20 [00:21<00:08,  1.23rollout/s][A
+
+  Run 1:  50%|█████     | 10/20 [00:22<00:08,  1.14rollout/s][A
+
+  Run 1:  55%|█████▌    | 11/20 [00:23<00:06,  1.45rollout/s][A
+
+  Run 1:  60%|██████    | 12/20 [00:23<00:04,  1.69rollout/s][A
+
+  Run 1:  70%|███████   | 14/20 [00:23<00:02,  2.13rollout/s][A
+
+  Run 1:  80%|████████  | 16/20 [00:24<00:01,  2.72rollout/s][A
+
+  Run 1:  85%|████████▌ | 17/20 [00:24<00:01,  2.51rollout/s][A
+
+  Run 1:  90%|█████████ | 18/20 [00:25<00:00,  2.35rollout/s][A
+
+  Run 1:  95%|█████████▌| 19/20 [00:28<00:01,  1.02s/rollout][A
+
+  Run 1: 100%|██████████| 20/20 [00:29<00:00,  1.05s/rollout][A
+
+                                                             [A
+
+
+  Eval 1:   0%|          | 0/20 [00:00<?, ?eval/s][A[A
+
+
+                                                  [A[A
+Runs (Parallel): 100%|██████████| 1/1 [00:29<00:00, 29.34s/run]
+Runs (Parallel): 100%|██████████| 1/1 [00:29<00:00, 29.34s/run]
+
+================================================================================
+📊 LOCAL UI EVALUATION RESULTS
+================================================================================
+📊 Invocation political-movie-246603:
+  📊 Aggregate scores: http://localhost:8000/pivot?filterConfig=%5B%7B%22logic%22%3A%20%22AND%22%2C%20%22filters%22%3A%20%5B%7B%22field%22%3A%20%22%24.execution_metadata.invocation_id%22%2C%20%22operator%22%3A%20%22%3D%3D%22%2C%20%22value%22%3A%20%22political-movie-246603%22%2C%20%22type%22%3A%20%22text%22%7D%5D%7D%5D
+  📋 Trajectories: http://localhost:8000/table?filterConfig=%5B%7B%22logic%22%3A%20%22AND%22%2C%20%22filters%22%3A%20%5B%7B%22field%22%3A%20%22%24.execution_metadata.invocation_id%22%2C%20%22operator%22%3A%20%22%3D%3D%22%2C%20%22value%22%3A%20%22political-movie-246603%22%2C%20%22type%22%3A%20%22text%22%7D%5D%7D%5D
+================================================================================
+[2026-06-21 18:56:23][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'VANCE_MODE'.
+[2026-06-21 18:56:24][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'VANCE_HOST'.
+[2026-06-21 18:56:24][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'VANCE_PORT'.
+[2026-06-21 18:56:25][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'VANCE_TASK_DIR'.
+[2026-06-21 18:56:25][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'VANCE_TRACE_DIR'.
+[2026-06-21 18:56:25][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'VANCE_DEMO_TRACE_DIR'.
+[2026-06-21 18:56:26][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'FIREWORKS_API_KEY'.
+[2026-06-21 18:56:26][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'FIREWORKS_MODEL'.
+[2026-06-21 18:56:27][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'FIREWORKS_BASE_URL'.
+[2026-06-21 18:56:27][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'HUD_API_KEY'.
+[2026-06-21 18:56:28][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'HUD_ENV_ID'.
+[2026-06-21 18:56:28][eval_protocol.platform_api][INFO] - Successfully retrieved secret 'HUD_PROJECT'.
+[2026-06-21 18:56:29][eval_protocol.platform_api][INFO] - Secret 'DAYTONA_API_KEY' not found.
+[2026-06-21 18:56:29][eval_protocol.platform_api][INFO] - Secret 'EXA_API_KEY' not found.
+[2026-06-21 18:56:30][eval_protocol.platform_api][INFO] - Secret 'MINIMAX_API_KEY' not found.
+[2026-06-21 18:56:30][eval_protocol.platform_api][INFO] - Secret 'VANCE_MODE' already exists. Will attempt to update.
+[2026-06-21 18:56:31][eval_protocol.platform_api][INFO] - Successfully updated secret 'VANCE_MODE' on Fireworks platform.
+[2026-06-21 18:56:32][eval_protocol.platform_api][INFO] - Secret 'VANCE_HOST' already exists. Will attempt to update.
+[2026-06-21 18:56:33][eval_protocol.platform_api][INFO] - Successfully updated secret 'VANCE_HOST' on Fireworks platform.
+[2026-06-21 18:56:33][eval_protocol.platform_api][INFO] - Secret 'VANCE_PORT' already exists. Will attempt to update.
+[2026-06-21 18:56:34][eval_protocol.platform_api][INFO] - Successfully updated secret 'VANCE_PORT' on Fireworks platform.
+[2026-06-21 18:56:35][eval_protocol.platform_api][INFO] - Secret 'VANCE_TASK_DIR' already exists. Will attempt to update.
+[2026-06-21 18:56:36][eval_protocol.platform_api][INFO] - Successfully updated secret 'VANCE_TASK_DIR' on Fireworks platform.
+[2026-06-21 18:56:36][eval_protocol.platform_api][INFO] - Secret 'VANCE_TRACE_DIR' already exists. Will attempt to update.
+[2026-06-21 18:56:37][eval_protocol.platform_api][INFO] - Successfully updated secret 'VANCE_TRACE_DIR' on Fireworks platform.
+[2026-06-21 18:56:38][eval_protocol.platform_api][INFO] - Secret 'VANCE_DEMO_TRACE_DIR' already exists. Will attempt to update.
+[2026-06-21 18:56:39][eval_protocol.platform_api][INFO] - Successfully updated secret 'VANCE_DEMO_TRACE_DIR' on Fireworks platform.
+[2026-06-21 18:56:39][eval_protocol.platform_api][INFO] - Secret 'FIREWORKS_API_KEY' already exists. Will attempt to update.
+[2026-06-21 18:56:40][eval_protocol.platform_api][INFO] - Successfully updated secret 'FIREWORKS_API_KEY' on Fireworks platform.
+[2026-06-21 18:56:41][eval_protocol.platform_api][INFO] - Secret 'FIREWORKS_MODEL' already exists. Will attempt to update.
+[2026-06-21 18:56:42][eval_protocol.platform_api][INFO] - Successfully updated secret 'FIREWORKS_MODEL' on Fireworks platform.
+[2026-06-21 18:56:42][eval_protocol.platform_api][INFO] - Secret 'FIREWORKS_BASE_URL' already exists. Will attempt to update.
+[2026-06-21 18:56:43][eval_protocol.platform_api][INFO] - Successfully updated secret 'FIREWORKS_BASE_URL' on Fireworks platform.
+[2026-06-21 18:56:44][eval_protocol.platform_api][INFO] - Secret 'HUD_API_KEY' already exists. Will attempt to update.
+[2026-06-21 18:56:44][eval_protocol.platform_api][INFO] - Successfully updated secret 'HUD_API_KEY' on Fireworks platform.
+[2026-06-21 18:56:45][eval_protocol.platform_api][INFO] - Secret 'HUD_ENV_ID' already exists. Will attempt to update.
+[2026-06-21 18:56:46][eval_protocol.platform_api][INFO] - Successfully updated secret 'HUD_ENV_ID' on Fireworks platform.
+[2026-06-21 18:56:46][eval_protocol.platform_api][INFO] - Secret 'HUD_PROJECT' already exists. Will attempt to update.
+[2026-06-21 18:56:47][eval_protocol.platform_api][INFO] - Successfully updated secret 'HUD_PROJECT' on Fireworks platform.
+[2026-06-21 18:56:48][fireworks._base_client][INFO] - Retrying request to /v1/accounts/dharunsivakumar/secrets in 0.422908 seconds
+[2026-06-21 18:56:49][fireworks._base_client][INFO] - Retrying request to /v1/accounts/dharunsivakumar/secrets in 0.765574 seconds
+[2026-06-21 18:56:50][eval_protocol.platform_api][ERROR] - Error creating secret 'DAYTONA_API_KEY': Error code: 409 - {'code': 6, 'details': [], 'message': 'error creating secret: rpc error: code = AlreadyExists desc = Secret [projects/331150806335/secrets/dharunsivakumar_daytona-api-key] already exists.'}
+[2026-06-21 18:56:51][fireworks._base_client][INFO] - Retrying request to /v1/accounts/dharunsivakumar/secrets in 0.436612 seconds
+[2026-06-21 18:56:52][fireworks._base_client][INFO] - Retrying request to /v1/accounts/dharunsivakumar/secrets in 0.858032 seconds
+[2026-06-21 18:56:54][eval_protocol.platform_api][ERROR] - Error creating secret 'EXA_API_KEY': Error code: 409 - {'code': 6, 'details': [], 'message': 'error creating secret: rpc error: code = AlreadyExists desc = Secret [projects/331150806335/secrets/dharunsivakumar_exa-api-key] already exists.'}
+[2026-06-21 18:56:55][fireworks._base_client][INFO] - Retrying request to /v1/accounts/dharunsivakumar/secrets in 0.435550 seconds
+[2026-06-21 18:56:56][fireworks._base_client][INFO] - Retrying request to /v1/accounts/dharunsivakumar/secrets in 0.751249 seconds
+[2026-06-21 18:56:57][eval_protocol.platform_api][ERROR] - Error creating secret 'MINIMAX_API_KEY': Error code: 409 - {'code': 6, 'details': [], 'message': 'error creating secret: rpc error: code = AlreadyExists desc = Secret [projects/331150806335/secrets/dharunsivakumar_minimax-api-key] already exists.'}

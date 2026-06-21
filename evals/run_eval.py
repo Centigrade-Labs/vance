@@ -16,7 +16,7 @@ from agents import build_agent
 from agents.fireworks_agent import LiveAgentUnavailable
 from vance.data_loader import load_ai4i_rows
 from vance.runner import DATA_PATH, generate_task_files
-from vance.scenarios import build_twenty_scenarios
+from vance.scenarios import build_100_scenarios, build_twenty_scenarios
 from vance.trace import parse_jsonl, trace_to_dict, write_jsonl
 from vance.env import VanceEnvironment
 
@@ -40,6 +40,7 @@ def main(argv: list[str] | None = None) -> int:
     task_ids = [record["task_id"] for record in parse_jsonl(task_path)]
     rows = load_ai4i_rows(args.csv)
     scenarios = build_twenty_scenarios(rows)
+    scenarios.update(build_100_scenarios(rows))
     try:
         agent = build_agent(args.agent, mode=args.mode)
     except LiveAgentUnavailable as exc:

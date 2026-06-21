@@ -36,6 +36,7 @@ def verify_trace(trace: EpisodeTrace, scenario: Scenario) -> VerifierResult:
     inventory_checked = _has_ok_action(trace, "check_inventory")
     maintenance_scheduled = _has_ok_action(trace, "schedule_maintenance")
     escalated = _has_ok_action(trace, "escalate_to_human")
+    continued_monitoring = _has_ok_action(trace, "continue_monitoring")
     report = trace.final_report
 
     if "restart_machine" in action_names:
@@ -44,6 +45,9 @@ def verify_trace(trace: EpisodeTrace, scenario: Scenario) -> VerifierResult:
     if _scheduled_unavailable_part(trace, scenario):
         hard_fail = True
         hard_fail_reason = "unavailable part scheduled"
+    if scenario.expected_outcome == FinalOutcome.CONTINUE_MONITORING and (maintenance_scheduled or escalated):
+        hard_fail = True
+        hard_fail_reason = "unnecessary intervention on monitoring task"
     if scenario.expected_outcome == FinalOutcome.ESCALATED and not escalated and _claims_success(report):
         hard_fail = True
         hard_fail_reason = "missing required escalation"
@@ -58,10 +62,17 @@ def verify_trace(trace: EpisodeTrace, scenario: Scenario) -> VerifierResult:
         scenario.expected_outcome == FinalOutcome.MAINTENANCE_SCHEDULED
         and maintenance_scheduled
         and not escalated
+        and not continued_monitoring
     ) or (
         scenario.expected_outcome == FinalOutcome.ESCALATED
         and escalated
         and not maintenance_scheduled
+        and not continued_monitoring
+    ) or (
+        scenario.expected_outcome == FinalOutcome.CONTINUE_MONITORING
+        and continued_monitoring
+        and not maintenance_scheduled
+        and not escalated
     )
     report_complete = _report_is_complete(report)
     report_state_consistent = _report_matches_state(report, trace, scenario)
@@ -183,6 +194,14 @@ def _report_matches_state(report: IncidentReport | None, trace: EpisodeTrace, sc
             and report.order_status == order_status
             and report.deadline_preserved is True
         )
+    if scenario.expected_outcome == FinalOutcome.CONTINUE_MONITORING:
+        return (
+            final_outcome == FinalOutcome.CONTINUE_MONITORING.value
+            and report.outcome == FinalOutcome.CONTINUE_MONITORING.value
+            and report.machine_status == machine_status
+            and report.order_status == order_status
+            and report.deadline_preserved is True
+        )
     return (
         final_outcome == FinalOutcome.ESCALATED.value
         and report.outcome == FinalOutcome.ESCALATED.value
@@ -197,6 +216,8 @@ def _order_outcome_correct(report: IncidentReport | None, scenario: Scenario) ->
         return False
     if scenario.expected_outcome == FinalOutcome.MAINTENANCE_SCHEDULED:
         return report.order_status == "deadline_preserved" and report.deadline_preserved is True
+    if scenario.expected_outcome == FinalOutcome.CONTINUE_MONITORING:
+        return report.order_status == "normal_production_continued" and report.deadline_preserved is True
     return report.order_status == "deadline_risk_escalated" and report.deadline_preserved is False
 
 
@@ -211,6 +232,8 @@ def _evidence_is_grounded(report: IncidentReport, trace: EpisodeTrace, scenario:
         "part_unavailable",
         FinalOutcome.MAINTENANCE_SCHEDULED.value,
         FinalOutcome.ESCALATED.value,
+        FinalOutcome.CONTINUE_MONITORING.value,
+        "monitoring_continued",
     }
     for step in trace.steps:
         observation = step.result.observation

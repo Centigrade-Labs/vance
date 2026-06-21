@@ -1,0 +1,735 @@
+Building Docker image 'ep-evaluator:local' from /home/dharunvs/Documents/MyApps/hud-yc/vance/Dockerfile ...
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 411B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 1.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [ 1/13] FROM docker.io/library/python:3.11-slim@sha256:ae52c5bef62a6bdd42cd1e8dffef86b9cd284bde9427da79839de7a4b983e7ca
+#4 resolve docker.io/library/python:3.11-slim@sha256:ae52c5bef62a6bdd42cd1e8dffef86b9cd284bde9427da79839de7a4b983e7ca 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 1.28MB done
+#5 DONE 0.0s
+
+#6 [ 4/13] COPY agents agents
+#6 CACHED
+
+#7 [ 6/13] COPY data data
+#7 CACHED
+
+#8 [ 2/13] WORKDIR /app
+#8 CACHED
+
+#9 [ 3/13] COPY pyproject.toml README.md ./
+#9 CACHED
+
+#10 [ 5/13] COPY app app
+#10 CACHED
+
+#11 [ 7/13] COPY docs docs
+#11 CACHED
+
+#12 [ 8/13] COPY evals evals
+#12 DONE 0.2s
+
+#13 [ 9/13] COPY hud_env.py hud_env.py
+#13 DONE 0.1s
+
+#14 [10/13] COPY rft rft
+#14 DONE 0.0s
+
+#15 [11/13] COPY tasks tasks
+#15 DONE 0.1s
+
+#16 [12/13] COPY vance vance
+#16 DONE 0.1s
+
+#17 [13/13] RUN pip install --no-cache-dir -e .
+#17 0.846 Obtaining file:///app
+#17 0.847   Installing build dependencies: started
+#17 1.756   Installing build dependencies: finished with status 'done'
+#17 1.756   Checking if build backend supports build_editable: started
+#17 1.824   Checking if build backend supports build_editable: finished with status 'done'
+#17 1.824   Getting requirements to build editable: started
+#17 1.904   Getting requirements to build editable: finished with status 'done'
+#17 1.904   Preparing editable metadata (pyproject.toml): started
+#17 1.979   Preparing editable metadata (pyproject.toml): finished with status 'done'
+#17 2.044 Collecting fastapi>=0.111 (from vance-safeopsrl==0.1.0)
+#17 2.065   Downloading fastapi-0.138.0-py3-none-any.whl.metadata (27 kB)
+#17 2.084 Collecting uvicorn>=0.30 (from uvicorn[standard]>=0.30->vance-safeopsrl==0.1.0)
+#17 2.089   Downloading uvicorn-0.49.0-py3-none-any.whl.metadata (6.7 kB)
+#17 2.099 Collecting python-dotenv>=1.0 (from vance-safeopsrl==0.1.0)
+#17 2.103   Downloading python_dotenv-1.2.2-py3-none-any.whl.metadata (27 kB)
+#17 2.147 Collecting openai>=1.0 (from vance-safeopsrl==0.1.0)
+#17 2.155   Downloading openai-2.43.0-py3-none-any.whl.metadata (32 kB)
+#17 2.180 Collecting hud-python>=0.6 (from vance-safeopsrl==0.1.0)
+#17 2.185   Downloading hud_python-0.6.7-py3-none-any.whl.metadata (12 kB)
+#17 2.202 Collecting fastmcp>=3.0 (from vance-safeopsrl==0.1.0)
+#17 2.208   Downloading fastmcp-3.4.2-py3-none-any.whl.metadata (8.5 kB)
+#17 2.396 Collecting modal>=1.0 (from vance-safeopsrl==0.1.0)
+#17 2.401   Downloading modal-1.5.0-py3-none-any.whl.metadata (2.3 kB)
+#17 2.434 Collecting eval-protocol>=0.2 (from vance-safeopsrl==0.1.0)
+#17 2.438   Downloading eval_protocol-0.3.31-py3-none-any.whl.metadata (6.9 kB)
+#17 2.475 Collecting requests>=2.25.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 2.479   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+#17 2.572 Collecting pydantic>=2.0.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 2.581   Downloading pydantic-2.13.4-py3-none-any.whl.metadata (109 kB)
+#17 2.585      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 109.4/109.4 kB 34.8 MB/s eta 0:00:00
+#17 2.603 Collecting dataclasses-json>=0.5.7 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 2.607   Downloading dataclasses_json-0.6.7-py3-none-any.whl.metadata (25 kB)
+#17 2.633 Collecting aiosqlite (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 2.637   Downloading aiosqlite-0.22.1-py3-none-any.whl.metadata (4.3 kB)
+#17 2.929 Collecting aiohttp (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 2.937   Downloading aiohttp-3.14.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+#17 2.951 Collecting mcp>=1.9.2 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 2.955   Downloading mcp-1.28.0-py3-none-any.whl.metadata (9.4 kB)
+#17 2.992 Collecting PyYAML>=5.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 2.996   Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+#17 3.006 Collecting hydra-core>=1.3.2 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 3.012   Downloading hydra_core-1.3.3-py3-none-any.whl.metadata (5.7 kB)
+#17 3.031 Collecting omegaconf>=2.3.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 3.035   Downloading omegaconf-2.3.1-py3-none-any.whl.metadata (4.5 kB)
+#17 3.063 Collecting httpx>=0.24.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 3.067   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+#17 3.094 Collecting anthropic>=0.59.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 3.097   Downloading anthropic-0.111.0-py3-none-any.whl.metadata (3.2 kB)
+#17 3.375 Collecting litellm<1.75.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 3.388   Downloading litellm-1.74.15.post2.tar.gz (9.7 MB)
+#17 3.678      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.7/9.7 MB 33.8 MB/s eta 0:00:00
+#17 3.868   Installing build dependencies: started
+#17 4.783   Installing build dependencies: finished with status 'done'
+#17 4.784   Getting requirements to build wheel: started
+#17 4.827   Getting requirements to build wheel: finished with status 'done'
+#17 4.828   Preparing metadata (pyproject.toml): started
+#17 4.916   Preparing metadata (pyproject.toml): finished with status 'done'
+#17 4.958 Collecting pytest>=6.0.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 4.975   Downloading pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+#17 5.000 Collecting pytest-asyncio>=0.21.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.009   Downloading pytest_asyncio-1.4.0-py3-none-any.whl.metadata (4.1 kB)
+#17 5.031 Collecting peewee>=3.18.2 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.039   Downloading peewee-4.1.0-py3-none-any.whl.metadata (10 kB)
+#17 5.058 Collecting backoff>=2.2.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.071   Downloading backoff-2.2.1-py3-none-any.whl.metadata (14 kB)
+#17 5.108 Collecting fireworks-ai<2,>=1.0.0a20 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.121   Downloading fireworks_ai-1.2.0a83-py3-none-any.whl.metadata (26 kB)
+#17 5.140 Collecting questionary>=2.0.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.153   Downloading questionary-2.1.1-py3-none-any.whl.metadata (5.4 kB)
+#17 5.170 Collecting toml>=0.10.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.183   Downloading toml-0.10.2-py2.py3-none-any.whl.metadata (7.1 kB)
+#17 5.202 Collecting loguru>=0.6.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.216   Downloading loguru-0.7.3-py3-none-any.whl.metadata (22 kB)
+#17 5.235 Collecting docstring-parser>=0.15 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.248   Downloading docstring_parser-0.18.0-py3-none-any.whl.metadata (3.5 kB)
+#17 5.289 Collecting rich>=12.0.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.307   Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+#17 5.356 Collecting psutil>=6.0.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.370   Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+#17 5.389 Collecting addict>=2.4.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.403   Downloading addict-2.4.0-py3-none-any.whl.metadata (1.0 kB)
+#17 5.428 Collecting deepdiff>=6.0.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.440   Downloading deepdiff-9.1.0-py3-none-any.whl.metadata (8.4 kB)
+#17 5.492 Collecting websockets>=15.0.1 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.508   Downloading websockets-16.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.8 kB)
+#17 5.569 Collecting zstandard>=0.19.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 5.586   Downloading zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+#17 5.626 Collecting starlette>=0.46.0 (from fastapi>=0.111->vance-safeopsrl==0.1.0)
+#17 5.643   Downloading starlette-1.3.1-py3-none-any.whl.metadata (6.4 kB)
+#17 5.672 Collecting typing-extensions>=4.8.0 (from fastapi>=0.111->vance-safeopsrl==0.1.0)
+#17 5.686   Downloading typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+#17 5.703 Collecting typing-inspection>=0.4.2 (from fastapi>=0.111->vance-safeopsrl==0.1.0)
+#17 5.717   Downloading typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+#17 5.734 Collecting annotated-doc>=0.0.2 (from fastapi>=0.111->vance-safeopsrl==0.1.0)
+#17 5.748   Downloading annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+#17 5.769 Collecting fastmcp-slim==3.4.2 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 5.778   Downloading fastmcp_slim-3.4.2-py3-none-any.whl.metadata (10 kB)
+#17 5.813 Collecting platformdirs>=4.0.0 (from fastmcp-slim==3.4.2->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 5.826   Downloading platformdirs-4.10.0-py3-none-any.whl.metadata (5.5 kB)
+#17 5.922 Collecting pydantic-settings>=2.0.0 (from fastmcp-slim==3.4.2->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 5.939   Downloading pydantic_settings-2.14.2-py3-none-any.whl.metadata (3.4 kB)
+#17 5.994 Collecting authlib>=1.6.11 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.008   Downloading authlib-1.7.2-py2.py3-none-any.whl.metadata (10 kB)
+#17 6.028 Collecting exceptiongroup>=1.2.2 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.042   Downloading exceptiongroup-1.3.1-py3-none-any.whl.metadata (6.7 kB)
+#17 6.073 Collecting opentelemetry-api>=1.20.0 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.087   Downloading opentelemetry_api-1.42.1-py3-none-any.whl.metadata (1.4 kB)
+#17 6.105 Collecting py-key-value-aio<0.5.0,>=0.4.4 (from py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.118   Downloading py_key_value_aio-0.4.5-py3-none-any.whl.metadata (16 kB)
+#17 6.149 Collecting cyclopts>=4.0.0 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.163   Downloading cyclopts-4.18.0-py3-none-any.whl.metadata (12 kB)
+#17 6.180 Collecting griffelib>=2.0.0 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.194   Downloading griffelib-2.1.0-py3-none-any.whl.metadata (1.3 kB)
+#17 6.215 Collecting joserfc>=1.1.0 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.229   Downloading joserfc-1.7.1-py3-none-any.whl.metadata (3.1 kB)
+#17 6.270 Collecting jsonref>=1.1.0 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.284   Downloading jsonref-1.1.0-py3-none-any.whl.metadata (2.7 kB)
+#17 6.304 Collecting jsonschema-path>=0.3.4 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.317   Downloading jsonschema_path-0.5.0-py3-none-any.whl.metadata (8.1 kB)
+#17 6.336 Collecting openapi-pydantic>=0.5.1 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.350   Downloading openapi_pydantic-0.5.1-py3-none-any.whl.metadata (10 kB)
+#17 6.371 Collecting packaging>=24.0 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.385   Downloading packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+#17 6.405 Collecting pyperclip>=1.9.0 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.419   Downloading pyperclip-1.11.0-py3-none-any.whl.metadata (2.4 kB)
+#17 6.439 Collecting python-multipart>=0.0.26 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.453   Downloading python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+#17 6.470 Collecting uncalled-for>=0.2.0 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.483   Downloading uncalled_for-0.3.2-py3-none-any.whl.metadata (2.9 kB)
+#17 6.534 Collecting watchfiles>=1.0.0 (from fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 6.555   Downloading watchfiles-1.2.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+#17 6.589 Collecting asyncssh>=2.23.0 (from hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 6.603   Downloading asyncssh-2.23.1-py3-none-any.whl.metadata (9.6 kB)
+#17 6.622 Collecting asyncvnc>=1.3.0 (from hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 6.638   Downloading asyncvnc-1.3.0-py3-none-any.whl.metadata (4.8 kB)
+#17 6.642 Collecting fastmcp>=3.0 (from vance-safeopsrl==0.1.0)
+#17 6.656   Downloading fastmcp-3.0.2-py3-none-any.whl.metadata (7.8 kB)
+#17 6.684 Collecting google-genai (from hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 6.695   Downloading google_genai-2.9.0-py3-none-any.whl.metadata (53 kB)
+#17 6.696      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.5/53.5 kB 822.3 MB/s eta 0:00:00
+#17 6.814 Collecting pillow>=11.0.0 (from hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 6.828   Downloading pillow-12.2.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+#17 6.856 Collecting prompt-toolkit==3.0.51 (from hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 6.869   Downloading prompt_toolkit-3.0.51-py3-none-any.whl.metadata (6.4 kB)
+#17 6.881 Collecting questionary>=2.0.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 6.894   Downloading questionary-2.1.0-py3-none-any.whl.metadata (5.4 kB)
+#17 6.924 Collecting typer>=0.9.0 (from hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 6.937   Downloading typer-0.26.7-py3-none-any.whl.metadata (16 kB)
+#17 6.966 Collecting wcwidth (from prompt-toolkit==3.0.51->hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 6.980   Downloading wcwidth-0.8.1-py3-none-any.whl.metadata (43 kB)
+#17 6.981      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.1/43.1 kB 751.7 MB/s eta 0:00:00
+#17 7.030 Collecting cbor2 (from modal>=1.0->vance-safeopsrl==0.1.0)
+#17 7.043   Downloading cbor2-6.1.2-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (5.5 kB)
+#17 7.064 Collecting certifi (from modal>=1.0->vance-safeopsrl==0.1.0)
+#17 7.078   Downloading certifi-2026.6.17-py3-none-any.whl.metadata (2.5 kB)
+#17 7.101 Collecting click~=8.1 (from modal>=1.0->vance-safeopsrl==0.1.0)
+#17 7.115   Downloading click-8.4.1-py3-none-any.whl.metadata (2.6 kB)
+#17 7.222 Collecting grpclib<0.4.10,>=0.4.7 (from modal>=1.0->vance-safeopsrl==0.1.0)
+#17 7.240   Downloading grpclib-0.4.9-py3-none-any.whl.metadata (6.1 kB)
+#17 7.336 Collecting protobuf!=4.24.0,<7.0,>=3.19 (from modal>=1.0->vance-safeopsrl==0.1.0)
+#17 7.353   Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
+#17 7.375 Collecting synchronicity~=0.12.3 (from modal>=1.0->vance-safeopsrl==0.1.0)
+#17 7.389   Downloading synchronicity-0.12.5-py3-none-any.whl.metadata (14 kB)
+#17 7.408 Collecting types-certifi (from modal>=1.0->vance-safeopsrl==0.1.0)
+#17 7.421   Downloading types_certifi-2021.10.8.3-py3-none-any.whl.metadata (1.4 kB)
+#17 7.439 Collecting types-toml (from modal>=1.0->vance-safeopsrl==0.1.0)
+#17 7.457   Downloading types_toml-0.10.8.20260518-py3-none-any.whl.metadata (1.7 kB)
+#17 7.482 Collecting anyio<5,>=3.5.0 (from openai>=1.0->vance-safeopsrl==0.1.0)
+#17 7.495   Downloading anyio-4.14.0-py3-none-any.whl.metadata (4.6 kB)
+#17 7.512 Collecting distro<2,>=1.7.0 (from openai>=1.0->vance-safeopsrl==0.1.0)
+#17 7.526   Downloading distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+#17 7.576 Collecting jiter<1,>=0.10.0 (from openai>=1.0->vance-safeopsrl==0.1.0)
+#17 7.596   Downloading jiter-0.15.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+#17 7.620 Collecting sniffio (from openai>=1.0->vance-safeopsrl==0.1.0)
+#17 7.634   Downloading sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+#17 7.667 Collecting tqdm>4 (from openai>=1.0->vance-safeopsrl==0.1.0)
+#17 7.685   Downloading tqdm-4.68.3-py3-none-any.whl.metadata (57 kB)
+#17 7.687      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.4/57.4 kB 64.8 MB/s eta 0:00:00
+#17 7.718 Collecting h11>=0.8 (from uvicorn>=0.30->uvicorn[standard]>=0.30->vance-safeopsrl==0.1.0)
+#17 7.731   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#17 7.765 Collecting httptools>=0.8.0 (from uvicorn[standard]>=0.30->vance-safeopsrl==0.1.0)
+#17 7.779   Downloading httptools-0.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+#17 7.820 Collecting uvloop>=0.15.1 (from uvicorn[standard]>=0.30->vance-safeopsrl==0.1.0)
+#17 7.835   Downloading uvloop-0.22.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (4.9 kB)
+#17 7.872 Collecting idna>=2.8 (from anyio<5,>=3.5.0->openai>=1.0->vance-safeopsrl==0.1.0)
+#17 7.881   Downloading idna-3.18-py3-none-any.whl.metadata (6.1 kB)
+#17 7.994 Collecting cryptography>=39.0 (from asyncssh>=2.23.0->hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 8.001   Downloading cryptography-49.0.0-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.3 kB)
+#17 8.013 Collecting keysymdef (from asyncvnc>=1.3.0->hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 8.018   Downloading keysymdef-1.2.0-py2.py3-none-any.whl.metadata (773 bytes)
+#17 8.255 Collecting numpy (from asyncvnc>=1.3.0->hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 8.264   Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+#17 8.311 Collecting attrs>=23.1.0 (from cyclopts>=4.0.0->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 8.316   Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+#17 8.327 Collecting rich-rst<3.0.0,>=1.3.1 (from cyclopts>=4.0.0->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 8.331   Downloading rich_rst-2.0.1-py3-none-any.whl.metadata (4.6 kB)
+#17 8.363 Collecting marshmallow<4.0.0,>=3.18.0 (from dataclasses-json>=0.5.7->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 8.367   Downloading marshmallow-3.26.2-py3-none-any.whl.metadata (7.3 kB)
+#17 8.376 Collecting typing-inspect<1,>=0.4.0 (from dataclasses-json>=0.5.7->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 8.381   Downloading typing_inspect-0.9.0-py3-none-any.whl.metadata (1.5 kB)
+#17 8.553 Collecting cachebox<6,>=5.2 (from deepdiff>=6.0.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 8.562   Downloading cachebox-5.2.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (27 kB)
+#17 8.585 Collecting orderly-set<6,>=5.5.0 (from deepdiff>=6.0.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 8.594   Downloading orderly_set-5.5.0-py3-none-any.whl.metadata (6.6 kB)
+#17 8.624 Collecting httpx-aiohttp>=0.1.9 (from fireworks-ai<2,>=1.0.0a20->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 8.630   Downloading httpx_aiohttp-0.1.12-py3-none-any.whl.metadata (2.8 kB)
+#17 8.640 Collecting pydantic>=2.0.0 (from eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 8.645   Downloading pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+#17 8.647      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.6/90.6 kB 250.6 MB/s eta 0:00:00
+#17 8.661 Collecting h2<5,>=3.1.0 (from grpclib<0.4.10,>=0.4.7->modal>=1.0->vance-safeopsrl==0.1.0)
+#17 8.665   Downloading h2-4.3.0-py3-none-any.whl.metadata (5.1 kB)
+#17 8.777 Collecting multidict (from grpclib<0.4.10,>=0.4.7->modal>=1.0->vance-safeopsrl==0.1.0)
+#17 8.782   Downloading multidict-6.7.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+#17 8.804 Collecting httpcore==1.* (from httpx>=0.24.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 8.809   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+#17 8.828 Collecting antlr4-python3-runtime==4.9.* (from hydra-core>=1.3.2->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 8.832   Downloading antlr4-python3-runtime-4.9.3.tar.gz (117 kB)
+#17 8.834      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 117.0/117.0 kB 161.2 MB/s eta 0:00:00
+#17 8.841   Preparing metadata (setup.py): started
+#17 8.969   Preparing metadata (setup.py): finished with status 'done'
+#17 8.992 Collecting pathable<0.7.0,>=0.6.0 (from jsonschema-path>=0.3.4->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 8.996   Downloading pathable-0.6.0-py3-none-any.whl.metadata (7.2 kB)
+#17 9.013 Collecting referencing<0.38.0 (from jsonschema-path>=0.3.4->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 9.017   Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+#17 9.058 Collecting importlib-metadata>=6.8.0 (from litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.067   Downloading importlib_metadata-9.0.0-py3-none-any.whl.metadata (4.5 kB)
+#17 9.079 Collecting jinja2<4.0.0,>=3.1.2 (from litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.083   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#17 9.100 Collecting jsonschema<5.0.0,>=4.22.0 (from litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.104   Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+#17 9.145 Collecting tiktoken>=0.7.0 (from litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.150   Downloading tiktoken-0.13.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (6.7 kB)
+#17 9.376 Collecting tokenizers (from litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.385   Downloading tokenizers-0.23.1-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (9.8 kB)
+#17 9.416 Collecting aiohappyeyeballs>=2.5.0 (from aiohttp->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.420   Downloading aiohappyeyeballs-2.6.2-py3-none-any.whl.metadata (5.9 kB)
+#17 9.428 Collecting aiosignal>=1.4.0 (from aiohttp->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.433   Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+#17 9.475 Collecting frozenlist>=1.1.1 (from aiohttp->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.479   Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+#17 9.517 Collecting propcache>=0.2.0 (from aiohttp->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.526   Downloading propcache-0.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (16 kB)
+#17 9.666 Collecting yarl<2.0,>=1.17.0 (from aiohttp->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.675   Downloading yarl-1.24.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (94 kB)
+#17 9.677      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 94.2/94.2 kB 222.0 MB/s eta 0:00:00
+#17 9.718 Collecting httpx-sse>=0.4 (from mcp>=1.9.2->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.722   Downloading httpx_sse-0.4.3-py3-none-any.whl.metadata (9.7 kB)
+#17 9.748 Collecting pyjwt>=2.10.1 (from pyjwt[crypto]>=2.10.1->mcp>=1.9.2->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.752   Downloading pyjwt-2.13.0-py3-none-any.whl.metadata (3.4 kB)
+#17 9.766 Collecting sse-starlette>=1.6.1 (from mcp>=1.9.2->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.771   Downloading sse_starlette-3.4.5-py3-none-any.whl.metadata (15 kB)
+#17 9.861 Collecting beartype>=0.20.0 (from py-key-value-aio<0.5.0,>=0.4.4->py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 9.865   Downloading beartype-0.22.9-py3-none-any.whl.metadata (37 kB)
+#17 9.898 Collecting aiofile>=3.5.0 (from py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 9.902   Downloading aiofile-3.11.1-py3-none-any.whl.metadata (14 kB)
+#17 9.925 Collecting keyring>=25.6.0 (from py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 9.933   Downloading keyring-25.7.0-py3-none-any.whl.metadata (21 kB)
+#17 9.947 Collecting cachetools>=5.0.0 (from py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 9.951   Downloading cachetools-7.1.4-py3-none-any.whl.metadata (5.5 kB)
+#17 9.964 Collecting annotated-types>=0.6.0 (from pydantic>=2.0.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 9.968   Downloading annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+#17 10.49 Collecting pydantic-core==2.41.5 (from pydantic>=2.0.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 10.49   Downloading pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+#17 10.52 INFO: pip is looking at multiple versions of pydantic[email] to determine which version is compatible with other requirements. This could take a while.
+#17 10.53 Collecting pydantic[email]>=2.11.7 (from fastmcp-slim==3.4.2->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 10.54   Downloading pydantic-2.13.3-py3-none-any.whl.metadata (108 kB)
+#17 10.54      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.8/108.8 kB 119.9 MB/s eta 0:00:00
+#17 10.55   Downloading pydantic-2.13.2-py3-none-any.whl.metadata (108 kB)
+#17 10.55      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.5/108.5 kB 90.9 MB/s eta 0:00:00
+#17 10.56   Downloading pydantic-2.13.1-py3-none-any.whl.metadata (108 kB)
+#17 10.57      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.2/108.2 kB 54.3 MB/s eta 0:00:00
+#17 10.58   Downloading pydantic-2.13.0-py3-none-any.whl.metadata (107 kB)
+#17 10.58      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 107.9/107.9 kB 186.0 MB/s eta 0:00:00
+#17 10.59 Collecting email-validator>=2.0.0 (from pydantic[email]>=2.11.7->fastmcp-slim==3.4.2->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 10.60   Downloading email_validator-2.3.0-py3-none-any.whl.metadata (26 kB)
+#17 10.62 Collecting iniconfig>=1.0.1 (from pytest>=6.0.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 10.62   Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+#17 10.63 Collecting pluggy<2,>=1.5 (from pytest>=6.0.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 10.63   Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+#17 10.65 Collecting pygments>=2.7.2 (from pytest>=6.0.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 10.65   Downloading pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+#17 10.73 Collecting charset_normalizer<4,>=2 (from requests>=2.25.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 10.74   Downloading charset_normalizer-3.4.7-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+#17 10.74      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.9/40.9 kB 22.8 MB/s eta 0:00:00
+#17 10.76 Collecting urllib3<3,>=1.26 (from requests>=2.25.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 10.77   Downloading urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+#17 10.79 Collecting markdown-it-py>=2.2.0 (from rich>=12.0.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 10.80   Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+#17 10.85 Collecting shellingham>=1.3.0 (from typer>=0.9.0->hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 10.85   Downloading shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+#17 11.00 Collecting google-auth<3.0.0,>=2.48.1 (from google-auth[requests]<3.0.0,>=2.48.1->google-genai->hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 11.01   Downloading google_auth-2.55.0-py3-none-any.whl.metadata (5.1 kB)
+#17 11.02 Collecting tenacity<9.2.0,>=8.2.3 (from google-genai->hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 11.03   Downloading tenacity-9.1.4-py3-none-any.whl.metadata (1.2 kB)
+#17 11.09 Collecting caio~=0.9.0 (from aiofile>=3.5.0->py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 11.10   Downloading caio-0.9.25-cp311-cp311-manylinux_2_34_x86_64.whl.metadata (3.3 kB)
+#17 11.24 Collecting cffi>=2.0.0 (from cryptography>=39.0->asyncssh>=2.23.0->hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 11.24   Downloading cffi-2.0.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.6 kB)
+#17 11.26 Collecting dnspython>=2.0.0 (from email-validator>=2.0.0->pydantic[email]>=2.11.7->fastmcp-slim==3.4.2->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 11.27   Downloading dnspython-2.8.0-py3-none-any.whl.metadata (5.7 kB)
+#17 11.30 Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.48.1->google-auth[requests]<3.0.0,>=2.48.1->google-genai->hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 11.31   Downloading pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+#17 11.36 Collecting hyperframe<7,>=6.1 (from h2<5,>=3.1.0->grpclib<0.4.10,>=0.4.7->modal>=1.0->vance-safeopsrl==0.1.0)
+#17 11.36   Downloading hyperframe-6.1.0-py3-none-any.whl.metadata (4.3 kB)
+#17 11.37 Collecting hpack<5,>=4.1 (from h2<5,>=3.1.0->grpclib<0.4.10,>=0.4.7->modal>=1.0->vance-safeopsrl==0.1.0)
+#17 11.37   Downloading hpack-4.1.0-py3-none-any.whl.metadata (4.6 kB)
+#17 11.43 Collecting zipp>=3.20 (from importlib-metadata>=6.8.0->litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 11.43   Downloading zipp-4.1.0-py3-none-any.whl.metadata (3.6 kB)
+#17 11.48 Collecting MarkupSafe>=2.0 (from jinja2<4.0.0,>=3.1.2->litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 11.48   Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+#17 11.53 Collecting jsonschema-specifications>=2023.03.6 (from jsonschema<5.0.0,>=4.22.0->litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 11.53   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+#17 11.70 Collecting rpds-py>=0.25.0 (from jsonschema<5.0.0,>=4.22.0->litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 11.70   Downloading rpds_py-2026.5.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+#17 11.96 Collecting SecretStorage>=3.2 (from keyring>=25.6.0->py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 11.97   Downloading secretstorage-3.5.0-py3-none-any.whl.metadata (4.0 kB)
+#17 11.98 Collecting jeepney>=0.4.2 (from keyring>=25.6.0->py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 11.98   Downloading jeepney-0.9.0-py3-none-any.whl.metadata (1.2 kB)
+#17 12.00 Collecting jaraco.classes (from keyring>=25.6.0->py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 12.00   Downloading jaraco.classes-3.4.0-py3-none-any.whl.metadata (2.6 kB)
+#17 12.01 Collecting jaraco.functools (from keyring>=25.6.0->py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 12.01   Downloading jaraco_functools-4.5.0-py3-none-any.whl.metadata (2.9 kB)
+#17 12.02 Collecting jaraco.context (from keyring>=25.6.0->py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 12.03   Downloading jaraco_context-6.1.2-py3-none-any.whl.metadata (4.2 kB)
+#17 12.05 Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=12.0.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 12.05   Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+#17 12.59 Collecting regex (from tiktoken>=0.7.0->litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 12.59   Downloading regex-2026.5.9-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+#17 12.59      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.4/40.4 kB 627.9 MB/s eta 0:00:00
+#17 12.61 Collecting mypy-extensions>=0.3.0 (from typing-inspect<1,>=0.4.0->dataclasses-json>=0.5.7->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 12.62   Downloading mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+#17 12.72 Collecting huggingface-hub<2.0,>=0.16.4 (from tokenizers->litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 12.72   Downloading huggingface_hub-1.20.1-py3-none-any.whl.metadata (14 kB)
+#17 12.76 Collecting pycparser (from cffi>=2.0.0->cryptography>=39.0->asyncssh>=2.23.0->hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 12.76   Downloading pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+#17 12.84 Collecting filelock>=3.10.0 (from huggingface-hub<2.0,>=0.16.4->tokenizers->litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 12.84   Downloading filelock-3.29.4-py3-none-any.whl.metadata (2.0 kB)
+#17 12.86 Collecting fsspec>=2023.5.0 (from huggingface-hub<2.0,>=0.16.4->tokenizers->litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 12.87   Downloading fsspec-2026.6.0-py3-none-any.whl.metadata (10 kB)
+#17 12.89 Collecting hf-xet<2.0.0,>=1.5.1 (from huggingface-hub<2.0,>=0.16.4->tokenizers->litellm<1.75.0->eval-protocol>=0.2->vance-safeopsrl==0.1.0)
+#17 12.89   Downloading hf_xet-1.5.1-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+#17 12.91 Collecting typer>=0.9.0 (from hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 12.91   Downloading typer-0.25.1-py3-none-any.whl.metadata (15 kB)
+#17 13.01 Collecting pyasn1<0.7.0,>=0.6.1 (from pyasn1-modules>=0.2.1->google-auth<3.0.0,>=2.48.1->google-auth[requests]<3.0.0,>=2.48.1->google-genai->hud-python>=0.6->vance-safeopsrl==0.1.0)
+#17 13.01   Downloading pyasn1-0.6.3-py3-none-any.whl.metadata (8.4 kB)
+#17 13.08 Collecting more-itertools (from jaraco.classes->keyring>=25.6.0->py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 13.08   Downloading more_itertools-11.1.0-py3-none-any.whl.metadata (41 kB)
+#17 13.09      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 41.4/41.4 kB 3.7 MB/s eta 0:00:00
+#17 13.11 Collecting backports.tarfile (from jaraco.context->keyring>=25.6.0->py-key-value-aio[filetree,keyring,memory]<0.5.0,>=0.4.4; extra == "client"->fastmcp-slim[client,server]==3.4.2->fastmcp>=3.0->vance-safeopsrl==0.1.0)
+#17 13.12   Downloading backports.tarfile-1.2.0-py3-none-any.whl.metadata (2.0 kB)
+#17 13.24 Downloading eval_protocol-0.3.31-py3-none-any.whl (2.2 MB)
+#17 13.44    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 11.1 MB/s eta 0:00:00
+#17 13.44 Downloading fastapi-0.138.0-py3-none-any.whl (126 kB)
+#17 13.45    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 126.8/126.8 kB 12.7 MB/s eta 0:00:00
+#17 13.46 Downloading hud_python-0.6.7-py3-none-any.whl (431 kB)
+#17 13.47    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 431.6/431.6 kB 55.1 MB/s eta 0:00:00
+#17 13.47 Downloading fastmcp-3.0.2-py3-none-any.whl (606 kB)
+#17 13.50    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 606.3/606.3 kB 24.5 MB/s eta 0:00:00
+#17 13.51 Downloading prompt_toolkit-3.0.51-py3-none-any.whl (387 kB)
+#17 13.52    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 387.8/387.8 kB 47.4 MB/s eta 0:00:00
+#17 13.52 Downloading questionary-2.1.0-py3-none-any.whl (36 kB)
+#17 13.53 Downloading modal-1.5.0-py3-none-any.whl (882 kB)
+#17 13.58    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 882.1/882.1 kB 17.2 MB/s eta 0:00:00
+#17 13.59 Downloading openai-2.43.0-py3-none-any.whl (1.4 MB)
+#17 13.74    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 8.6 MB/s eta 0:00:00
+#17 13.75 Downloading python_dotenv-1.2.2-py3-none-any.whl (22 kB)
+#17 13.75 Downloading uvicorn-0.49.0-py3-none-any.whl (71 kB)
+#17 13.76    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 71.4/71.4 kB 26.8 MB/s eta 0:00:00
+#17 13.76 Downloading addict-2.4.0-py3-none-any.whl (3.8 kB)
+#17 13.77 Downloading annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+#17 13.77 Downloading anthropic-0.111.0-py3-none-any.whl (929 kB)
+#17 13.80    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 929.8/929.8 kB 44.2 MB/s eta 0:00:00
+#17 13.80 Downloading anyio-4.14.0-py3-none-any.whl (123 kB)
+#17 13.80    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 123.5/123.5 kB 123.0 MB/s eta 0:00:00
+#17 13.81 Downloading asyncssh-2.23.1-py3-none-any.whl (376 kB)
+#17 13.84    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 376.1/376.1 kB 14.2 MB/s eta 0:00:00
+#17 13.84 Downloading asyncvnc-1.3.0-py3-none-any.whl (19 kB)
+#17 13.85 Downloading authlib-1.7.2-py2.py3-none-any.whl (259 kB)
+#17 13.89    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 259.5/259.5 kB 6.8 MB/s eta 0:00:00
+#17 13.89 Downloading backoff-2.2.1-py3-none-any.whl (15 kB)
+#17 13.90 Downloading click-8.4.1-py3-none-any.whl (116 kB)
+#17 13.90    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 116.6/116.6 kB 118.5 MB/s eta 0:00:00
+#17 13.91 Downloading cyclopts-4.18.0-py3-none-any.whl (221 kB)
+#17 13.91    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 221.2/221.2 kB 42.1 MB/s eta 0:00:00
+#17 13.92 Downloading dataclasses_json-0.6.7-py3-none-any.whl (28 kB)
+#17 13.92 Downloading deepdiff-9.1.0-py3-none-any.whl (184 kB)
+#17 13.94    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 184.7/184.7 kB 11.3 MB/s eta 0:00:00
+#17 13.95 Downloading distro-1.9.0-py3-none-any.whl (20 kB)
+#17 13.95 Downloading docstring_parser-0.18.0-py3-none-any.whl (22 kB)
+#17 13.96 Downloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+#17 13.96 Downloading fireworks_ai-1.2.0a83-py3-none-any.whl (517 kB)
+#17 14.06    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 517.5/517.5 kB 5.1 MB/s eta 0:00:00
+#17 14.07 Downloading grpclib-0.4.9-py3-none-any.whl (77 kB)
+#17 14.07    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 77.1/77.1 kB 65.8 MB/s eta 0:00:00
+#17 14.08 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#17 14.08 Downloading httptools-0.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (464 kB)
+#17 14.09    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 464.7/464.7 kB 50.1 MB/s eta 0:00:00
+#17 14.10 Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+#17 14.10    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.5/73.5 kB 98.7 MB/s eta 0:00:00
+#17 14.10 Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+#17 14.11    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.8/78.8 kB 72.1 MB/s eta 0:00:00
+#17 14.12 Downloading hydra_core-1.3.3-py3-none-any.whl (154 kB)
+#17 14.13    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 154.7/154.7 kB 15.2 MB/s eta 0:00:00
+#17 14.14 Downloading jiter-0.15.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (349 kB)
+#17 14.15    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 349.4/349.4 kB 29.2 MB/s eta 0:00:00
+#17 14.16 Downloading jsonref-1.1.0-py3-none-any.whl (9.4 kB)
+#17 14.18 Downloading jsonschema_path-0.5.0-py3-none-any.whl (24 kB)
+#17 14.18 Downloading aiohttp-3.14.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.8 MB)
+#17 14.24    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 35.8 MB/s eta 0:00:00
+#17 14.25 Downloading loguru-0.7.3-py3-none-any.whl (61 kB)
+#17 14.25    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.6/61.6 kB 737.3 MB/s eta 0:00:00
+#17 14.26 Downloading mcp-1.28.0-py3-none-any.whl (221 kB)
+#17 14.27    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 222.0/222.0 kB 18.9 MB/s eta 0:00:00
+#17 14.28 Downloading omegaconf-2.3.1-py3-none-any.whl (79 kB)
+#17 14.29    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 79.5/79.5 kB 7.8 MB/s eta 0:00:00
+#17 14.30 Downloading openapi_pydantic-0.5.1-py3-none-any.whl (96 kB)
+#17 14.31    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.4/96.4 kB 9.3 MB/s eta 0:00:00
+#17 14.32 Downloading opentelemetry_api-1.42.1-py3-none-any.whl (61 kB)
+#17 14.32    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.3/61.3 kB 721.6 MB/s eta 0:00:00
+#17 14.33 Downloading packaging-26.2-py3-none-any.whl (100 kB)
+#17 14.34    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 8.8 MB/s eta 0:00:00
+#17 14.35 Downloading peewee-4.1.0-py3-none-any.whl (155 kB)
+#17 14.36    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 155.1/155.1 kB 14.6 MB/s eta 0:00:00
+#17 14.36 Downloading pillow-12.2.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+#17 14.52    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 46.0 MB/s eta 0:00:00
+#17 14.54 Downloading platformdirs-4.10.0-py3-none-any.whl (22 kB)
+#17 14.54 Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
+#17 14.56    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 323.4/323.4 kB 22.6 MB/s eta 0:00:00
+#17 14.57 Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+#17 14.58    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 155.6/155.6 kB 13.5 MB/s eta 0:00:00
+#17 14.58 Downloading py_key_value_aio-0.4.5-py3-none-any.whl (170 kB)
+#17 14.59    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 170.0/170.0 kB 15.0 MB/s eta 0:00:00
+#17 14.60 Downloading pydantic-2.12.5-py3-none-any.whl (463 kB)
+#17 14.62    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 463.6/463.6 kB 27.2 MB/s eta 0:00:00
+#17 14.63 Downloading pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+#17 14.84    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 10.4 MB/s eta 0:00:00
+#17 14.85 Downloading pydantic_settings-2.14.2-py3-none-any.whl (61 kB)
+#17 14.87    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.7/61.7 kB 3.9 MB/s eta 0:00:00
+#17 14.88 Downloading pyperclip-1.11.0-py3-none-any.whl (11 kB)
+#17 14.90 Downloading pytest-9.1.1-py3-none-any.whl (386 kB)
+#17 15.03    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 386.5/386.5 kB 2.9 MB/s eta 0:00:00
+#17 15.04 Downloading pytest_asyncio-1.4.0-py3-none-any.whl (16 kB)
+#17 15.06 Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+#17 15.29    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 806.6/806.6 kB 3.4 MB/s eta 0:00:00
+#17 15.30 Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+#17 15.31    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.1/73.1 kB 7.0 MB/s eta 0:00:00
+#17 15.33 Downloading certifi-2026.6.17-py3-none-any.whl (133 kB)
+#17 15.36    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.3/133.3 kB 4.6 MB/s eta 0:00:00
+#17 15.37 Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+#17 15.44    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 310.7/310.7 kB 4.9 MB/s eta 0:00:00
+#17 15.45 Downloading starlette-1.3.1-py3-none-any.whl (73 kB)
+#17 15.46    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.6/73.6 kB 4.6 MB/s eta 0:00:00
+#17 15.48 Downloading synchronicity-0.12.5-py3-none-any.whl (41 kB)
+#17 15.48    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 41.1/41.1 kB 391.9 MB/s eta 0:00:00
+#17 15.49 Downloading toml-0.10.2-py2.py3-none-any.whl (16 kB)
+#17 15.51 Downloading tqdm-4.68.3-py3-none-any.whl (78 kB)
+#17 15.52    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.3/78.3 kB 4.8 MB/s eta 0:00:00
+#17 15.53 Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+#17 15.54    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 kB 600.8 MB/s eta 0:00:00
+#17 15.55 Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+#17 15.57 Downloading uvloop-0.22.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.8 MB)
+#17 16.20    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.8/3.8 MB 6.0 MB/s eta 0:00:00
+#17 16.21 Downloading watchfiles-1.2.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (456 kB)
+#17 16.27    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 456.9/456.9 kB 8.2 MB/s eta 0:00:00
+#17 16.28 Downloading websockets-16.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (184 kB)
+#17 16.30    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 184.6/184.6 kB 10.5 MB/s eta 0:00:00
+#17 16.31 Downloading zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+#17 16.78    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.6/5.6 MB 12.1 MB/s eta 0:00:00
+#17 16.79 Downloading aiosqlite-0.22.1-py3-none-any.whl (17 kB)
+#17 16.80 Downloading cbor2-6.1.2-cp311-cp311-manylinux_2_28_x86_64.whl (468 kB)
+#17 16.84    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 468.8/468.8 kB 11.5 MB/s eta 0:00:00
+#17 16.86 Downloading google_genai-2.9.0-py3-none-any.whl (950 kB)
+#17 16.93    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 950.8/950.8 kB 12.5 MB/s eta 0:00:00
+#17 16.95 Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)
+#17 16.97 Downloading types_certifi-2021.10.8.3-py3-none-any.whl (2.1 kB)
+#17 16.98 Downloading types_toml-0.10.8.20260518-py3-none-any.whl (9.7 kB)
+#17 17.00 Downloading aiofile-3.11.1-py3-none-any.whl (20 kB)
+#17 17.01 Downloading aiohappyeyeballs-2.6.2-py3-none-any.whl (15 kB)
+#17 17.03 Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+#17 17.04 Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
+#17 17.06 Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+#17 17.07    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 67.5/67.5 kB 6.0 MB/s eta 0:00:00
+#17 17.08 Downloading beartype-0.22.9-py3-none-any.whl (1.3 MB)
+#17 17.17    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 14.5 MB/s eta 0:00:00
+#17 17.18 Downloading cachebox-5.2.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (395 kB)
+#17 17.21    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 395.8/395.8 kB 14.8 MB/s eta 0:00:00
+#17 17.22 Downloading cachetools-7.1.4-py3-none-any.whl (16 kB)
+#17 17.23 Downloading charset_normalizer-3.4.7-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (214 kB)
+#17 17.26    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 214.1/214.1 kB 8.5 MB/s eta 0:00:00
+#17 17.27 Downloading cryptography-49.0.0-cp311-abi3-manylinux_2_34_x86_64.whl (4.7 MB)
+#17 17.51    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 19.7 MB/s eta 0:00:00
+#17 17.52 Downloading email_validator-2.3.0-py3-none-any.whl (35 kB)
+#17 17.53 Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (231 kB)
+#17 17.55    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 231.1/231.1 kB 14.3 MB/s eta 0:00:00
+#17 17.56 Downloading google_auth-2.55.0-py3-none-any.whl (252 kB)
+#17 17.57    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 252.4/252.4 kB 15.6 MB/s eta 0:00:00
+#17 17.59 Downloading h2-4.3.0-py3-none-any.whl (61 kB)
+#17 17.59    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.8/61.8 kB 705.1 MB/s eta 0:00:00
+#17 17.60 Downloading httpx_aiohttp-0.1.12-py3-none-any.whl (6.4 kB)
+#17 17.62 Downloading httpx_sse-0.4.3-py3-none-any.whl (9.0 kB)
+#17 17.63 Downloading idna-3.18-py3-none-any.whl (65 kB)
+#17 17.64    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 65.5/65.5 kB 6.6 MB/s eta 0:00:00
+#17 17.65 Downloading importlib_metadata-9.0.0-py3-none-any.whl (27 kB)
+#17 17.67 Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+#17 17.68 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#17 17.70    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 kB 6.3 MB/s eta 0:00:00
+#17 17.71 Downloading joserfc-1.7.1-py3-none-any.whl (70 kB)
+#17 17.72    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.4/70.4 kB 6.5 MB/s eta 0:00:00
+#17 17.73 Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+#17 17.74    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.6/90.6 kB 8.7 MB/s eta 0:00:00
+#17 17.76 Downloading keyring-25.7.0-py3-none-any.whl (39 kB)
+#17 17.76 Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+#17 17.77    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 91.7/91.7 kB 8.3 MB/s eta 0:00:00
+#17 17.79 Downloading marshmallow-3.26.2-py3-none-any.whl (50 kB)
+#17 17.79    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 51.0/51.0 kB 706.1 MB/s eta 0:00:00
+#17 17.80 Downloading multidict-6.7.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (246 kB)
+#17 17.82    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 246.3/246.3 kB 13.7 MB/s eta 0:00:00
+#17 17.83 Downloading orderly_set-5.5.0-py3-none-any.whl (13 kB)
+#17 17.84 Downloading pathable-0.6.0-py3-none-any.whl (18 kB)
+#17 17.86 Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+#17 17.87 Downloading propcache-0.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (58 kB)
+#17 17.87    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.9/58.9 kB 552.9 MB/s eta 0:00:00
+#17 17.88 Downloading pygments-2.20.0-py3-none-any.whl (1.2 MB)
+#17 17.94    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 20.8 MB/s eta 0:00:00
+#17 17.96 Downloading pyjwt-2.13.0-py3-none-any.whl (31 kB)
+#17 17.97 Downloading python_multipart-0.0.32-py3-none-any.whl (30 kB)
+#17 17.99 Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+#17 18.00 Downloading rich_rst-2.0.1-py3-none-any.whl (272 kB)
+#17 18.02    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 272.9/272.9 kB 10.4 MB/s eta 0:00:00
+#17 18.04 Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+#17 18.05 Downloading sse_starlette-3.4.5-py3-none-any.whl (16 kB)
+#17 18.07 Downloading tenacity-9.1.4-py3-none-any.whl (28 kB)
+#17 18.08 Downloading tiktoken-0.13.0-cp311-cp311-manylinux_2_28_x86_64.whl (1.1 MB)
+#17 18.14    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 18.8 MB/s eta 0:00:00
+#17 18.16 Downloading typing_inspect-0.9.0-py3-none-any.whl (8.8 kB)
+#17 18.16 Downloading urllib3-2.7.0-py3-none-any.whl (131 kB)
+#17 18.17    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.1/131.1 kB 12.2 MB/s eta 0:00:00
+#17 18.18 Downloading yarl-1.24.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (106 kB)
+#17 18.20    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 106.4/106.4 kB 10.3 MB/s eta 0:00:00
+#17 18.21 Downloading keysymdef-1.2.0-py2.py3-none-any.whl (20 kB)
+#17 18.22 Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
+#17 19.73    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 8.2 MB/s eta 0:00:00
+#17 19.74 Downloading tokenizers-0.23.1-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+#17 20.01    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 12.2 MB/s eta 0:00:00
+#17 20.02 Downloading wcwidth-0.8.1-py3-none-any.whl (323 kB)
+#17 20.05    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 323.1/323.1 kB 12.6 MB/s eta 0:00:00
+#17 20.06 Downloading caio-0.9.25-cp311-cp311-manylinux_2_34_x86_64.whl (78 kB)
+#17 20.07    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.3/78.3 kB 7.4 MB/s eta 0:00:00
+#17 20.08 Downloading cffi-2.0.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (215 kB)
+#17 20.11    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 215.6/215.6 kB 8.3 MB/s eta 0:00:00
+#17 20.12 Downloading dnspython-2.8.0-py3-none-any.whl (331 kB)
+#17 20.15    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 331.1/331.1 kB 13.8 MB/s eta 0:00:00
+#17 20.16 Downloading hpack-4.1.0-py3-none-any.whl (34 kB)
+#17 20.17 Downloading huggingface_hub-1.20.1-py3-none-any.whl (719 kB)
+#17 20.22    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 719.8/719.8 kB 14.3 MB/s eta 0:00:00
+#17 20.24 Downloading typer-0.25.1-py3-none-any.whl (58 kB)
+#17 20.24    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.4/58.4 kB 634.3 MB/s eta 0:00:00
+#17 20.25 Downloading hyperframe-6.1.0-py3-none-any.whl (13 kB)
+#17 20.27 Downloading jeepney-0.9.0-py3-none-any.whl (49 kB)
+#17 20.27    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 49.0/49.0 kB 587.3 MB/s eta 0:00:00
+#17 20.28 Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+#17 20.30 Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+#17 20.31 Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+#17 20.33 Downloading mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+#17 20.34 Downloading pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+#17 20.35    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 181.3/181.3 kB 12.0 MB/s eta 0:00:00
+#17 20.36 Downloading rpds_py-2026.5.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (378 kB)
+#17 20.39    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 378.0/378.0 kB 12.6 MB/s eta 0:00:00
+#17 20.41 Downloading secretstorage-3.5.0-py3-none-any.whl (15 kB)
+#17 20.42 Downloading zipp-4.1.0-py3-none-any.whl (10 kB)
+#17 20.44 Downloading jaraco.classes-3.4.0-py3-none-any.whl (6.8 kB)
+#17 20.45 Downloading jaraco_context-6.1.2-py3-none-any.whl (7.9 kB)
+#17 20.47 Downloading jaraco_functools-4.5.0-py3-none-any.whl (10 kB)
+#17 20.48 Downloading regex-2026.5.9-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (799 kB)
+#17 20.55    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 799.8/799.8 kB 12.6 MB/s eta 0:00:00
+#17 20.56 Downloading filelock-3.29.4-py3-none-any.whl (42 kB)
+#17 20.56    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.8/42.8 kB 633.4 MB/s eta 0:00:00
+#17 20.57 Downloading fsspec-2026.6.0-py3-none-any.whl (203 kB)
+#17 20.60    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 203.9/203.9 kB 8.3 MB/s eta 0:00:00
+#17 20.61 Downloading hf_xet-1.5.1-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+#17 20.89    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 16.1 MB/s eta 0:00:00
+#17 20.91 Downloading pyasn1-0.6.3-py3-none-any.whl (83 kB)
+#17 20.92    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 84.0/84.0 kB 7.9 MB/s eta 0:00:00
+#17 20.93 Downloading backports.tarfile-1.2.0-py3-none-any.whl (30 kB)
+#17 20.94 Downloading more_itertools-11.1.0-py3-none-any.whl (72 kB)
+#17 20.96    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 72.2/72.2 kB 6.4 MB/s eta 0:00:00
+#17 20.97 Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+#17 20.97    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.2/48.2 kB 587.3 MB/s eta 0:00:00
+#17 21.07 Building wheels for collected packages: vance-safeopsrl, antlr4-python3-runtime, litellm
+#17 21.07   Building editable for vance-safeopsrl (pyproject.toml): started
+#17 21.17   Building editable for vance-safeopsrl (pyproject.toml): finished with status 'done'
+#17 21.17   Created wheel for vance-safeopsrl: filename=vance_safeopsrl-0.1.0-0.editable-py3-none-any.whl size=4358 sha256=1d9b92aa5cf99cce07940ab74a9baca36f0cfc4434e7a0616c1b0674ed84a42b
+#17 21.17   Stored in directory: /tmp/pip-ephem-wheel-cache-akmck77d/wheels/57/0f/98/bb57b2b57b95807699b822a35c022f139d38a02c27922f27ce
+#17 21.18   Building wheel for antlr4-python3-runtime (setup.py): started
+#17 21.29   Building wheel for antlr4-python3-runtime (setup.py): finished with status 'done'
+#17 21.29   Created wheel for antlr4-python3-runtime: filename=antlr4_python3_runtime-4.9.3-py3-none-any.whl size=144590 sha256=a09bfc20e9a0c29b2a27703d01f5d14d24e02359a169986e8239c6898b767e65
+#17 21.29   Stored in directory: /tmp/pip-ephem-wheel-cache-akmck77d/wheels/1a/97/32/461f837398029ad76911109f07047fde1d7b661a147c7c56d1
+#17 21.29   Building wheel for litellm (pyproject.toml): started
+#17 22.09   Building wheel for litellm (pyproject.toml): finished with status 'done'
+#17 22.10   Created wheel for litellm: filename=litellm-1.74.15.post2-py3-none-any.whl size=8838867 sha256=c2728b0836065b43cd3215cb91e07ba430f90dea93b52f58e8f5ef6a068802bb
+#17 22.10   Stored in directory: /tmp/pip-ephem-wheel-cache-akmck77d/wheels/d0/56/de/7735f6b5c4dc746f1d045cb4c12337ae7d66ab62703a5b675d
+#17 22.10 Successfully built vance-safeopsrl antlr4-python3-runtime litellm
+#17 22.49 Installing collected packages: types-certifi, pyperclip, peewee, keysymdef, antlr4-python3-runtime, addict, zstandard, zipp, websockets, wcwidth, uvloop, urllib3, typing-extensions, types-toml, tqdm, toml, tenacity, sniffio, shellingham, rpds-py, regex, PyYAML, python-multipart, python-dotenv, pyjwt, pygments, pycparser, pyasn1, psutil, protobuf, propcache, pluggy, platformdirs, pillow, pathable, packaging, orderly-set, numpy, mypy-extensions, multidict, more-itertools, mdurl, MarkupSafe, loguru, jsonref, jiter, jeepney, iniconfig, idna, hyperframe, httpx-sse, httptools, hpack, hf-xet, h11, fsspec, frozenlist, filelock, docstring-parser, dnspython, distro, click, charset_normalizer, certifi, cbor2, caio, cachetools, cachebox, beartype, backports.tarfile, backoff, attrs, annotated-types, annotated-doc, aiosqlite, aiohappyeyeballs, yarl, uvicorn, typing-inspection, typing-inspect, synchronicity, requests, referencing, pytest, pydantic-core, pyasn1-modules, py-key-value-aio, prompt-toolkit, opentelemetry-api, omegaconf, marshmallow, markdown-it-py, jinja2, jaraco.functools, jaraco.context, jaraco.classes, importlib-metadata, httpcore, h2, exceptiongroup, email-validator, deepdiff, cffi, anyio, aiosignal, aiofile, watchfiles, tiktoken, starlette, rich, questionary, pytest-asyncio, pydantic, jsonschema-specifications, jsonschema-path, hydra-core, httpx, grpclib, dataclasses-json, cryptography, aiohttp, typer, sse-starlette, SecretStorage, rich-rst, pydantic-settings, openapi-pydantic, openai, modal, jsonschema, joserfc, httpx-aiohttp, google-auth, fastapi, asyncvnc, asyncssh, anthropic, mcp, keyring, huggingface-hub, fireworks-ai, cyclopts, authlib, tokenizers, google-genai, litellm, fastmcp, hud-python, eval-protocol, vance-safeopsrl
+#17 32.47 Successfully installed MarkupSafe-3.0.3 PyYAML-6.0.3 SecretStorage-3.5.0 addict-2.4.0 aiofile-3.11.1 aiohappyeyeballs-2.6.2 aiohttp-3.14.1 aiosignal-1.4.0 aiosqlite-0.22.1 annotated-doc-0.0.4 annotated-types-0.7.0 anthropic-0.111.0 antlr4-python3-runtime-4.9.3 anyio-4.14.0 asyncssh-2.23.1 asyncvnc-1.3.0 attrs-26.1.0 authlib-1.7.2 backoff-2.2.1 backports.tarfile-1.2.0 beartype-0.22.9 cachebox-5.2.3 cachetools-7.1.4 caio-0.9.25 cbor2-6.1.2 certifi-2026.6.17 cffi-2.0.0 charset_normalizer-3.4.7 click-8.4.1 cryptography-49.0.0 cyclopts-4.18.0 dataclasses-json-0.6.7 deepdiff-9.1.0 distro-1.9.0 dnspython-2.8.0 docstring-parser-0.18.0 email-validator-2.3.0 eval-protocol-0.3.31 exceptiongroup-1.3.1 fastapi-0.138.0 fastmcp-3.0.2 filelock-3.29.4 fireworks-ai-1.2.0a83 frozenlist-1.8.0 fsspec-2026.6.0 google-auth-2.55.0 google-genai-2.9.0 grpclib-0.4.9 h11-0.16.0 h2-4.3.0 hf-xet-1.5.1 hpack-4.1.0 httpcore-1.0.9 httptools-0.8.0 httpx-0.28.1 httpx-aiohttp-0.1.12 httpx-sse-0.4.3 hud-python-0.6.7 huggingface-hub-1.20.1 hydra-core-1.3.3 hyperframe-6.1.0 idna-3.18 importlib-metadata-9.0.0 iniconfig-2.3.0 jaraco.classes-3.4.0 jaraco.context-6.1.2 jaraco.functools-4.5.0 jeepney-0.9.0 jinja2-3.1.6 jiter-0.15.0 joserfc-1.7.1 jsonref-1.1.0 jsonschema-4.26.0 jsonschema-path-0.5.0 jsonschema-specifications-2025.9.1 keyring-25.7.0 keysymdef-1.2.0 litellm-1.74.15.post2 loguru-0.7.3 markdown-it-py-4.2.0 marshmallow-3.26.2 mcp-1.28.0 mdurl-0.1.2 modal-1.5.0 more-itertools-11.1.0 multidict-6.7.1 mypy-extensions-1.1.0 numpy-2.4.6 omegaconf-2.3.1 openai-2.43.0 openapi-pydantic-0.5.1 opentelemetry-api-1.42.1 orderly-set-5.5.0 packaging-26.2 pathable-0.6.0 peewee-4.1.0 pillow-12.2.0 platformdirs-4.10.0 pluggy-1.6.0 prompt-toolkit-3.0.51 propcache-0.5.2 protobuf-6.33.6 psutil-7.2.2 py-key-value-aio-0.4.5 pyasn1-0.6.3 pyasn1-modules-0.4.2 pycparser-3.0 pydantic-2.12.5 pydantic-core-2.41.5 pydantic-settings-2.14.2 pygments-2.20.0 pyjwt-2.13.0 pyperclip-1.11.0 pytest-9.1.1 pytest-asyncio-1.4.0 python-dotenv-1.2.2 python-multipart-0.0.32 questionary-2.1.0 referencing-0.37.0 regex-2026.5.9 requests-2.34.2 rich-15.0.0 rich-rst-2.0.1 rpds-py-2026.5.1 shellingham-1.5.4 sniffio-1.3.1 sse-starlette-3.4.5 starlette-1.3.1 synchronicity-0.12.5 tenacity-9.1.4 tiktoken-0.13.0 tokenizers-0.23.1 toml-0.10.2 tqdm-4.68.3 typer-0.25.1 types-certifi-2021.10.8.3 types-toml-0.10.8.20260518 typing-extensions-4.15.0 typing-inspect-0.9.0 typing-inspection-0.4.2 urllib3-2.7.0 uvicorn-0.49.0 uvloop-0.22.1 vance-safeopsrl-0.1.0 watchfiles-1.2.0 wcwidth-0.8.1 websockets-16.0 yarl-1.24.2 zipp-4.1.0 zstandard-0.25.0
+#17 32.47 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#17 32.52 
+#17 32.52 [notice] A new release of pip is available: 24.0 -> 26.1.2
+#17 32.52 [notice] To update, run: pip install --upgrade pip
+#17 DONE 34.4s
+
+#18 exporting to image
+#18 exporting layers
+#18 exporting layers 7.6s done
+#18 exporting manifest sha256:df99037e1240c1df8950dfc20d28166d868f760f410a1403c02e128da7f5b21b 0.0s done
+#18 exporting config sha256:60d6dd82148a238c536efc62c37ec01c413eb2a77e2edfe595a272f377987bef 0.0s done
+#18 exporting attestation manifest sha256:1f82e72fdf000231c02645c86d608fd4aa5cd292673873bce5cd39391793105d 0.0s done
+#18 exporting manifest list sha256:44292e0072d8431bc2817a8beff42e09e70078101ffcb6489334b4beba7dde6b 0.0s done
+#18 naming to docker.io/library/ep-evaluator:local done
+#18 unpacking to docker.io/library/ep-evaluator:local
+#18 unpacking to docker.io/library/ep-evaluator:local 2.1s done
+#18 DONE 9.8s
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0 -- /usr/local/bin/python3.11
+cachedir: .pytest_cache
+rootdir: /workspace
+configfile: pyproject.toml
+plugins: anyio-4.14.0, eval-protocol-0.3.31, hydra-core-1.3.3, asyncio-1.4.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 1 item
+
+fireworks_evaluator/test_vance_remote.py::test_vance_remote_rollout[2048:fireworks_ai/accounts/dharunsivakumar/deployments/kyvagfny:0.8] Tip: Run `ep logs` in another terminal to start the local UI before viewing results.
+PASSED
+
+============================== 1 passed in 27.98s ==============================
+
+Running in Docker: docker run --rm -v /home/dharunvs/Documents/MyApps/hud-yc/vance:/workspace -v /home/dharunvs/.eval_protocol:/container_home/.eval_protocol -e HOME=/container_home -e EVAL_PROTOCOL_DIR=/container_home/.eval_protocol -w /workspace --user 1000:1000 ep-evaluator:local pytest --ep-success-threshold 0.001 fireworks_evaluator/test_vance_remote.py::test_vance_remote_rollout -vs
+
+🔐 Managing secrets for Fireworks account: dharunsivakumar
+Loading secrets from: /home/dharunvs/Documents/MyApps/hud-yc/vance/.env
+Checking existing secrets on Fireworks...
+Found 1 existing secret(s): FIREWORKS_API_KEY
+
+Uploading 15 selected secret(s) to Fireworks...
+Creating VANCE_MODE on Fireworks... (.env: f***k)
+✓ VANCE_MODE secret created on Fireworks.
+Creating VANCE_HOST on Fireworks... (.env: 1***1)
+✓ VANCE_HOST secret created on Fireworks.
+Creating VANCE_PORT on Fireworks... (.env: 8***0)
+✓ VANCE_PORT secret created on Fireworks.
+Creating VANCE_TASK_DIR on Fireworks... (.env: t***s)
+✓ VANCE_TASK_DIR secret created on Fireworks.
+Creating VANCE_TRACE_DIR on Fireworks... (.env: evals/***aces)
+✓ VANCE_TRACE_DIR secret created on Fireworks.
+Creating VANCE_DEMO_TRACE_DIR on Fireworks... (.env: demo/s***aces)
+✓ VANCE_DEMO_TRACE_DIR secret created on Fireworks.
+Overwriting FIREWORKS_API_KEY on Fireworks... (.env: fw_kqa***Voey)
+✓ FIREWORKS_API_KEY secret updated on Fireworks.
+Creating FIREWORKS_MODEL on Fireworks... (.env: accoun***gfny)
+✓ FIREWORKS_MODEL secret created on Fireworks.
+Creating FIREWORKS_BASE_URL on Fireworks... (.env: https:***e/v1)
+✓ FIREWORKS_BASE_URL secret created on Fireworks.
+Creating HUD_API_KEY on Fireworks... (.env: sk-hud***F-u4)
+✓ HUD_API_KEY secret created on Fireworks.
+Creating HUD_ENV_ID on Fireworks... (.env: 28b93f***50aa)
+✓ HUD_ENV_ID secret created on Fireworks.
+Creating HUD_PROJECT on Fireworks... (.env: vance-***psrl)
+✓ HUD_PROJECT secret created on Fireworks.
+Creating DAYTONA_API_KEY on Fireworks... (.env: <empty>)
+Warning: Failed to create DAYTONA_API_KEY secret on Fireworks.
+Creating EXA_API_KEY on Fireworks... (.env: <empty>)
+Warning: Failed to create EXA_API_KEY secret on Fireworks.
+Creating MINIMAX_API_KEY on Fireworks... (.env: <empty>)
+Warning: Failed to create MINIMAX_API_KEY secret on Fireworks.
+✓ Evaluator exists (state: ACTIVE). Skipping upload (use --force to overwrite).
+Waiting for evaluator 'test-vance-remote-test-vance-remote-rollout' to become ACTIVE...
+Polling evaluator status (timeout: 10m, interval: 10s)...
+✅ Evaluator is ACTIVE and ready!
+Prepared RFT job for evaluator 'test-vance-remote-test-vance-remote-rollout' using dataset 'vance-rft-prompts'
+Error creating RFT job: Error code: 400 - {'code': 3, 'details': [], 'message': 'error parsing output model name: vance-qwen3-4b-rft-v6 due to name must be in the format: "accounts/<accounts-id>/models/<models-id>"'}

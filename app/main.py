@@ -1,31 +1,41 @@
-"""FastAPI Judge Mode dashboard entrypoint.
-
-When FastAPI/Uvicorn are not installed, `python app/main.py` falls back to a
-standard-library server with the same core routes so fallback demos still work.
-"""
+"""FastAPI Judge Mode dashboard entrypoint."""
 
 from __future__ import annotations
 
 import argparse
-import json
 import sys
-from http import HTTPStatus
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import unquote
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from app.dashboard import ensure_app_data, eval_summary_payload, find_trace, index_html, run_episode_payload, scenarios_payload
+from app.dashboard import (
+    build_training_data_payload,
+    connections_payload,
+    dashboard_payload,
+    ensure_app_data,
+    eval_job_payload,
+    eval_summary_payload,
+    finetune_job_payload,
+    export_trace_payload,
+    index_html,
+    launch_finetune_payload,
+    models_payload,
+    run_logs_payload,
+    run_episode_payload,
+    run_eval_payload,
+    runs_payload,
+    scenarios_payload,
+    start_eval_payload,
+    start_finetune_payload,
+    testsets_payload,
+    trace_payload,
+)
 
 
 def create_app():
-    try:
-        from fastapi import FastAPI, HTTPException
-        from fastapi.responses import HTMLResponse, PlainTextResponse
-    except Exception as exc:  # pragma: no cover - optional dependency branch
-        raise RuntimeError("FastAPI is not installed") from exc
+    from fastapi import FastAPI, HTTPException
+    from fastapi.responses import HTMLResponse, PlainTextResponse
 
     app = FastAPI(title="Vance Judge Mode")
 
@@ -36,6 +46,33 @@ def create_app():
     @app.get("/", response_class=HTMLResponse)
     def index():
         return index_html()
+
+    @app.get("/api/dashboard")
+    def dashboard():
+        return dashboard_payload()
+
+    @app.get("/api/connections")
+    def connections():
+        return connections_payload()
+
+    @app.get("/api/testsets")
+    def testsets():
+        return testsets_payload()
+
+    @app.get("/api/models")
+    def models():
+        return models_payload()
+
+    @app.get("/api/runs")
+    def runs():
+        return runs_payload()
+
+    @app.get("/api/runs/{run_id}/logs")
+    def run_logs(run_id: str):
+        found = run_logs_payload(run_id)
+        if not found:
+            raise HTTPException(status_code=404, detail="run not found")
+        return found
 
     @app.get("/api/scenarios")
     def scenarios():
@@ -48,9 +85,58 @@ def create_app():
             raise HTTPException(status_code=status, detail=body)
         return body
 
+    @app.post("/api/evals/run")
+    def run_eval(payload: dict[str, object]):
+        status, body = run_eval_payload(payload)
+        if status >= 400:
+            raise HTTPException(status_code=status, detail=body)
+        return body
+
+    @app.post("/api/evals/start")
+    def start_eval(payload: dict[str, object]):
+        status, body = start_eval_payload(payload)
+        if status >= 400:
+            raise HTTPException(status_code=status, detail=body)
+        return body
+
+    @app.get("/api/evals/jobs/{run_id}")
+    def eval_job(run_id: str):
+        found = eval_job_payload(run_id)
+        if not found:
+            raise HTTPException(status_code=404, detail="run not found")
+        return found
+
+    @app.post("/api/training-data/build")
+    def build_training_data(payload: dict[str, object]):
+        status, body = build_training_data_payload(payload)
+        if status >= 400:
+            raise HTTPException(status_code=status, detail=body)
+        return body
+
+    @app.post("/api/fine-tunes/launch")
+    def launch_finetune(payload: dict[str, object]):
+        status, body = launch_finetune_payload(payload)
+        if status >= 400:
+            raise HTTPException(status_code=status, detail=body)
+        return body
+
+    @app.post("/api/fine-tunes/start")
+    def start_finetune(payload: dict[str, object]):
+        status, body = start_finetune_payload(payload)
+        if status >= 400:
+            raise HTTPException(status_code=status, detail=body)
+        return body
+
+    @app.get("/api/fine-tunes/jobs/{job_id}")
+    def fine_tune_job(job_id: str):
+        found = finetune_job_payload(job_id)
+        if not found:
+            raise HTTPException(status_code=404, detail="fine-tune job not found")
+        return found
+
     @app.get("/api/traces/{episode_id}")
     def trace(episode_id: str):
-        found = find_trace(episode_id)
+        found = trace_payload(episode_id)
         if not found:
             raise HTTPException(status_code=404, detail="trace not found")
         return found
@@ -61,94 +147,27 @@ def create_app():
 
     @app.get("/api/export/{episode_id}.jsonl", response_class=PlainTextResponse)
     def export_trace(episode_id: str):
-        found = find_trace(episode_id)
-        if not found:
+        exported = export_trace_payload(episode_id)
+        if not exported:
             raise HTTPException(status_code=404, detail="trace not found")
-        return json.dumps(found, sort_keys=True) + "\n"
+        return exported
 
     return app
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run the Vance Judge Mode dashboard.")
-    parser.add_argument("--mode", choices=["fallback", "live"], default="fallback")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args(argv)
     ensure_app_data()
-    try:
-        import uvicorn
-    except Exception:
-        return _run_stdlib(args.host, args.port)
+    import uvicorn
+
     uvicorn.run("app.main:create_app", factory=True, host=args.host, port=args.port, log_level="info")
     return 0
 
 
-def _run_stdlib(host: str, port: int) -> int:
-    class Handler(BaseHTTPRequestHandler):
-        def do_GET(self) -> None:
-            if self.path == "/":
-                self._send(index_html().encode("utf-8"), "text/html")
-                return
-            if self.path == "/api/scenarios":
-                self._send_json(scenarios_payload())
-                return
-            if self.path == "/api/evals/summary":
-                self._send_json(eval_summary_payload())
-                return
-            if self.path.startswith("/api/traces/"):
-                episode_id = unquote(self.path.removeprefix("/api/traces/"))
-                found = find_trace(episode_id)
-                self._send_json(found if found else {"error": "trace not found"}, HTTPStatus.OK if found else HTTPStatus.NOT_FOUND)
-                return
-            if self.path.startswith("/api/export/") and self.path.endswith(".jsonl"):
-                episode_id = unquote(self.path.removeprefix("/api/export/").removesuffix(".jsonl"))
-                found = find_trace(episode_id)
-                if not found:
-                    self._send_json({"error": "trace not found"}, HTTPStatus.NOT_FOUND)
-                    return
-                self._send((json.dumps(found, sort_keys=True) + "\n").encode("utf-8"), "application/jsonl")
-                return
-            self._send_json({"error": "not found"}, HTTPStatus.NOT_FOUND)
-
-        def do_POST(self) -> None:
-            if self.path != "/api/run":
-                self._send_json({"error": "not found"}, HTTPStatus.NOT_FOUND)
-                return
-            length = int(self.headers.get("Content-Length", "0") or "0")
-            payload = json.loads(self.rfile.read(length) or b"{}")
-            status, body = run_episode_payload(payload)
-            self._send_json(body, HTTPStatus(status))
-
-        def log_message(self, format: str, *args) -> None:
-            return
-
-        def _send_json(self, payload: object, status: HTTPStatus = HTTPStatus.OK) -> None:
-            self._send(json.dumps(payload, sort_keys=True).encode("utf-8"), "application/json", status)
-
-        def _send(self, body: bytes, content_type: str, status: HTTPStatus = HTTPStatus.OK) -> None:
-            self.send_response(status)
-            self.send_header("Content-Type", content_type)
-            self.send_header("Content-Length", str(len(body)))
-            self.end_headers()
-            self.wfile.write(body)
-
-    server = ThreadingHTTPServer((host, port), Handler)
-    print(f"Vance Judge Mode: http://{host}:{port}")
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        return 0
-    finally:
-        server.server_close()
-    return 0
-
-
-app = None
-try:
-    app = create_app()
-except RuntimeError:
-    app = None
+app = create_app()
 
 
 if __name__ == "__main__":

@@ -1,0 +1,496 @@
+{
+  "examples_by_tool": {
+    "check_inventory": 80,
+    "continue_monitoring": 9,
+    "escalate_to_human": 30,
+    "inspect_machine": 80,
+    "read_manual": 80,
+    "schedule_maintenance": 41,
+    "submit_incident_report": 80
+  },
+  "schema_version": "vance.finetune_manifest.v1",
+  "source": "oracle improved_slm traces",
+  "task_count": 80,
+  "tasks": [
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_002_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_003_escalate"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_004_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_005_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_007_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_008_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_009_escalate"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_010_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_012_escalate"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_013_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_014_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_015_escalate"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_017_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_018_escalate"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_019_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_020_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_022_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_023_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_024_escalate"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_025_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_027_escalate"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_028_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_029_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_030_escalate"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_032_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_033_escalate"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_034_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_035_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_037_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_038_resolve"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_039_escalate"
+    },
+    {
+      "difficulty": "easy",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_040_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_042_escalate"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_043_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_044_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_045_escalate"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_047_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_048_escalate"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_049_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_050_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_052_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_053_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_054_escalate"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_055_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_057_escalate"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_058_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_059_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_060_escalate"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_062_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_063_escalate"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_064_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_065_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_067_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_068_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_069_escalate"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_070_resolve"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_072_escalate"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_073_escalate"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_074_escalate"
+    },
+    {
+      "difficulty": "medium",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_075_resolve"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_077_escalate"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_078_escalate"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_079_escalate"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_080_resolve"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_082_escalate"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_083_escalate"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_084_escalate"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "maintenance_scheduled",
+      "steps": 5,
+      "task_id": "ai4i_100_085_resolve"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_087_escalate"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_088_escalate"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "escalated",
+      "steps": 5,
+      "task_id": "ai4i_100_089_escalate"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "continue_monitoring",
+      "steps": 5,
+      "task_id": "ai4i_100_090_monitor"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "continue_monitoring",
+      "steps": 5,
+      "task_id": "ai4i_100_092_monitor"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "continue_monitoring",
+      "steps": 5,
+      "task_id": "ai4i_100_093_monitor"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "continue_monitoring",
+      "steps": 5,
+      "task_id": "ai4i_100_094_monitor"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "continue_monitoring",
+      "steps": 5,
+      "task_id": "ai4i_100_095_monitor"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "continue_monitoring",
+      "steps": 5,
+      "task_id": "ai4i_100_097_monitor"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "continue_monitoring",
+      "steps": 5,
+      "task_id": "ai4i_100_098_monitor"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "continue_monitoring",
+      "steps": 5,
+      "task_id": "ai4i_100_099_monitor"
+    },
+    {
+      "difficulty": "hard",
+      "expected_outcome": "continue_monitoring",
+      "steps": 5,
+      "task_id": "ai4i_100_100_monitor"
+    }
+  ]
+}
