@@ -7,7 +7,7 @@ from typing import Any
 
 
 TASK_FILES = ("easy.jsonl", "medium.jsonl", "hard.jsonl")
-TASK_SCHEMA_VERSION = "forge.task.v1"
+TASK_SCHEMA_VERSION = "vance.task.v1"
 
 
 class TaskValidationError(ValueError):

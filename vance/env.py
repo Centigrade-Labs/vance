@@ -8,7 +8,7 @@ from vance.trace import TRACE_SCHEMA_VERSION, new_episode_id, utc_now
 from vance.verifier import verify_episode
 
 
-class ForgeEnv:
+class VanceEnv:
     def __init__(self, task_store: dict[str, dict[str, Any]], manual_store: Any = None, seed: int | None = None):
         self.task_store = task_store
         self.manual_store = manual_store

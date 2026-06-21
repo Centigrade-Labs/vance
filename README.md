@@ -1,6 +1,6 @@
-# Vance / Forge SafeOpsRL
+# Vance SafeOpsRL
 
-Vance is the Forge PRD implementation: a HUD-compatible RL-style environment and evaluation suite for safe factory incident agents.
+Vance is the PRD implementation: a HUD-compatible RL-style environment and evaluation suite for safe factory incident agents.
 
 This repository is ready except for synthetic task/data content. It intentionally excludes task records, manuals, expected outcomes, fallback traces, screenshots, and demo video assets.
 

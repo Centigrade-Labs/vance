@@ -1,1 +1,1 @@
-"""Test suite for Vance/Forge."""
+"""Test suite for Vance."""

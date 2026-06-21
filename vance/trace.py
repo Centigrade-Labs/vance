@@ -7,7 +7,7 @@ import uuid
 from typing import Any
 
 
-TRACE_SCHEMA_VERSION = "forge.trace.v1"
+TRACE_SCHEMA_VERSION = "vance.trace.v1"
 
 
 def utc_now() -> str:

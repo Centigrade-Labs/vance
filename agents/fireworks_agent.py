@@ -38,7 +38,7 @@ class FireworksAgent:
                 {
                     "role": "user",
                     "content": (
-                        "Your previous response was not a valid Forge action. Return only JSON with "
+                        "Your previous response was not a valid Vance action. Return only JSON with "
                         f"tool, args, and rationale. Error: {error}"
                     ),
                 }

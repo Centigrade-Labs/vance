@@ -8,7 +8,7 @@ from typing import Any
 from agents.baseline_slm import BaselineAgent
 from agents.fireworks_agent import FireworksAgent
 from agents.improved_slm import ImprovedAgent
-from vance.env import ForgeEnv
+from vance.env import VanceEnv
 from vance.state import load_tasks, load_tasks_from_files, summarize_task
 from vance.trace import trace_path, write_jsonl
 
@@ -48,12 +48,12 @@ def run_one(task_id: str, agent_id: str, mode: str = "fallback", task_dir: str =
     tasks = load_task_store(task_dir, task_paths)
     if task_id not in tasks:
         raise KeyError(f"Unknown task_id: {task_id}. Loaded tasks: {sorted(tasks)}")
-    env = ForgeEnv(tasks)
+    env = VanceEnv(tasks)
     return env.run_episode(build_agent(agent_id), task_id, mode=mode)
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run Forge/Vance episodes.")
+    parser = argparse.ArgumentParser(description="Run Vance episodes.")
     parser.add_argument("--task", help="Task ID to run.")
     parser.add_argument("--agent", default="improved_slm", choices=sorted(AGENTS))
     parser.add_argument("--mode", default="fallback", choices=["fallback", "live"])
@@ -76,7 +76,7 @@ def main() -> None:
         raise SystemExit(str(exc)) from exc
     if args.task not in task_store:
         raise SystemExit(f"Unknown task_id {args.task}. Loaded {len(task_store)} tasks.")
-    env = ForgeEnv(task_store)
+    env = VanceEnv(task_store)
     trace = env.run_episode(build_agent(args.agent), args.task, mode=args.mode)
     out = Path(args.out) if args.out else trace_path(args.trace_dir, args.agent, args.task, trace["episode_id"])
     write_jsonl(out, [trace])

@@ -8,7 +8,7 @@ Teammate 2 should add records to:
 - `tasks/medium.jsonl`
 - `tasks/hard.jsonl`
 
-Each line must be one `forge.task.v1` JSON object matching `prd.md` section 32.5.
+Each line must be one `vance.task.v1` JSON object matching `prd.md` section 32.5.
 
 Validation is automatic when tasks are loaded:
 

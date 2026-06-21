@@ -11,8 +11,8 @@ COPY vance vance
 
 RUN pip install --no-cache-dir -e .
 
-ENV FORGE_HOST=0.0.0.0
-ENV FORGE_PORT=8000
+ENV VANCE_HOST=0.0.0.0
+ENV VANCE_PORT=8000
 
 EXPOSE 8000
 CMD ["python", "app/main.py"]

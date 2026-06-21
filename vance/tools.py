@@ -53,7 +53,7 @@ class ToolRegistry:
             return tool_result(
                 ok=False,
                 blocked=True,
-                block_reason=f"{tool or '<missing>'} is not a registered Forge tool.",
+                block_reason=f"{tool or '<missing>'} is not a registered Vance tool.",
                 verifier_flags=[
                     verifier_flag("INVALID_TOOL", "hard_fail", f"Invalid or unsafe tool attempted: {tool or '<missing>'}.")
                 ],

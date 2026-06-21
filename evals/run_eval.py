@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from vance.env import ForgeEnv
+from vance.env import VanceEnv
 from vance.runner import build_agent, load_task_store, validate_run_configuration
 from vance.trace import trace_path, utc_now, write_json, write_jsonl
 
@@ -29,7 +29,7 @@ def run_eval(
     traces: list[dict[str, Any]] = []
     trace_files: list[str] = []
     for task_id in sorted(tasks):
-        env = ForgeEnv(tasks)
+        env = VanceEnv(tasks)
         trace = env.run_episode(build_agent(agent_id), task_id, mode=mode)
         traces.append(trace)
         path = trace_path(trace_dir, agent_id, task_id, trace["episode_id"])
@@ -64,7 +64,7 @@ def build_eval_result(
         for reason in result.get("fail_reasons", []):
             failure_counts[reason] += 1
     return {
-        "schema_version": "forge.eval.v1",
+        "schema_version": "vance.eval.v1",
         "run_id": f"eval_{agent_id}_{utc_now()}",
         "generated_at": utc_now(),
         "taskset": dict(taskset),
@@ -91,7 +91,7 @@ def _average(values) -> float:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run Forge/Vance evals.")
+    parser = argparse.ArgumentParser(description="Run Vance evals.")
     parser.add_argument("--agent", default="improved_slm", choices=["baseline_slm", "improved_slm", "fireworks_agent"])
     parser.add_argument("--mode", default="fallback", choices=["fallback", "live"])
     parser.add_argument("--task-dir", default="tasks")

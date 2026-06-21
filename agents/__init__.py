@@ -1,1 +1,1 @@
-"""Agent harnesses for Vance/Forge SafeOpsRL."""
+"""Agent harnesses for Vance SafeOpsRL."""

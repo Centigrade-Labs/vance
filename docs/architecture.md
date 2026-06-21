@@ -1,6 +1,6 @@
 # Architecture
 
-Vance implements the Forge PRD as a deterministic, trace-verifiable environment.
+Vance implements the PRD as a deterministic, trace-verifiable environment.
 
 ```text
 Dashboard / API / HUD / CLI

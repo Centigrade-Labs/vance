@@ -4,7 +4,7 @@ from pathlib import Path
 import json
 from typing import Any
 
-from vance.env import ForgeEnv
+from vance.env import VanceEnv
 from vance.hud import HUDAdapter
 from vance.runner import build_agent, validate_run_configuration
 from vance.state import load_tasks, summarize_task
@@ -29,7 +29,7 @@ class ApiService:
         tasks = self.tasks()
         if task_id not in tasks:
             raise KeyError(f"Unknown task_id: {task_id}")
-        env = ForgeEnv(tasks)
+        env = VanceEnv(tasks)
         trace = env.run_episode(build_agent(agent_id), task_id, mode=mode)
         self._traces[trace["episode_id"]] = trace
         path = trace_path(self.trace_dir, agent_id, task_id, trace["episode_id"])

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from vance.env import ForgeEnv
+from vance.env import VanceEnv
 
 
 class HUDAdapter:
@@ -10,10 +10,10 @@ class HUDAdapter:
 
     def __init__(self, task_store: dict[str, dict[str, Any]]):
         self.task_store = task_store
-        self.sessions: dict[str, ForgeEnv] = {}
+        self.sessions: dict[str, VanceEnv] = {}
 
     def reset(self, task_id: str, agent_id: str = "hud_agent", mode: str = "live") -> dict[str, Any]:
-        env = ForgeEnv(self.task_store)
+        env = VanceEnv(self.task_store)
         payload = env.reset(task_id, agent_id, mode=mode)
         self.sessions[payload["episode_id"]] = env
         return payload

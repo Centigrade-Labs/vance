@@ -30,7 +30,7 @@ class EmptyTasksetTests(unittest.TestCase):
     def test_trace_jsonl_round_trip(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "trace.jsonl"
-            write_jsonl(path, [{"schema_version": "forge.trace.v1", "episode_id": "ep_test"}])
+            write_jsonl(path, [{"schema_version": "vance.trace.v1", "episode_id": "ep_test"}])
             self.assertEqual(read_jsonl(path)[0]["episode_id"], "ep_test")
 
     def test_reward_clamp(self) -> None:
