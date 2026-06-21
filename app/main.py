@@ -6,10 +6,6 @@ from pathlib import Path
 import sys
 from typing import Any
 
-<<<<<<< Updated upstream
-from dotenv import load_dotenv
-=======
->>>>>>> Stashed changes
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
@@ -19,8 +15,7 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from app.service import ApiService
-from vance.runner import RunConfigurationError
+from app.service import DashboardService
 
 
 try:
@@ -32,22 +27,26 @@ except ModuleNotFoundError:  # pragma: no cover - optional local dependency
 
 load_dotenv()
 
-TASK_DIR = os.getenv("VANCE_TASK_DIR", "tasks")
-TRACE_DIR = os.getenv("VANCE_TRACE_DIR", "evals/traces")
 
-<<<<<<< Updated upstream
-app = FastAPI(title="Vance SafeOpsRL API", version="0.1.0")
-service = ApiService(task_dir=TASK_DIR, trace_dir=TRACE_DIR)
-APP_DIR = Path(__file__).resolve().parent
-app.mount("/static", StaticFiles(directory=str(APP_DIR / "static")), name="static")
-=======
+def _env(*names: str, default: str) -> str:
+    for name in names:
+        value = os.getenv(name)
+        if value:
+            return value
+    return default
+
+
+TASK_DIR = _env("FORGE_TASK_DIR", "VANCE_TASK_DIR", default="tasks")
+TRACE_DIR = _env("FORGE_TRACE_DIR", "VANCE_TRACE_DIR", default="evals/traces")
+HOST = _env("FORGE_HOST", "VANCE_HOST", default="127.0.0.1")
+PORT = int(_env("FORGE_PORT", "VANCE_PORT", default="8000"))
+
 app = FastAPI(title="Forge Judge Mode", version="0.1.0")
 service = DashboardService(task_dir=TASK_DIR, trace_dir=TRACE_DIR)
 
 BASE_DIR = Path(__file__).resolve().parent
 PAGES_DIR = BASE_DIR / "templates"
 app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
->>>>>>> Stashed changes
 
 
 def _render_page(filename: str) -> HTMLResponse:
@@ -55,25 +54,6 @@ def _render_page(filename: str) -> HTMLResponse:
 
 
 @app.get("/", response_class=HTMLResponse)
-<<<<<<< Updated upstream
-async def root() -> HTMLResponse:
-    return _html("index.html")
-
-
-@app.get("/evals", response_class=HTMLResponse)
-async def evals_page() -> HTMLResponse:
-    return _html("evals.html")
-
-
-@app.get("/about", response_class=HTMLResponse)
-async def about_page() -> HTMLResponse:
-    return _html("about.html")
-
-
-@app.get("/health")
-async def health() -> dict[str, Any]:
-    return {"ok": True, "loaded_tasks": len(service.tasks())}
-=======
 async def index():
     return _render_page("index.html")
 
@@ -86,7 +66,11 @@ async def evals_page():
 @app.get("/about", response_class=HTMLResponse)
 async def about_page():
     return _render_page("about.html")
->>>>>>> Stashed changes
+
+
+@app.get("/health")
+async def health() -> dict[str, Any]:
+    return {"ok": True, "loaded_scenarios": len(service.scenarios())}
 
 
 @app.get("/api/scenarios")
@@ -107,8 +91,6 @@ async def run_episode(payload: dict[str, Any]) -> dict[str, Any]:
         task_id = scenarios_payload[0]["task_id"]
     try:
         trace = service.run_episode(task_id, agent_id, mode)
-    except RunConfigurationError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
     except KeyError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     return {
@@ -170,12 +152,7 @@ async def hud_step(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def main() -> None:
-    uvicorn.run(app, host=os.getenv("VANCE_HOST", "127.0.0.1"), port=int(os.getenv("VANCE_PORT", "8000")))
-
-
-def _html(filename: str) -> HTMLResponse:
-    path = APP_DIR / "templates" / filename
-    return HTMLResponse(path.read_text())
+    uvicorn.run(app, host=HOST, port=PORT)
 
 
 if __name__ == "__main__":

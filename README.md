@@ -79,10 +79,10 @@ Generated eval files are ignored by git:
 
 ## API Service
 
-Start the backend API:
+Start the dashboard and backend API from the repo root:
 
 ```bash
-python app/main.py
+npm run dev
 ```
 
 OpenAPI docs are available at:

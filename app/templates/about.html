@@ -3,40 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>About Vance</title>
+    <title>About Forge</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   </head>
-<<<<<<< Updated upstream
-  <body>
-    <main class="shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">About</p>
-          <h1>Vance SafeOpsRL</h1>
-        </div>
-        <nav class="nav">
-          <a href="/">Judge</a>
-          <a href="/evals">Evals</a>
-          <a href="/about">About</a>
-          <a href="/docs">API</a>
-        </nav>
-      </header>
-      <section class="about-grid">
-        <article class="panel">
-          <h2>Product Thesis</h2>
-          <p>Vance turns safety-critical physical-economy workflows into verifiable RL environments for small specialist agents.</p>
-        </article>
-        <article class="panel">
-          <h2>Verifier Loop</h2>
-          <p>Task, agent attempt, tool trace, reward, failure analysis, improved agent, re-evaluation, post-training data.</p>
-        </article>
-        <article class="panel">
-          <h2>Current Boundary</h2>
-          <p>Runtime, verifier, agents, evals, HUD adapter, and dashboard are wired. Task data and fallback traces are intentionally absent.</p>
-        </article>
-=======
   <body data-page="about">
-    <main class="app-shell forge-shell">
+    <main class="app-shell">
       <aside class="sidebar">
         <div class="brand">
           <div class="brand-mark" aria-hidden="true">
@@ -51,12 +25,31 @@
           </div>
         </div>
 
-        <div class="sidebar-section">Workspace</div>
-        <nav class="side-nav" aria-label="Workspace navigation">
-          <a href="/">Overview</a>
-          <a href="/">Scenarios</a>
-          <a href="/evals">Eval Logs</a>
-          <a class="active" href="/about">About</a>
+        <nav class="sidebar-nav" aria-label="Workspace navigation">
+          <a class="nav-link" href="/">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 10.5h16"/><path d="M4 6h5v12H4z"/><path d="M15 6h5v12h-5z"/></svg>
+            </span>
+            <span>Overview</span>
+          </a>
+          <a class="nav-link" href="/evals">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 19h14"/><path d="M7 15v4"/><path d="M12 11v8"/><path d="M17 7v12"/></svg>
+            </span>
+            <span>Evals</span>
+          </a>
+          <a class="nav-link active" href="/about">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 17v-5"/><path d="M12 8h.01"/><circle cx="12" cy="12" r="8"/></svg>
+            </span>
+            <span>About</span>
+          </a>
+          <a class="nav-link" href="/docs">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 4h7l3 3v13H7z"/><path d="M14 4v4h4"/></svg>
+            </span>
+            <span>API</span>
+          </a>
         </nav>
 
         <section class="sidebar-card">
@@ -69,40 +62,57 @@
 
       <section class="workspace">
         <header class="workspace-header">
-          <div>
+          <div class="workspace-copy">
             <p class="eyebrow">About</p>
             <h1>Physical-economy agent training</h1>
             <p class="subtitle">A verifiable loop from task, to trace, to reward, to post-training data.</p>
           </div>
+          <div class="header-tools">
+            <span class="pill muted">Judge Mode UI</span>
+            <span class="pill success">PRD-aligned</span>
+          </div>
         </header>
 
         <section class="eval-board about-board">
-          <article class="detail-card summary-card">
+          <article class="glass-card summary-card">
             <div class="detail-head">
               <div>
                 <p class="card-label">Thesis</p>
                 <h2>Why Forge exists</h2>
               </div>
             </div>
-            <p class="detail-copy">
+            <p class="hero-copy">
               Forge is not a factory app. It is a training ground for small specialist agents that must choose tools,
               follow safety rules, resolve or escalate, and produce truthful reports.
             </p>
           </article>
 
-          <article class="detail-card summary-card">
+          <article class="glass-card summary-card">
             <div class="detail-head">
               <div>
                 <p class="card-label">Trace loop</p>
                 <h2>How it works</h2>
               </div>
             </div>
-            <p class="detail-copy">
+            <p class="hero-copy">
               Task -> agent attempt -> tool trace -> verifier and reward -> improved agent -> exported training data.
             </p>
           </article>
 
-          <article class="detail-card summary-card full-span">
+          <article class="glass-card summary-card">
+            <div class="detail-head">
+              <div>
+                <p class="card-label">Dashboard contract</p>
+                <h2>What judges see</h2>
+              </div>
+            </div>
+            <p class="hero-copy">
+              Scenario library, factory state, trace timeline, safety guardrails, reward breakdown, baseline versus
+              improved comparison, and trace export utilities.
+            </p>
+          </article>
+
+          <article class="glass-card summary-card full-span">
             <div class="detail-head">
               <div>
                 <p class="card-label">Links</p>
@@ -125,7 +135,6 @@
             </div>
           </article>
         </section>
->>>>>>> Stashed changes
       </section>
     </main>
   </body>

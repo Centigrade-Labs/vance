@@ -3,11 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Vance Evals</title>
+    <title>Forge Eval Summary</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   </head>
   <body data-page="evals">
-    <main class="app-shell forge-shell">
+    <main class="app-shell">
       <aside class="sidebar">
         <div class="brand">
           <div class="brand-mark" aria-hidden="true">
@@ -22,28 +25,38 @@
           </div>
         </div>
 
-        <div class="sidebar-section">Workspace</div>
-        <nav class="side-nav" aria-label="Workspace navigation">
-          <a href="/">Overview</a>
-          <a href="/">Scenarios</a>
-          <a class="active" href="/evals">Eval Logs</a>
-          <a href="/about">About</a>
-          <a href="/docs">API</a>
+        <nav class="sidebar-nav" aria-label="Workspace navigation">
+          <a class="nav-link" href="/">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 10.5h16"/><path d="M4 6h5v12H4z"/><path d="M15 6h5v12h-5z"/></svg>
+            </span>
+            <span>Overview</span>
+          </a>
+          <a class="nav-link active" href="/evals">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 19h14"/><path d="M7 15v4"/><path d="M12 11v8"/><path d="M17 7v12"/></svg>
+            </span>
+            <span>Evals</span>
+          </a>
+          <a class="nav-link" href="/about">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 17v-5"/><path d="M12 8h.01"/><circle cx="12" cy="12" r="8"/></svg>
+            </span>
+            <span>About</span>
+          </a>
+          <a class="nav-link" href="/docs">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 4h7l3 3v13H7z"/><path d="M14 4v4h4"/></svg>
+            </span>
+            <span>API</span>
+          </a>
         </nav>
-<<<<<<< Updated upstream
-      </header>
-      <section class="panel wide-panel">
-        <div class="panel-head">
-          <h2>Generated Metrics</h2>
-          <span id="evalTimestamp" class="pill">Awaiting runs</span>
-        </div>
-        <div id="evalComparison" class="eval-grid"></div>
-=======
 
         <section class="sidebar-card">
           <p class="sidebar-card-title">Generated metrics</p>
           <div class="sidebar-card-row">
             <span class="pill success">Baseline / Improved</span>
+            <span class="pill muted">Cached</span>
           </div>
           <p class="sidebar-card-copy">
             The summary reads from the live API or the cached fallback metrics.
@@ -53,15 +66,19 @@
 
       <section class="workspace">
         <header class="workspace-header">
-          <div>
+          <div class="workspace-copy">
             <p class="eyebrow">Eval Mode</p>
             <h1>Baseline vs Improved</h1>
-            <p class="subtitle">Pass rate, reward, safety violations, and trace coverage in one view.</p>
+            <p class="subtitle">Pass rate, reward, safety violations, manual lookup, and trace coverage in one view.</p>
+          </div>
+          <div class="header-tools">
+            <span class="pill muted">Judge-ready comparison</span>
+            <span class="pill success">Live API + fallback</span>
           </div>
         </header>
 
         <section class="eval-board">
-          <article class="detail-card summary-card">
+          <article class="glass-card summary-card">
             <div class="detail-head">
               <div>
                 <p class="card-label">Baseline</p>
@@ -72,7 +89,7 @@
             <div id="baselineMetrics" class="metric-list"></div>
           </article>
 
-          <article class="detail-card summary-card">
+          <article class="glass-card summary-card">
             <div class="detail-head">
               <div>
                 <p class="card-label">Improved</p>
@@ -83,7 +100,7 @@
             <div id="improvedMetrics" class="metric-list"></div>
           </article>
 
-          <article class="detail-card summary-card">
+          <article class="glass-card summary-card">
             <div class="detail-head">
               <div>
                 <p class="card-label">Common failures</p>
@@ -93,7 +110,7 @@
             <div id="failureList" class="failure-list"></div>
           </article>
 
-          <article class="detail-card summary-card full-span">
+          <article class="glass-card summary-card full-span">
             <div class="detail-head">
               <div>
                 <p class="card-label">Trace files</p>
@@ -103,7 +120,6 @@
             <div id="traceFiles" class="trace-files"></div>
           </article>
         </section>
->>>>>>> Stashed changes
       </section>
     </main>
     <script src="/static/app.js"></script>

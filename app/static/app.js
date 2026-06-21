@@ -1,96 +1,3 @@
-<<<<<<< Updated upstream
-let scenarios = [];
-let currentEpisodeId = null;
-
-const $ = (id) => document.getElementById(id);
-
-async function getJson(path) {
-  const response = await fetch(path);
-  if (!response.ok) {
-    throw new Error(`${path} returned ${response.status}`);
-  }
-  return response.json();
-}
-
-async function loadScenarios() {
-  if (!$("scenarioSelect")) {
-    await renderEvalSummary();
-    return;
-  }
-  const payload = await getJson("/api/scenarios");
-  scenarios = payload.scenarios;
-  $("scenarioCount").textContent = `${payload.count} loaded`;
-  $("scenarioSelect").innerHTML = "";
-  if (!scenarios.length) {
-    $("runButton").disabled = true;
-    $("exportButton").disabled = true;
-    $("emptyState").textContent = "Taskset pending. Runtime is ready.";
-    renderEmptyDashboard();
-    await renderEvalSummary();
-    return;
-  }
-  $("runButton").disabled = false;
-  for (const scenario of scenarios) {
-    const option = document.createElement("option");
-    option.value = scenario.task_id;
-    option.textContent = `${scenario.title} (${scenario.difficulty})`;
-    $("scenarioSelect").appendChild(option);
-  }
-  renderScenario(scenarios[0]);
-  await renderEvalSummary();
-}
-
-function renderEmptyDashboard() {
-  $("taskDifficulty").textContent = "No tasks";
-  $("factoryState").innerHTML = row("Status", "Awaiting task JSONL");
-  $("guardrails").innerHTML = "<li>No safety rules loaded.</li>";
-  $("traceTimeline").innerHTML = '<li class="muted">No trace generated.</li>';
-  $("rewardBreakdown").innerHTML = row("Reward", "No episode");
-}
-
-function renderScenario(scenario) {
-  if (!scenario) {
-    return;
-  }
-  $("taskDifficulty").textContent = scenario.difficulty;
-  $("factoryState").innerHTML = [
-    row("Task", scenario.title),
-    row("Goal", scenario.goal),
-    row("Machines", scenario.machines.join(", ") || "None"),
-    row("Orders", scenario.orders.join(", ") || "None")
-  ].join("");
-  $("guardrails").innerHTML = scenario.safety_rules.length
-    ? scenario.safety_rules.map((rule) => `<li>${escapeHtml(rule)}</li>`).join("")
-    : "<li>No safety rules loaded.</li>";
-}
-
-async function runEpisode() {
-  $("runButton").disabled = true;
-  $("runButton").textContent = "Running";
-  try {
-    const response = await fetch("/api/run", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        task_id: $("scenarioSelect").value,
-        agent_id: $("agentSelect").value,
-        mode: $("modeSelect").value
-      })
-    });
-    const payload = await response.json();
-    if (!response.ok) {
-      throw new Error(payload.detail || "Episode failed to start");
-    }
-    currentEpisodeId = payload.episode_id;
-    $("exportButton").disabled = false;
-    renderTrace(payload.trace);
-    await renderEvalSummary();
-  } catch (error) {
-    $("emptyState").textContent = error.message;
-  } finally {
-    $("runButton").disabled = scenarios.length === 0;
-    $("runButton").textContent = "Run";
-=======
 const state = {
   scenarios: [],
   selectedTaskId: null,
@@ -228,7 +135,7 @@ function agentLabel(agentId) {
     case "fireworks_agent":
       return "Fireworks Agent";
     default:
-      return agentId.replaceAll("_", " ");
+      return String(agentId || "").replaceAll("_", " ");
   }
 }
 
@@ -268,11 +175,35 @@ function getSelectedTrace(scenario) {
   if (!scenario || !scenario.trace_variants) {
     return null;
   }
-  return scenario.trace_variants[state.selectedAgentId] || scenario.trace_variants.improved_slm || scenario.trace_variants.baseline_slm || null;
+  return (
+    scenario.trace_variants[state.selectedAgentId] ||
+    scenario.trace_variants.improved_slm ||
+    scenario.trace_variants.baseline_slm ||
+    null
+  );
+}
+
+function setActionButtonsDisabled(disabled) {
+  ["runBaseline", "runImproved", "replayButton", "exportButton", "exportButtonInline"].forEach((id) => {
+    const button = document.getElementById(id);
+    if (button) {
+      button.disabled = disabled;
+    }
+  });
 }
 
 function setActiveRow(taskId) {
   state.selectedTaskId = taskId;
+  renderScenarioList();
+  renderScenarioDetails();
+}
+
+function setSearchQuery(value) {
+  state.searchQuery = value || "";
+  const search = document.getElementById("scenarioSearch");
+  if (search && search.value !== state.searchQuery) {
+    search.value = state.searchQuery;
+  }
   renderScenarioList();
   renderScenarioDetails();
 }
@@ -316,7 +247,6 @@ function renderScenarioList() {
       </div>
     `;
     return;
->>>>>>> Stashed changes
   }
 
   if (!filtered.some((scenario) => scenario.task_id === state.selectedTaskId)) {
@@ -355,6 +285,68 @@ function renderScenarioList() {
       }
     });
   });
+}
+
+function renderOverviewTiles(scenario, trace) {
+  const root = document.getElementById("summaryTiles");
+  const headerModeBadge = document.getElementById("headerModeBadge");
+  const verifierReason = document.getElementById("verifierReason");
+  if (!root) {
+    return;
+  }
+
+  const result = trace.verifier_result || {};
+  const reason =
+    result.success_reasons?.[0] ||
+    result.fail_reasons?.[0] ||
+    trace.steps?.[0]?.verifier_notes?.[0]?.message ||
+    "Verifier summary unavailable.";
+
+  if (headerModeBadge) {
+    headerModeBadge.textContent = modeLabel(trace.mode);
+  }
+  if (verifierReason) {
+    verifierReason.textContent = reason;
+  }
+
+  const tiles = [
+    {
+      label: "Outcome",
+      value: outcomeLabel(result),
+      note: result.hard_fail ? "Hard fail blocked unsafe behavior" : result.success ? "Verifier accepted the trace" : "Trace failed verifier checks",
+      tone: outcomeClass(result),
+    },
+    {
+      label: "Reward",
+      value: formatMetricValue(Number(result.reward || 0)),
+      note: `${(result.reward_breakdown || []).length} reward components`,
+      tone: "success",
+    },
+    {
+      label: "Steps",
+      value: String((trace.steps || []).length),
+      note: trace.final_report?.status || "Trace replay complete",
+      tone: "muted",
+    },
+    {
+      label: "Safety",
+      value: result.hard_fail ? "1 violation" : "0 violations",
+      note: result.hard_fail ? "Unsafe action was rejected" : "Within operational guardrails",
+      tone: result.hard_fail ? "danger" : "success",
+    },
+  ];
+
+  root.innerHTML = tiles
+    .map(
+      (tile) => `
+        <div class="summary-tile ${tile.tone}">
+          <div class="summary-tile-label">${escapeHtml(tile.label)}</div>
+          <div class="summary-tile-value">${escapeHtml(tile.value)}</div>
+          <div class="summary-tile-note">${escapeHtml(tile.note)}</div>
+        </div>
+      `,
+    )
+    .join("");
 }
 
 function renderMetaGrid(scenario, trace) {
@@ -408,6 +400,118 @@ function renderFactsGrid(scenario) {
   `;
 }
 
+function renderProcessRail(trace) {
+  const root = document.getElementById("processRail");
+  if (!root) {
+    return;
+  }
+  const steps = trace.steps || [];
+  if (!steps.length) {
+    root.innerHTML = '<div class="process-empty">No steps available.</div>';
+    return;
+  }
+
+  root.innerHTML = steps
+    .map((step) => {
+      const severity = step.hard_fail ? "danger" : step.verifier_notes?.[0]?.severity === "warning" ? "warning" : "success";
+      return `
+        <article class="process-step ${severity}">
+          <div class="process-step-top">
+            <span class="process-index">${escapeHtml(step.index)}</span>
+            <strong>${escapeHtml(step.tool)}</strong>
+          </div>
+          <div class="process-step-args">${escapeHtml(formatArgs(step.args) || "no args")}</div>
+          <div class="process-step-note">${escapeHtml(step.verifier_notes?.[0]?.message || "No verifier note.")}</div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderFactoryState(scenario) {
+  const root = document.getElementById("factoryState");
+  if (!root) {
+    return;
+  }
+
+  const stateData = scenario.factory_state || {};
+  const machine = stateData.machine || {};
+  const order = stateData.order || {};
+  const inventory = stateData.inventory || [];
+
+  root.innerHTML = `
+    <div class="factory-grid">
+      <div class="factory-block">
+        <div class="factory-label">Machine</div>
+        <strong>${escapeHtml(machine.status || "unknown")}</strong>
+        <p>${escapeHtml(`Temp ${machine.temperature_c ?? "?"}°C · vibration ${machine.vibration || "?"} · ${machine.error_code || "n/a"}`)}</p>
+      </div>
+      <div class="factory-block">
+        <div class="factory-label">Order</div>
+        <strong>${escapeHtml(order.id || scenario.order)}</strong>
+        <p>${escapeHtml(`Deadline ${order.deadline_hours ?? "?"}h · status ${order.status || "n/a"}`)}</p>
+      </div>
+    </div>
+    <div class="inventory-block">
+      <div class="factory-label">Inventory</div>
+      <div class="inventory-list">
+        ${
+          inventory.length
+            ? inventory
+                .map(
+                  (item) => `
+                    <div class="inventory-row">
+                      <span>${escapeHtml(item.part_id)}</span>
+                      <strong>${escapeHtml(item.quantity)}</strong>
+                    </div>
+                  `,
+                )
+                .join("")
+            : '<div class="inventory-row"><span>No inventory data</span><strong>—</strong></div>'
+        }
+      </div>
+    </div>
+    <div class="inventory-block">
+      <div class="factory-label">Details</div>
+      <div class="mini-tag-list">
+        ${(scenario.details || [])
+          .map(
+            (item) => `
+              <span class="mini-tag"><strong>${escapeHtml(item.label)}</strong>${escapeHtml(item.value)}</span>
+            `,
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderGuardrails(scenario, trace) {
+  const root = document.getElementById("guardrailList");
+  if (!root) {
+    return;
+  }
+  const result = trace.verifier_result || {};
+  const notes = [
+    ...(scenario.guardrails || []),
+    ...(result.fail_reasons || []).map((reason) => `Verifier note: ${reason}`),
+    ...(result.success_reasons || []).map((reason) => `Verifier note: ${reason}`),
+  ];
+
+  root.innerHTML = notes.length
+    ? notes
+        .map(
+          (note, index) => `
+            <div class="guardrail-item">
+              <span class="guardrail-index">${index + 1}</span>
+              <p>${escapeHtml(note)}</p>
+            </div>
+          `,
+        )
+        .join("")
+    : '<div class="guardrail-item"><span class="guardrail-index">1</span><p>No guardrails supplied.</p></div>';
+}
+
 function renderRewardBreakdown(trace) {
   const root = document.getElementById("rewardBreakdown");
   const rewardValue = document.getElementById("rewardValue");
@@ -419,7 +523,8 @@ function renderRewardBreakdown(trace) {
 
   const rows = result.reward_breakdown || [];
   if (!rows.length) {
-    root.innerHTML = '<div class="metric-row"><div><strong>No reward data</strong><small>Run the episode to populate reward components.</small></div></div>';
+    root.innerHTML =
+      '<div class="metric-row"><div><strong>No reward data</strong><small>Run the episode to populate reward components.</small></div></div>';
     return;
   }
 
@@ -434,7 +539,7 @@ function renderRewardBreakdown(trace) {
             <strong>${escapeHtml(item.label || item.component)}</strong>
             <small>${escapeHtml(item.reason || "")}</small>
           </div>
-          <div style="display:flex; align-items:center; gap:12px; min-width: 170px; justify-content:flex-end;">
+          <div class="metric-score">
             <span>${earned ? "+" : ""}${formatMetricValue(score)}</span>
             <div class="bar"><span style="width:${barWidth}%"></span></div>
           </div>
@@ -478,56 +583,6 @@ function renderComparison(scenario) {
 }
 
 function renderTrace(trace) {
-<<<<<<< Updated upstream
-  const result = trace.verifier_result || {};
-  const badge = $("statusBadge");
-  badge.className = `badge ${result.success ? "pass" : result.hard_fail ? "fail" : "warn"}`;
-  badge.textContent = result.success ? "PASS" : result.hard_fail ? "HARD FAIL" : "FAIL";
-  $("traceMeta").textContent = `${trace.agent_id} / ${trace.mode}`;
-  $("rewardValue").textContent = Number(result.reward || 0).toFixed(2);
-  $("traceTimeline").innerHTML = trace.steps.map((step) => {
-    const notes = (step.verifier_notes || []).map((note) => escapeHtml(note.message)).join(" ");
-    return `<li>
-      <div class="trace-title">
-        <strong class="${step.hard_fail ? "bad" : "good"}">Step ${step.index}: ${escapeHtml(step.tool)}</strong>
-        <span class="muted">${step.ok ? "ok" : "blocked"}</span>
-      </div>
-      <div class="muted">${escapeHtml(step.rationale || "")}</div>
-      <div>${notes}</div>
-    </li>`;
-  }).join("") || '<li class="muted">No steps recorded.</li>';
-  $("rewardBreakdown").innerHTML = (result.reward_breakdown || []).map((item) => {
-    const value = item.earned ? item.points : 0;
-    return row(item.label || item.component, Number(value).toFixed(2));
-  }).join("") || row("Reward", "No breakdown");
-}
-
-async function renderEvalSummary() {
-  if (!$("evalComparison")) {
-    return;
-  }
-  const payload = await getJson("/api/evals/summary");
-  $("evalComparison").innerHTML = ["baseline", "improved"].map((key) => {
-    const result = payload[key];
-    if (!result) {
-      return `<section class="eval-card"><h2>${capitalize(key)}</h2><p class="muted">No generated eval file.</p></section>`;
-    }
-    if ($("evalTimestamp") && result.generated_at) {
-      $("evalTimestamp").textContent = result.generated_at;
-    }
-    const metrics = result.metrics || {};
-    return `<section class="eval-card">
-      <h2>${capitalize(key)}</h2>
-      ${row("Episodes", metrics.episodes ?? 0)}
-      ${row("Pass rate", metrics.pass_rate ?? 0)}
-      ${row("Average reward", metrics.average_reward ?? 0)}
-      ${row("Safety violations", metrics.safety_violation_rate ?? 0)}
-      ${row("Manual lookup", metrics.manual_lookup_rate ?? 0)}
-      ${row("Inventory check", metrics.inventory_check_rate ?? 0)}
-      ${row("Report completion", metrics.report_completion_rate ?? 0)}
-    </section>`;
-  }).join("");
-=======
   const root = document.getElementById("traceTimeline");
   const traceCount = document.getElementById("traceCount");
   const outcomeBadge = document.getElementById("detailOutcomeBadge");
@@ -540,7 +595,7 @@ async function renderEvalSummary() {
   traceCount.textContent = `${(trace.steps || []).length} steps`;
   outcomeBadge.className = `pill ${outcomeClass(result)}`;
   outcomeBadge.textContent = outcomeLabel(result);
-  modeBadge.className = `pill muted`;
+  modeBadge.className = "pill muted";
   modeBadge.textContent = modeLabel(trace.mode);
 
   root.innerHTML = (trace.steps || [])
@@ -574,6 +629,7 @@ function renderScenarioDetails() {
   const title = document.getElementById("detailTitle");
   const goal = document.getElementById("detailGoal");
   const exportButton = document.getElementById("exportButton");
+  const exportButtonInline = document.getElementById("exportButtonInline");
   const replayButton = document.getElementById("replayButton");
 
   if (title) {
@@ -585,13 +641,19 @@ function renderScenarioDetails() {
   if (exportButton) {
     exportButton.disabled = false;
   }
+  if (exportButtonInline) {
+    exportButtonInline.disabled = false;
+  }
   if (replayButton) {
     replayButton.disabled = false;
   }
 
   state.currentEpisodeId = trace.episode_id;
+  renderOverviewTiles(scenario, trace);
   renderMetaGrid(scenario, trace);
   renderFactsGrid(scenario);
+  renderFactoryState(scenario);
+  renderGuardrails(scenario, trace);
   renderTrace(trace);
   renderRewardBreakdown(trace);
   renderComparison(scenario);
@@ -642,9 +704,7 @@ async function loadScenarios() {
     const search = document.getElementById("scenarioSearch");
     if (search) {
       search.addEventListener("input", (event) => {
-        state.searchQuery = event.target.value || "";
-        renderScenarioList();
-        renderScenarioDetails();
+        setSearchQuery(event.target.value || "");
       });
     }
   } catch (error) {
@@ -671,16 +731,7 @@ async function runEpisode(agentId) {
     return;
   }
 
-  const runBaseline = document.getElementById("runBaseline");
-  const runImproved = document.getElementById("runImproved");
-  const replayButton = document.getElementById("replayButton");
-  const exportButton = document.getElementById("exportButton");
-
-  [runBaseline, runImproved, replayButton, exportButton].forEach((button) => {
-    if (button) {
-      button.disabled = true;
-    }
-  });
+  setActionButtonsDisabled(true);
 
   const payload = {
     task_id: selected.task_id,
@@ -712,13 +763,8 @@ async function runEpisode(agentId) {
       goal.textContent = error.message;
     }
   } finally {
-    [runBaseline, runImproved, replayButton, exportButton].forEach((button) => {
-      if (button) {
-        button.disabled = false;
-      }
-    });
+    setActionButtonsDisabled(false);
   }
->>>>>>> Stashed changes
 }
 
 function exportTrace() {
@@ -780,43 +826,6 @@ async function renderEvalSummary() {
   }
 }
 
-<<<<<<< Updated upstream
-function row(label, value) {
-  return `<div class="data-row"><span>${escapeHtml(String(label))}</span><strong>${escapeHtml(String(value))}</strong></div>`;
-}
-
-function escapeHtml(value) {
-  return value.replace(/[&<>"']/g, (char) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  }[char]));
-}
-
-function capitalize(value) {
-  return value.charAt(0).toUpperCase() + value.slice(1);
-}
-
-if ($("runButton")) {
-  $("runButton").addEventListener("click", runEpisode);
-}
-if ($("exportButton")) {
-  $("exportButton").addEventListener("click", exportTrace);
-}
-if ($("scenarioSelect")) {
-  $("scenarioSelect").addEventListener("change", () => {
-    renderScenario(scenarios.find((scenario) => scenario.task_id === $("scenarioSelect").value));
-  });
-}
-
-loadScenarios().catch((error) => {
-  if ($("emptyState")) {
-    $("emptyState").textContent = error.message;
-  }
-});
-=======
 function renderMetricRows(metrics, isBaseline) {
   const rows = [
     ["pass_rate", "Pass rate", true],
@@ -840,7 +849,7 @@ function renderMetricRows(metrics, isBaseline) {
             <strong>${escapeHtml(label)}</strong>
             <small>${escapeHtml(isBaseline ? "Cached baseline metrics" : "Improved cached metrics")}</small>
           </div>
-          <div style="display:flex; align-items:center; gap:12px; min-width: 180px; justify-content:flex-end;">
+          <div class="metric-score">
             <span>${escapeHtml(formatMetricValue(value))}</span>
             <div class="bar ${barClass}"><span style="width:${barWidth}%"></span></div>
           </div>
@@ -855,15 +864,54 @@ function attachButtons() {
   const runImproved = document.getElementById("runImproved");
   const replayButton = document.getElementById("replayButton");
   const exportButton = document.getElementById("exportButton");
+  const exportButtonInline = document.getElementById("exportButtonInline");
 
   runBaseline?.addEventListener("click", () => runEpisode("baseline_slm"));
   runImproved?.addEventListener("click", () => runEpisode("improved_slm"));
   replayButton?.addEventListener("click", () => runEpisode(state.selectedAgentId));
   exportButton?.addEventListener("click", exportTrace);
+  exportButtonInline?.addEventListener("click", exportTrace);
+}
+
+function attachSectionNav() {
+  document.querySelectorAll("[data-scroll-target]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const targetId = button.getAttribute("data-scroll-target");
+      const target = targetId ? document.getElementById(targetId) : null;
+      const activeNav = button.closest(".side-nav");
+      if (activeNav) {
+        activeNav.querySelectorAll(".nav-link.active").forEach((item) => item.classList.remove("active"));
+        if (button.classList.contains("nav-link")) {
+          button.classList.add("active");
+        }
+      }
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
+}
+
+function attachFamilyFilters() {
+  const search = document.getElementById("scenarioSearch");
+  document.querySelectorAll("[data-filter-query]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const query = button.getAttribute("data-filter-query") || "";
+      document.querySelectorAll(".family-chip.active").forEach((item) => item.classList.remove("active"));
+      button.classList.add("active");
+      if (search) {
+        search.value = query;
+        search.focus();
+      }
+      setSearchQuery(query);
+    });
+  });
 }
 
 async function boot() {
   attachButtons();
+  attachSectionNav();
+  attachFamilyFilters();
 
   if (PAGE === "dashboard") {
     await loadScenarios();
@@ -873,4 +921,3 @@ async function boot() {
 }
 
 window.addEventListener("DOMContentLoaded", boot);
->>>>>>> Stashed changes

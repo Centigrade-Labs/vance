@@ -6,40 +6,22 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-<<<<<<< Updated upstream:app/service.py
-from vance.env import VanceEnv
-from vance.hud import HUDAdapter
-from vance.runner import build_agent, validate_run_configuration
-from vance.state import load_tasks, summarize_task
-from vance.trace import read_jsonl, trace_path, write_jsonl
-=======
 from app.demo_data import DEMO_SCENARIOS, demo_eval_summary
->>>>>>> Stashed changes:app/dashboard.py
 
 
-class ApiService:
+class DashboardService:
     def __init__(self, task_dir: str = "tasks", trace_dir: str = "evals/traces"):
         self.task_dir = Path(task_dir)
         self.trace_dir = Path(trace_dir)
         self._traces: dict[str, dict[str, Any]] = {}
         self._scenario_index = {scenario["task_id"]: scenario for scenario in DEMO_SCENARIOS}
+        self._hud = _HUDAdapter(self)
         self._seed_demo_traces()
 
     def scenarios(self) -> list[dict[str, Any]]:
         return deepcopy(DEMO_SCENARIOS)
 
     def run_episode(self, task_id: str, agent_id: str, mode: str) -> dict[str, Any]:
-<<<<<<< Updated upstream:app/service.py
-        validate_run_configuration(agent_id, mode)
-        tasks = self.tasks()
-        if task_id not in tasks:
-            raise KeyError(f"Unknown task_id: {task_id}")
-        env = VanceEnv(tasks)
-        trace = env.run_episode(build_agent(agent_id), task_id, mode=mode)
-        self._traces[trace["episode_id"]] = trace
-        path = trace_path(self.trace_dir, agent_id, task_id, trace["episode_id"])
-        write_jsonl(path, [trace])
-=======
         scenario = self._scenario_index.get(task_id)
         if scenario is None:
             raise KeyError(f"Unknown task_id: {task_id}")
@@ -48,7 +30,6 @@ class ApiService:
         template = deepcopy(scenario["trace_variants"][variant_key])
         trace = self._stamp_trace(template, agent_id=agent_id, mode=mode)
         self._store_trace(trace)
->>>>>>> Stashed changes:app/dashboard.py
         return trace
 
     def get_trace(self, episode_id: str) -> dict[str, Any] | None:
@@ -73,6 +54,9 @@ class ApiService:
                 "improved": improved or demo_eval_summary()["improved"],
             }
         return demo_eval_summary()
+
+    def hud(self) -> "_HUDAdapter":
+        return self._hud
 
     def _seed_demo_traces(self) -> None:
         self.trace_dir.mkdir(parents=True, exist_ok=True)
@@ -120,3 +104,42 @@ def _read_json_file(path: Path) -> dict[str, Any] | None:
         return None
     return json.loads(path.read_text(encoding="utf-8"))
 
+
+class _HUDAdapter:
+    def __init__(self, service: DashboardService):
+        self._service = service
+        self._episodes: dict[str, dict[str, Any]] = {}
+
+    def reset(self, task_id: str, agent_id: str, mode: str) -> dict[str, Any]:
+        scenario = self._service._scenario_index.get(task_id)
+        if scenario is None:
+            raise KeyError(f"Unknown task_id: {task_id}")
+
+        episode_id = f"hud_{task_id}_{agent_id}_{_timestamp_key()}"
+        payload = {
+            "episode_id": episode_id,
+            "task_id": task_id,
+            "agent_id": agent_id,
+            "mode": mode,
+            "step": 0,
+            "scenario": scenario["title"],
+        }
+        self._episodes[episode_id] = deepcopy(payload)
+        return deepcopy(payload)
+
+    def step(self, episode_id: str, action: dict[str, Any]) -> dict[str, Any]:
+        payload = self._episodes.get(episode_id)
+        if payload is None:
+            raise KeyError(f"Unknown episode_id: {episode_id}")
+
+        payload["step"] += 1
+        payload["last_action"] = deepcopy(action)
+        payload["observation"] = {
+            "status": "ok",
+            "accepted": True,
+            "step": payload["step"],
+        }
+        return deepcopy(payload)
+
+
+ApiService = DashboardService
